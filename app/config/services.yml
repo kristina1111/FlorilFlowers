@@ -1,0 +1,35 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+#    service_name:
+#        class: FlorilFlowersBundle\Directory\ClassName
+#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+
+    app.markdown_transformer:
+        class: FlorilFlowersBundle\Service\MarkdownTransformer
+        arguments: ['@markdown.parser', '@doctrine_cache.providers.my_markdown_cache']
+
+    app.markdown_extension:
+        class: FlorilFlowersBundle\Twig\MarkdownExtension
+        tags:
+            - { name: twig.extension }
+#        arguments: ['@app.markdown_transformer']
+        autowire: true
+
+    app.security.login_form_authenticator:
+        class: FlorilFlowersBundle\Security\LoginFormAuthenticator
+        arguments: []
+        autowire: true
+
+    app.doctrine.hash_password_listener:
+        class: FlorilFlowersBundle\Doctrine\HashPasswordListener
+        autowire: true
+        tags:
+            - {name: doctrine.event_subscriber }
+
+    app.formflow.register_user:
+        class: FlorilFlowersBundle\Service\FormFlow\RegisterUserFlow
+        parent: craue.form.flow

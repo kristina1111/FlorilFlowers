@@ -1,0 +1,37 @@
+/*header*/
+.app-header{
+    background-color: rgb(255,140,0);
+    padding: 10px;
+}
+
+.app-header .logo-container{
+    display: inline-block;
+}
+
+.app-header .navig {
+    display: inline-block;
+    float: right;
+}
+
+.app-header .logo-container .logo {
+    margin: 0 0 0 70px;
+    font-weight: 600;
+}
+.app-header .logo-container .logo a{
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.app-header .navig ul {
+    list-style-type: none;
+    margin-bottom: 0;
+    margin-top: 15px;
+}
+
+.app-header .navig ul li a{
+    margin-right: 70px;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 600;
+}

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h1>Show product: {{ product.name }}</h1>
+    <div>
+        This {{ product.name }} is incredible. It's subcategory is {{ product.category.name }}.
+        It's quantity is {{ product.quantity }} {{ product.unitMeasure }}.
+    </div>
+    {% for prod in product.category.products %}
+        <h1>{{ prod.name }}</h1>
+        {% endfor %}
+
+    <div>
+        <h2>Reviews:</h2>
+        <h3>Recent reviews count: {{ recentNotes|length }}</h3>
+        <h4>{{ funfact|markdownify}}</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Review</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for review in reviews %}
+                    <tr>
+                        <td>{{ review.user.nickname }}</td>
+                        <td>{{ review.review }}</td>
+                        <td>{{ review.createdAt|date('d M Y') }}</td>
+                    </tr>
+                {% endfor %}
+                <tr></tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
