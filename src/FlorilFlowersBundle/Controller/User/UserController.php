@@ -31,7 +31,7 @@ class UserController extends Controller
 //        dump($user);exit;
         $form = $this->createForm(UserRegisterFormType::class, $user);
 
-        return $this->render('FlorilFlowers/user/register.html.twig', [
+        return $this->render('FlorilFlowers/User/register.html.twig', [
             'formRegister' => $form->createView()
         ]);
     }
@@ -85,8 +85,38 @@ class UserController extends Controller
 
         }
 
-        return $this->render('FlorilFlowers/user/register.html.twig', [
+        return $this->render('FlorilFlowers/User/register.html.twig', [
             'formRegister' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("users/profile/{id}", name="user_profile_show")
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function viewUserProfileAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $em->getRepository('FlorilFlowersBundle:User\User')->findOneBy(['id' => $id]);
+
+        if(!$user){
+            throw $this->createNotFoundException('No user found!');
+        }
+
+        return $this->render('FlorilFlowers/User/Profile/show.html.twig',
+            [
+                'user' => $user
+            ]);
+    }
+
+    /**
+     * @Route("/users/edit/{id}", name="user_edit")
+     * @Method("GET")
+     */
+    public function editAction()
+    {
+
     }
 }

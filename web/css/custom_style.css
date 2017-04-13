@@ -28,6 +28,10 @@
     margin-top: 15px;
 }
 
+.app-header .navig ul li {
+    display: inline-block;
+}
+
 .app-header .navig ul li a{
     margin-right: 70px;
     color: #FFFFFF;

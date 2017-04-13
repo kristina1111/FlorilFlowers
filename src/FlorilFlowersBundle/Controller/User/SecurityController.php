@@ -27,7 +27,7 @@ class SecurityController extends Controller
                 '_username' => $lastUsername,
             ]);
 
-        return $this->render('FlorilFlowers/security/login.html.twig', array(
+        return $this->render('FlorilFlowers/Security/login.html.twig', array(
             'loginForm' => $form->createView(),
             'error' => $error,
         ));
