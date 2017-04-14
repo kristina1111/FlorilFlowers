@@ -2,7 +2,7 @@
 
 namespace FlorilFlowersBundle\Form\Product;
 
-use FlorilFlowersBundle\Repository\Product\CategoryRepository;
+use FlorilFlowersBundle\Repository\Category\CategoryRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,16 +14,18 @@ class ProductFormType extends AbstractType
     {
         $builder->add('name')
             ->add('category', EntityType::class, [
-                'class' => 'FlorilFlowersBundle\Entity\Product\Category',
-                'placeholder' => 'Choose a category',
-                'query_builder' => function(CategoryRepository $repository){
-                return $repository->createAlphabeticalQueryBuilder();
-                }
+                'class' => 'FlorilFlowersBundle\Entity\Category\Category',
+                'placeholder' => 'Choose category',
+//                'query_builder' => function(CategoryRepository $repository){
+//                return $repository->createAlphabeticalQueryBuilder();
+//                }
             ])
-            ->add('quantity')
+            ->add('subcategory', EntityType::class, [
+                'class' => 'FlorilFlowersBundle\Entity\Category\Subcategory',
+                'placeholder' => 'Choose subcategory',
+            ])
             ->add('unitMeasure')
-            ->add('description')
-            ->add('isPublished');
+            ->add('description');
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -4,6 +4,7 @@ namespace FlorilFlowersBundle\Controller\Product;
 
 use FlorilFlowersBundle\Entity\Product\Product;
 use FlorilFlowersBundle\Form\Product\ProductFormType;
+use FlorilFlowersBundle\Form\Product\ProductOfferFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -11,15 +12,23 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @Route("admin/products")
+ */
 class ProductController extends Controller
 {
 
     /**
-     * @Route("/products/new", name="create_product")
+     * @Route("/new", name="create_product")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function newAction(Request $request)
     {
-        $form = $this->createForm(ProductFormType::class);
+//        $form = $this->createForm(ProductFormType::class);
+        $form = $this->createForm(ProductOfferFormType::class);
+
+//        dump($form);exit;
 
         // only handles data in POST
         $form->handleRequest($request);

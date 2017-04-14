@@ -39,3 +39,23 @@
     font-size: 20px;
     font-weight: 600;
 }
+
+/* ---All products for sale--- */
+.product-offer-container-small .small-img-product {
+    text-align: center;
+}
+
+.product-offer-container-small .small-img-product img {
+    width: 200px;
+}
+
+
+/* ---All categories list style--- */
+
+.table-row-light {
+    background-color: #faf2cc;
+}
+
+.table-row-dark{
+    background-color: #d6e9c6;
+}

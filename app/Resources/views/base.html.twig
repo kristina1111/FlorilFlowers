@@ -19,7 +19,7 @@
         </section>
         <section class="navig">
             <ul class="">
-                {% if is_granted('ROLE_USER') %}
+                {% if app.user %}
                     <li>
                         <a href="{{ path('user_profile_show', {'id' : app.user.id}) }}">My profile</a>
                     </li>
@@ -31,9 +31,24 @@
                         <a href="{{ path('security_login') }}">Login</a>
                     </li>
                 {% endif %}
-
             </ul>
         </section>
+        {% if is_granted('ROLE_ADMIN') %}
+        <section class="navig">
+                <ul>
+                    <li>
+                        <a href="{{ path('admin_categories_list') }}">Categories</a>
+                    </li>
+                    <li>
+                        <a href="">Products</a>
+                    </li>
+                    <li>
+                        <a href="">Users</a>
+                    </li>
+
+                </ul>
+        </section>
+        {% endif %}
     </header>
 {% endblock %}
 {% for msg in app.session.flashBag.get('success') %}

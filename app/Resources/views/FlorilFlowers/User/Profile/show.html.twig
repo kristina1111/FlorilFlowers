@@ -1,4 +1,63 @@
 {% extends 'base.html.twig' %}
 {% block body %}
+
+    <section class="profile-info-container">
+        <article class="profile-pic-container">
+            <section class="img-container">
+                <img src="" alt="">
+            </section>
+            <section class="change-profile-img">
+                <form action="">
+                    <input type="file">
+                    <label for="">Change your profile photo</label>
+                </form>
+            </section>
+        </article>
+        <article class="prifile-info-container">
+            <header>
+                <ul>
+                    <li>
+                        <a href="">Edit profile Info</a>
+                    </li>
+                </ul>
+            </header>
+            <section>
+                <ul>
+                    <li>
+                        <span>First name: </span><span></span>
+                    </li>
+                    <li>
+                        <span>Last name: </span><span></span>
+                    </li>
+                    <li>
+                        <span>Email: </span><span></span>
+                    </li>
+                    <li>
+                        <span>Phone number: </span>
+                        {#{% for %}#}
+
+                        {#{% endfor %}#}
+                    </li>
+                    <li>
+                        <span>Address: </span>
+                        {#{% for %}#}
+
+                        {#{% endfor %}#}
+                    </li>
+                </ul>
+            </section>
+        </article>
+
+    </section>
+    <section class="prifile-nav-container">
+        <ul>
+            <li>
+                <a href="">My products for sale</a>
+            </li>
+            <li>
+                <a href="">Favourite products</a>
+            </li>
+        </ul>
+    </section>
     <h1>{{ user.email }}</h1>
 {% endblock %}

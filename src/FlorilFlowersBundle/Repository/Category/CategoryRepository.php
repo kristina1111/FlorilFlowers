@@ -6,7 +6,7 @@
  * Time: 14:45 ч.
  */
 
-namespace FlorilFlowersBundle\Repository\Product;
+namespace FlorilFlowersBundle\Repository\Category;
 
 
 use Doctrine\ORM\EntityRepository;

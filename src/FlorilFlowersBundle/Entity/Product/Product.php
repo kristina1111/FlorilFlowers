@@ -4,6 +4,8 @@ namespace FlorilFlowersBundle\Entity\Product;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use FlorilFlowersBundle\Entity\Category\Category;
+use FlorilFlowersBundle\Entity\Category\Subcategory;
 
 
 /**
@@ -27,10 +29,18 @@ class Product
     /**
      * Many products has one category
      * @var Category
-     * @ORM\ManyToOne(targetEntity="FlorilFlowersBundle\Entity\Product\Category", inversedBy="products")
+     * @ORM\ManyToOne(targetEntity="FlorilFlowersBundle\Entity\Category\Category", inversedBy="products")
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;
+
+    /**
+     * Many products has one subcategory
+     * @var Subcategory
+     * @ORM\ManyToOne(targetEntity="FlorilFlowersBundle\Entity\Category\Subcategory", inversedBy="products")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $subcategory;
 
     /**
      * @ORM\Column(type="string")
@@ -154,6 +164,22 @@ class Product
     public function setCategory($category)
     {
         $this->category = $category;
+    }
+
+    /**
+     * @return Subcategory
+     */
+    public function getSubcategory()
+    {
+        return $this->subcategory;
+    }
+
+    /**
+     * @param Subcategory $subcategory
+     */
+    public function setSubcategory($subcategory)
+    {
+        $this->subcategory = $subcategory;
     }
 
 

@@ -20,9 +20,6 @@ class ProductRepository extends EntityRepository
     public function findAllPublishedOrderedByQuantity()
     {
         return $this->createQueryBuilder('product')
-            ->andWhere('product.isPublished = :isPublished')
-            ->setParameter('isPublished', true)
-            ->orderBy('product.quantity', 'DESC')
             ->getQuery()
             ->execute();
     }

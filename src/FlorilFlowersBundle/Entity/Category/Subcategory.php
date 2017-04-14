@@ -2,21 +2,22 @@
 /**
  * Created by PhpStorm.
  * User: user
- * Date: 5.4.2017 г.
- * Time: 14:20 ч.
+ * Date: 14.4.2017 г.
+ * Time: 12:03 ч.
  */
 
-namespace FlorilFlowersBundle\Entity\Product;
+namespace FlorilFlowersBundle\Entity\Category;
 
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use FlorilFlowersBundle\Entity\Product\Product;
 
 /**
- * @ORM\Entity(repositoryClass="FlorilFlowersBundle\Repository\Product\CategoryRepository")
- * @ORM\Table(name="categories")
+ * @ORM\Entity(repositoryClass="FlorilFlowersBundle\Repository\Category\Subcategory")
+ * @ORM\Table(name="subcategories")
  */
-class Category
+class Subcategory
 {
     /**
      * @ORM\Id
@@ -31,7 +32,13 @@ class Category
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="FlorilFlowersBundle\Entity\Product\Product", mappedBy="category")
+     * @ORM\ManyToOne(targetEntity="FlorilFlowersBundle\Entity\Category\Category", inversedBy="subcategories")
+     * @var Category
+     */
+    private $category;
+
+    /**
+     * @ORM\OneToMany(targetEntity="FlorilFlowersBundle\Entity\Product\Product", mappedBy="subcategory")
      * @var Product[]|ArrayCollection
      */
     private $products;
@@ -49,6 +56,7 @@ class Category
         return $this->id;
     }
 
+
     /**
      * @return mixed
      */
@@ -65,19 +73,40 @@ class Category
         $this->name = $name;
     }
 
-
+    /**
+     * @return Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
 
     /**
-     * @return Product[] | ArrayCollection
+     * @param Category $category
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+    }
+
+    /**
+     * @return ArrayCollection|Product[]
      */
     public function getProducts()
     {
         return $this->products;
     }
 
+    /**
+     * @param ArrayCollection|Product[] $products
+     */
+    public function setProducts($products)
+    {
+        $this->products = $products;
+    }
+
     public function __toString()
     {
         return $this->getName();
     }
-
 }

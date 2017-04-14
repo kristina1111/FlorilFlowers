@@ -113,6 +113,12 @@ class User implements UserInterface
      */
     private $productOffers;
 
+    /**
+     *
+     * @var ProductOffer[]|ArrayCollection
+     */
+    private $favouriteOffers;
+
     public function __construct()
     {
         $this->datetimeRegistered = new \DateTime('now');
@@ -122,6 +128,7 @@ class User implements UserInterface
         $this->addresses = new ArrayCollection();
         $this->phones = new ArrayCollection();
         $this->productOffers = new ArrayCollection();
+        $this->favouriteOffers = new ArrayCollection();
     }
 
     /**
@@ -273,6 +280,22 @@ class User implements UserInterface
     public function setPhones($phones)
     {
         $this->phones = $phones;
+    }
+
+    /**
+     * @return ArrayCollection|ProductOffer[]
+     */
+    public function getFavouriteOffers()
+    {
+        return $this->favouriteOffers;
+    }
+
+    /**
+     * @param ArrayCollection|ProductOffer[] $favouriteOffers
+     */
+    public function setFavouriteOffers($favouriteOffers)
+    {
+        $this->favouriteOffers = $favouriteOffers;
     }
 
 
