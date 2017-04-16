@@ -24,7 +24,7 @@ class ProductFormType extends AbstractType
                 'class' => 'FlorilFlowersBundle\Entity\Category\Subcategory',
                 'placeholder' => 'Choose subcategory',
             ])
-            ->add('unitMeasure')
+//            ->add('unitMeasure')
             ->add('description');
     }
 

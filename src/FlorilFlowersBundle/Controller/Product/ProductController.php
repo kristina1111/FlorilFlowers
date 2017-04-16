@@ -3,10 +3,12 @@
 namespace FlorilFlowersBundle\Controller\Product;
 
 use FlorilFlowersBundle\Entity\Product\Product;
+use FlorilFlowersBundle\Entity\Product\ProductOffer;
 use FlorilFlowersBundle\Form\Product\ProductFormType;
 use FlorilFlowersBundle\Form\Product\ProductOfferFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,6 +22,7 @@ class ProductController extends Controller
 
     /**
      * @Route("/new", name="create_product")
+     * @Security("is_granted('ROLE_EDITOR')")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
@@ -34,9 +37,20 @@ class ProductController extends Controller
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            $product = $form->getData();
+//            dump($form->getData());exit;
+            /**
+             * @var $productOffer ProductOffer
+             */
+            $productOffer = $form->getData();
+            $productOffer->setUser($this->getUser());
+//            dump($productOffer);exit;
             $em = $this->getDoctrine()->getManager();
-            $em->persist($product);
+            $em->persist($productOffer->getProduct());
+            foreach ($productOffer->getProductPrices() as $price){
+                $price->setProductOffer($productOffer);
+                $em->persist($price);
+            }
+            $em->persist($productOffer);
             $em->flush();
 
             $this->addFlash('success', 'You created a new product!');

@@ -1,10 +1,35 @@
 {% extends 'base.html.twig' %}
+{% block javascripts %}
+    {{ parent() }}
+
+{% endblock %}
 
 {% block body %}
+    {#<script>#}
+        {#$(document).ready(function () {#}
+            {#$('.js-datepicker').datepicker();#}
+        {#});#}
+    {#</script>#}
 <h1>Create new Product here!</h1>
+    {#<input type="text", class="js-datepicker">#}
     {{ form_start(productForm) }}
     {#{{ form_row(productForm.product.name) }}#}
-{{ form_widget(productForm) }}
+    {#{{ form_label(productForm.product) }}#}
+{{ form_widget(productForm.product) }}
+    {#{{ form_rest(productForm) }}#}
+    {{ form_widget(productForm.description) }}
+    {{ form_widget(productForm.quantityForSale) }}
+    {#{{ form_rest(productForm) }}#}
+<ul class="prices-holder" data-prototype="{{form_widget(productForm.productPrices.vars.prototype)|e('html_attr')}}">
+        {% for price in productForm.productPrices %}
+
+            {#{{ form_widget(price.vars.prototype)|e }}#}
+            <li>{{ form_widget(price) }}</li>
+
+        {% endfor %}
+</ul>
+
+
     <button type="submit">Create!</button>
     {{ form_end(productForm) }}
 {% endblock %}

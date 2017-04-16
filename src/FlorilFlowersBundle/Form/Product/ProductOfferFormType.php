@@ -20,7 +20,13 @@ class ProductOfferFormType extends AbstractType
         $builder
             ->add('product', ProductFormType::class)
             ->add('description', TextareaType::class, array('label' => 'Offer description'))
-            ->add('quantityForSale', IntegerType::class, array('label' => 'Quantity available'));
+            ->add('quantityForSale', IntegerType::class, array('label' => 'Quantity available'))
+            ->add('productPrices', CollectionType::class, array(
+                'label' => 'Product prices: ',
+                'entry_type' => ProductPriceFormType::class,
+                'allow_add' => true,
+            ))
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

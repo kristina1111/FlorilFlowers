@@ -42,10 +42,10 @@ class Product
      */
     private $subcategory;
 
-    /**
-     * @ORM\Column(type="string")
-     */
-    private $unitMeasure;
+//    /**
+//     * @ORM\Column(type="string")
+//     */
+//    private $unitMeasure;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -105,18 +105,18 @@ class Product
     /**
      * @return mixed
      */
-    public function getUnitMeasure()
-    {
-        return $this->unitMeasure;
-    }
-
-    /**
-     * @param mixed $unitMeasure
-     */
-    public function setUnitMeasure($unitMeasure)
-    {
-        $this->unitMeasure = $unitMeasure;
-    }
+//    public function getUnitMeasure()
+//    {
+//        return $this->unitMeasure;
+//    }
+//
+//    /**
+//     * @param mixed $unitMeasure
+//     */
+//    public function setUnitMeasure($unitMeasure)
+//    {
+//        $this->unitMeasure = $unitMeasure;
+//    }
 
     /**
      * @return mixed
@@ -132,14 +132,6 @@ class Product
     public function setDescription($description)
     {
         $this->description = $description;
-    }
-
-    /**
-     * @param mixed $isPublished
-     */
-    public function setIsPublished($isPublished)
-    {
-        $this->isPublished = $isPublished;
     }
 
     /**

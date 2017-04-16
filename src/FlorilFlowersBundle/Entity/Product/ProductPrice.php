@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: user
- * Date: 12.4.2017 г.
- * Time: 14:20 ч.
- */
 
 namespace FlorilFlowersBundle\Entity\Product;
 
