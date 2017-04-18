@@ -19,10 +19,10 @@ class ProductOfferFormType extends AbstractType
     {
         $builder
             ->add('product', ProductFormType::class)
-            ->add('description', TextareaType::class, array('label' => 'Offer description'))
-            ->add('quantityForSale', IntegerType::class, array('label' => 'Quantity available'))
+            ->add('description', TextareaType::class, array('label' => 'Offer description:'))
+            ->add('quantityForSale', IntegerType::class, array('label' => 'Quantity available:'))
             ->add('productPrices', CollectionType::class, array(
-                'label' => 'Product prices: ',
+                'label' => false,
                 'entry_type' => ProductPriceFormType::class,
                 'allow_add' => true,
             ))
@@ -36,8 +36,8 @@ class ProductOfferFormType extends AbstractType
         ]);
     }
 
-    public function getBlockPrefix()
-    {
-        return 'floril_flowers_bundle_product_offer_form_type';
-    }
+//    public function getBlockPrefix()
+//    {
+//        return 'floril_flowers_bundle_product_offer_form_type';
+//    }
 }

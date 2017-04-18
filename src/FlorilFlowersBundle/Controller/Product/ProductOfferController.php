@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * @Route("admin/products")
  */
-class ProductController extends Controller
+class ProductOfferController extends Controller
 {
 
     /**
@@ -62,17 +62,18 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/products/edit/{id}", name="edit_product")
+     * @Route("/edit/{id}", name="edit_product")
+     * @Security("is_granted('ROLE_EDITOR')")
      * @Method("GET")
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function editAction($id)
     {
-        $product = $this->getDoctrine()->getRepository(Product::class)->find($id);
+        $productOffer = $this->getDoctrine()->getRepository(ProductOffer::class)->find($id);
 
-        if($product){
-            $form = $this->createForm(ProductFormType::class, $product);
+        if($productOffer){
+            $form = $this->createForm(ProductOfferFormType::class, $productOffer);
 
             return $this->render(':FlorilFlowers/Product:edit.html.twig', ['productForm' => $form->createView()]);
         }
@@ -82,7 +83,8 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/products/edit/{id}", name="edit_product_process")
+     * @Route("/edit/{id}", name="edit_product_process")
+     * @Security("is_granted('ROLE_EDITOR')")
      * @Method("POST")
      * @param $id
      * @param Request $request
@@ -90,14 +92,18 @@ class ProductController extends Controller
      */
     public function editActionProcess($id, Request $request)
     {
-        $product = $this->getDoctrine()->getRepository(Product::class)->find($id);
+        $productOffer = $this->getDoctrine()->getRepository(ProductOffer::class)->find($id);
 
-        if($product){
-            $form = $this->createForm(ProductFormType::class, $product);
+        if($productOffer){
+            $form = $this->createForm(ProductOfferFormType::class, $productOffer);
             $form->handleRequest($request);
             if($form->isValid() && $form->isSubmitted()){
                 $em = $this->getDoctrine()->getManager();
-                $em->persist($product);
+                $em->persist($productOffer);
+                foreach ($productOffer->getProductPrices() as $price){
+                    $price->setProductOffer($productOffer);
+                    $em->persist($price);
+                }
                 $em->flush();
 
                 $this->addFlash('info', 'You just edited a product!');
@@ -144,16 +150,20 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/products", name="products_list")
+     * @Route("/all", name="products_list")
      * lists only published products, ordered descending by quantity
      */
     public function listAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $products = $em->getRepository('FlorilFlowersBundle:Product\Product')
-        ->findAllPublishedOrderedByQuantity();
+        $products = $em->getRepository('FlorilFlowersBundle:Product\ProductOffer')->findAll();
+//        ->findOneBy(['id' => 2]);
 
-        return $this->render(':FlorilFlowers/Product:list.html.twig', ['products' => $products,]);
+//        dump($products->getProduct()->getName());exit;
+
+        return $this->render(':FlorilFlowers/Product:list.html.twig', [
+            'productsOffers' => $products,
+        ]);
 
 //        dump($products); die;
     }

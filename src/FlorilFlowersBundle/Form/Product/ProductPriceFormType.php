@@ -16,14 +16,17 @@ class ProductPriceFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('retailPrice', MoneyType::class, array('label' => 'Price: '))
+            ->add('retailPrice', MoneyType::class, array(
+                'label' => 'Price Amount:',
+                'currency'=>'',
+                ))
             ->add('currency', EntityType::class, [
                 'class' => 'FlorilFlowersBundle\Entity\Product\Currency',
-                'label' => 'Currency: '
+                'label' => 'Currency:'
 //                'placeholder' => 'Choose currency'
             ])
             ->add('startDate', DateType::class, array(
-                'label' => 'Start date: ',
+                'label' => 'Start date:',
                 'widget' => 'single_text',
                 'attr' => [
                     'class' => 'js-datepicker'
@@ -31,7 +34,7 @@ class ProductPriceFormType extends AbstractType
                 'html5' => false
             ))
             ->add('endDate', DateType::class, array(
-                'label' => 'End date: ',
+                'label' => 'End date:',
                 'widget' => 'single_text',
                 'attr' => [
                     'class' => 'js-datepicker'
@@ -48,8 +51,8 @@ class ProductPriceFormType extends AbstractType
         ]);
     }
 
-    public function getBlockPrefix()
-    {
-        return 'floril_flowers_bundle_product_price_form_type';
-    }
+//    public function getBlockPrefix()
+//    {
+//        return 'floril_flowers_bundle_product_price_form_type';
+//    }
 }

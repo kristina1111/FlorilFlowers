@@ -2,8 +2,55 @@
 
 {% block body %}
     <h1>Edit product!</h1>
-    {{ form_start(productForm) }}
-    {{ form_widget(productForm) }}
-    <button type="submit">Edit!</button>
-    {{ form_end(productForm) }}
+    <section class="product-form-container">
+        {{ form_start(productForm) }}
+        <div>
+            {#{{ form_label(productForm.product.name) }}#}
+            <label for="">Product name:</label>{{ form_widget(productForm.product.name) }}
+        </div>
+        <div>
+            {{ form_label(productForm.product.category) }}{{ form_widget(productForm.product.category) }}
+        </div>
+        <div>
+            {{ form_label(productForm.product.subcategory) }}
+            {{ form_widget(productForm.product.subcategory) }}
+        </div>
+        <div>
+            {{ form_label(productForm.product.description) }}
+            {{ form_widget(productForm.product.description) }}
+        </div>
+        <div>
+            {{ form_label(productForm.description) }}
+            {{ form_widget(productForm.description) }}
+        </div>
+        <div>
+            {{ form_label(productForm.quantityForSale) }}
+            {{ form_widget(productForm.quantityForSale) }}
+        </div>
+        <div class="prices-holder" data-prototype="{{form_widget(productForm.productPrices.vars.prototype)|e('html_attr')}}">
+            {% for price in productForm.productPrices %}
+                {#{{ form_widget(price.vars.prototype)|e }}#}
+                <div>
+                    {{ form_label(price.retailPrice) }}
+                    {{ form_widget(price.retailPrice) }}
+                </div>
+                <div>
+                    {{ form_label(price.currency) }}
+                    {{ form_widget(price.currency) }}
+                </div>
+                <div>
+                    {{ form_label(price.startDate) }}
+                    {{ form_widget(price.startDate) }}
+                </div>
+                <div>
+                    {{ form_label(price.endDate) }}
+                    {{ form_widget(price.endDate) }}
+                </div>
+            {% endfor %}
+        </div>
+        {# this removes unnecessary rendered div in div from the form #}
+        {% do productForm.productPrices.setRendered() %}
+        <button type="submit">Edit!</button>
+        {{ form_end(productForm) }}
+    </section>
 {% endblock %}

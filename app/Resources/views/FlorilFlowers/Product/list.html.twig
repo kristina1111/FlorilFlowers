@@ -36,17 +36,27 @@
         <tr>
             <th>Name</th>
             <th>Category</th>
+            <th>Subcategory</th>
+            <th>Product description</th>
+            <th>Offer description</th>
+            <th>Quantity for sale</th>
+            {#<th>Current retail price</th>#}
             <th>Edit</th>
         </tr>
     </thead>
     <tbody>
-        {% for product in products %}
+        {% for productOffer in productsOffers %}
             <tr>
                 <td>
-                    <a href="{{ path('product_show', {'id' : product.id}) }}">{{ product.name }}</a>
+                    <a href="{{ path('product_show', {'id' : productOffer.product.id}) }}">{{ productOffer.product.name }}</a>
                 </td>
-                <td>{{ product.category.name }}</td>
-                <td><a href="{{ path('edit_product',{'id' : product.id}) }}">Edit!</a></td>
+                <td>{{ productOffer.product.category }}</td>
+                <td>{{ productOffer.product.subcategory }}</td>
+                <td>{{ productOffer.product.description }}</td>
+                <td>{{ productOffer.description }}</td>
+                <td>{{ productOffer.quantityForSale }}</td>
+                {#<td>{{ productOffer.productPrices }}</td>#}
+                <td><a href="{{ path('edit_product',{'id' : productOffer.id}) }}">Edit!</a></td>
             </tr>
         {% endfor %}
     </tbody>

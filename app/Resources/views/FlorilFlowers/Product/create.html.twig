@@ -1,36 +1,58 @@
 {% extends 'base.html.twig' %}
-{% block javascripts %}
-    {{ parent() }}
-
-{% endblock %}
 
 {% block body %}
-    {#<script>#}
-        {#$(document).ready(function () {#}
-            {#$('.js-datepicker').datepicker();#}
-        {#});#}
-    {#</script>#}
 <h1>Create new Product here!</h1>
-    {#<input type="text", class="js-datepicker">#}
-    {{ form_start(productForm) }}
-    {#{{ form_row(productForm.product.name) }}#}
-    {#{{ form_label(productForm.product) }}#}
-{{ form_widget(productForm.product) }}
-    {#{{ form_rest(productForm) }}#}
-    {{ form_widget(productForm.description) }}
-    {{ form_widget(productForm.quantityForSale) }}
-    {#{{ form_rest(productForm) }}#}
-<ul class="prices-holder" data-prototype="{{form_widget(productForm.productPrices.vars.prototype)|e('html_attr')}}">
-        {% for price in productForm.productPrices %}
+    <section class="product-form-container">
+        {{ form_start(productForm) }}
+        <div>
+            {#{{ form_label(productForm.product.name) }}#}
+            <label for="">Product name:</label>{{ form_widget(productForm.product.name) }}
+        </div>
+        <div>
+            {{ form_label(productForm.product.category) }}{{ form_widget(productForm.product.category) }}
+        </div>
+        <div>
+            {{ form_label(productForm.product.subcategory) }}
+            {{ form_widget(productForm.product.subcategory) }}
+        </div>
+        <div>
+            {{ form_label(productForm.product.description) }}
+            {{ form_widget(productForm.product.description) }}
+        </div>
+        <div>
+            {{ form_label(productForm.description) }}
+            {{ form_widget(productForm.description) }}
+        </div>
+        <div>
+            {{ form_label(productForm.quantityForSale) }}
+            {{ form_widget(productForm.quantityForSale) }}
+        </div>
+        <div class="prices-holder" data-prototype="{{form_widget(productForm.productPrices.vars.prototype)|e('html_attr')}}">
+            {% for price in productForm.productPrices %}
+                {#{{ form_widget(price.vars.prototype)|e }}#}
+                <div>
+                    {{ form_label(price.retailPrice) }}
+                    {{ form_widget(price.retailPrice) }}
+                </div>
+                <div>
+                    {{ form_label(price.currency) }}
+                    {{ form_widget(price.currency) }}
+                </div>
+                <div>
+                    {{ form_label(price.startDate) }}
+                    {{ form_widget(price.startDate) }}
+                </div>
+                <div>
+                    {{ form_label(price.endDate) }}
+                    {{ form_widget(price.endDate) }}
+                </div>
+            {% endfor %}
+        </div>
+        {# this removes unnecessary rendered div in div from the form #}
+        {% do productForm.productPrices.setRendered() %}
+        <button type="submit">Create!</button>
+        {{ form_end(productForm) }}
+    </section>
 
-            {#{{ form_widget(price.vars.prototype)|e }}#}
-            <li>{{ form_widget(price) }}</li>
-
-        {% endfor %}
-</ul>
-
-
-    <button type="submit">Create!</button>
-    {{ form_end(productForm) }}
 {% endblock %}
 

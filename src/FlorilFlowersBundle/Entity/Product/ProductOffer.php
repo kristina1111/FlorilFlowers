@@ -14,7 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="FlorilFlowersBundle\Repository\Product\ProductOfferRepository")
  * @ORM\Table(name="product_offers")
  */
 class ProductOffer

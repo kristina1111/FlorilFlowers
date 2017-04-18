@@ -3,13 +3,13 @@
 // });
 
 var $addTagLink = $('<a href="#" class="add_tag_link">Add price</a>');
-var $newLinkLi = $('<li></li>').append($addTagLink);
+var $newLinkLi = $('<div></div>').append($addTagLink);
 
 $(document).ready(function() {
-    // Get the ul that holds the collection of prices
-    var $collectionHolder = $('ul.prices-holder');
+    // Get the div that holds the collection of prices
+    var $collectionHolder = $('div.prices-holder');
 
-    // add the "add price" anchor and li to the prices-holder ul
+    // add the "add price" anchor and div to the prices-holder div
     $collectionHolder.append($newLinkLi);
 
     // count the current form inputs we have (e.g. 2), use that as the new
@@ -24,13 +24,15 @@ $(document).ready(function() {
         addPriceForm($collectionHolder, $newLinkLi);
     });
 
-    // $('.js-datepicker').datepicker();
+    $('.js-datepicker').datepicker({
+        format: 'yyyy-mm-dd'
+    });
 
 });
 
 
 function addPriceForm($collectionHolder, $newLinkLi) {
-    // Get the data-prototype explained earlier
+    // Get the data-prototype
     var prototype = $collectionHolder.data('prototype');
 
 
@@ -47,7 +49,7 @@ function addPriceForm($collectionHolder, $newLinkLi) {
     $collectionHolder.data('index', index + 1);
 
     // Display the form in the page in an li, before the "Add a tag" link li
-    var $newFormLi = $('<li></li>').append(newForm);
+    var $newFormLi = $('<div></div>').append(newForm);
 
     // also add a remove button, just for this example
     $newFormLi.append('<a href="#" class="remove-tag">x</a>');
