@@ -174,5 +174,13 @@ class Product
         $this->subcategory = $subcategory;
     }
 
+    /**
+     * @return ArrayCollection|ProductOffer[]
+     */
+    public function getProductOffers()
+    {
+        return $this->productOffers;
+    }
+
 
 }

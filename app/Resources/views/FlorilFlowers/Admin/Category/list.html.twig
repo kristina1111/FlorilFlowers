@@ -24,11 +24,19 @@
                             <td><a href="">Edit</a></td>
                             <td><a href="">Delete</a></td>
                         </tr>
+                        {% for product in subcategory.products %}
+                            {% for productOffer in product.productOffers %}
+                                <tr class="table-row-light">
+                                    <td>{{ productOffer.product.name }}</td>
+                                    <td>{{ productOffer.product.description }}</td>
+                                    <td>{{ productOffer.description }}</td>
+                                </tr>
+                            {% endfor %}
                         {% endfor %}
+                    {% endfor %}
                 {% endfor %}
                 </tbody>
             </table>
         </article>
     </section>
-
 {% endblock %}

@@ -73,6 +73,12 @@ class ProductOffer
      */
     private $productImages;
 
+    /**
+     * @ORM\OneToOne(targetEntity="FlorilFlowersBundle\Entity\Product\ProductImage")
+     * @var ProductImage $frontProductImage
+     */
+    private $frontProductImage;
+
     public function __construct()
     {
         $this->createdOn = new \DateTime();
@@ -193,6 +199,17 @@ class ProductOffer
         $this->productPrices = $productPrices;
     }
 
+    public function addPrice(ProductPrice $price)
+    {
+        $price->setProductOffer($this);
+        $this->productPrices->add($price);
+    }
+
+    public function removePrice(ProductPrice $price)
+    {
+        $this->productPrices->removeElement($price);
+    }
+
     /**
      * @return ProductOfferReview[]|ArrayCollection
      */
@@ -224,6 +241,24 @@ class ProductOffer
     {
         $this->productImages = $productImages;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getFrontProductImage()
+    {
+        return $this->frontProductImage;
+    }
+
+    /**
+     * @param mixed $frontProductImage
+     */
+    public function setFrontProductImage($frontProductImage)
+    {
+        $this->frontProductImage = $frontProductImage;
+    }
+
+
 
 
 }

@@ -4,6 +4,7 @@ namespace FlorilFlowersBundle\Entity\Product;
 
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -19,22 +20,30 @@ class ProductPrice
     private $id;
 
     /**
+     * @Assert\NotBlank(message="Please, enter price.")
+     * @Assert\Range(
+     *      min = 0.01,
+     *      minMessage = "The price amount must be at least {{ limit }}"
+     * )
      * @ORM\Column(type="decimal", precision=19, scale=5)
      */
     private $retailPrice;
 
     /**
+     * @Assert\NotBlank(message="Please, enter currency.")
      * @ORM\ManyToOne(targetEntity="FlorilFlowersBundle\Entity\Product\Currency")
      * @var Currency
      */
     private $currency;
 
     /**
+     * @Assert\NotBlank(message="Please, enter start date.")
      * @ORM\Column(type="datetime")
      */
     private $startDate;
 
     /**
+     * @Assert\NotBlank(message="Please, enter end date.")
      * @ORM\Column(type="datetime")
      */
     private $endDate;

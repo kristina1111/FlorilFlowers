@@ -29,6 +29,7 @@
         </div>
         <div class="prices-holder" data-prototype="{{form_widget(productForm.productPrices.vars.prototype)|e('html_attr')}}">
             {% for price in productForm.productPrices %}
+                <div class="price-single">
                 {#{{ form_widget(price.vars.prototype)|e }}#}
                 <div>
                     {{ form_label(price.retailPrice) }}
@@ -46,8 +47,29 @@
                     {{ form_label(price.endDate) }}
                     {{ form_widget(price.endDate) }}
                 </div>
+                </div>
             {% endfor %}
         </div>
+        {#<div class="images-holder">#}
+        <div class="images-holder" data-prototype="{{form_widget(productForm.productImages.vars.prototype)|e('html_attr')}}">
+            {% for image in productForm.productImages %}
+                <div class="image-single">
+                    <div>
+                        {{ form_label(image.file) }}
+                        {{ form_widget(image.file) }}
+                    </div>
+                    <div>
+                        {{ form_label(image.isFrontImage) }}
+                        {{ form_widget(image.isFrontImage) }}
+                    </div>
+                    <div>
+                        {{ form_label(image.description) }}
+                        {{ form_widget(image.description) }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {#</div>#}
         {# this removes unnecessary rendered div in div from the form #}
         {% do productForm.productPrices.setRendered() %}
         <button type="submit">Edit!</button>

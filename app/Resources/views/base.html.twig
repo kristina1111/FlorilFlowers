@@ -33,7 +33,7 @@
                 {% endif %}
             </ul>
         </section>
-        {% if is_granted('ROLE_ADMIN') %}
+        {% if is_granted('ROLE_EDITOR') %}
         <section class="navig">
                 <ul>
                     <li>
@@ -42,9 +42,11 @@
                     <li>
                         <a href="">Products</a>
                     </li>
+                    {% if is_granted('ROLE_ADMIN') %}
                     <li>
                         <a href="">Users</a>
                     </li>
+                    {% endif %}
 
                 </ul>
         </section>
@@ -65,7 +67,8 @@
     <script src="{{ asset('js/moment.min.js') }}"></script>
     <script src="{{ asset('js/Bootstrap/bootstrap.js') }}"></script>
     <script src="{{ asset('js/Bootstrap/bootstrap-datepicker.min.js') }}"></script>
-    <script src="{{ asset('js/CustomScripts/addPriceToCreateProductForm.js') }}"></script>
+    <script src="{{ asset('js/CustomScripts/addRemovePriceProductForm.js') }}"></script>
+    <script src="{{ asset('js/CustomScripts/addRemoveImageProductForm.js') }}"></script>
 {% endblock %}
 </body>
 </html>

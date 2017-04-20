@@ -20,9 +20,14 @@ class CategoryController extends Controller
      */
     public function listCategoriesAction()
     {
+        /**
+         * @var $categories Category
+         */
         $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
         return $this->render(':FlorilFlowers/Admin/Category:list.html.twig',
-            ['categories' => $categories]
+            [
+                'categories' => $categories,
+            ]
             );
     }
 }

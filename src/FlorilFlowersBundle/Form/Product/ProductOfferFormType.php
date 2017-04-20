@@ -25,8 +25,18 @@ class ProductOfferFormType extends AbstractType
                 'label' => false,
                 'entry_type' => ProductPriceFormType::class,
                 'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
             ))
-        ;
+            ->add('productImages', CollectionType::class,
+                array(
+                    'label' => false,
+                    'entry_type' => ProductImageFormType::class,
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'by_reference' => false,
+            )
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver)

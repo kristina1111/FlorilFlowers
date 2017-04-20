@@ -11,6 +11,7 @@ namespace FlorilFlowersBundle\Entity\User;
 
 use FlorilFlowersBundle\Entity\Product\ProductOffer;
 use FlorilFlowersBundle\Entity\Product\ProductOfferReview;
+use FlorilFlowersBundle\Entity\Product\ProductReview;
 use FlorilFlowersBundle\Entity\Product\Tag;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -26,6 +27,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User implements UserInterface
 {
+    const ROLE_ADMIN = 'ROLE_ADMIN';
+    const ROLE_EDITOR = 'ROLE_EDITOR';
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -392,5 +396,28 @@ class User implements UserInterface
 
     }
 
+//    for user access to their products, reviews... whatever they are authors to.
+
+    /**
+     * @param $entity ProductOffer | ProductReview // or any entity that has user author
+     * @return bool
+     */
+    public function isAuthor($entity)
+    {
+        if($entity->getUser()->getId() == $this->getId()){
+            return true;
+        }
+        return false;
+    }
+
+    public function isAdmin()
+    {
+        return in_array(self::ROLE_ADMIN, $this->getRoles());
+    }
+
+    public function isEditor()
+    {
+        return in_array(self::ROLE_EDITOR, $this->getRoles());
+    }
 
 }
