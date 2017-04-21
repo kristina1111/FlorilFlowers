@@ -92,12 +92,18 @@ class User implements UserInterface
      */
     private $tags;
 
+//    /**
+//     * @ORM\ManyToMany(targetEntity="FlorilFlowersBundle\Entity\User\Role", inversedBy="users")
+//     * @ORM\JoinTable(name="users_roles")
+//     * @var Role[]|ArrayCollection
+//     */
+//    private $roles;
+
     /**
-     * @ORM\ManyToMany(targetEntity="FlorilFlowersBundle\Entity\User\Role", inversedBy="users")
-     * @ORM\JoinTable(name="users_roles")
-     * @var Role[]|ArrayCollection
+     * @ORM\ManyToOne(targetEntity="FlorilFlowersBundle\Entity\User\Role", inversedBy="users")
+     * @var Role
      */
-    private $roles;
+    private $role;
 
     /**
      * @ORM\OneToMany(targetEntity="FlorilFlowersBundle\Entity\User\UserAddress", mappedBy="user")
@@ -128,7 +134,7 @@ class User implements UserInterface
         $this->datetimeRegistered = new \DateTime('now');
         $this->productOfferReviews = new ArrayCollection();
         $this->tags = new ArrayCollection();
-        $this->roles = new ArrayCollection();
+//        $this->roles = new ArrayCollection();
         $this->addresses = new ArrayCollection();
         $this->phones = new ArrayCollection();
         $this->productOffers = new ArrayCollection();
@@ -318,30 +324,51 @@ class User implements UserInterface
      */
     public function getRoles()
     {
-        // need to return array
-        $roles = array_map(function ($r){
-            /** @var Role $r  */
-            return $r->getType();
-        }, $this->roles->toArray());
-//        dump($roles);die;
-        return $roles;
+        return array($this->role->getType());
     }
 
     /**
-     * @return Role[]|ArrayCollection
+     * @param Role $role
      */
-    public function getRolesEntities()
+    public function setRole($role)
     {
-        return $this->roles;
+        $this->role = $role;
     }
 
-    /**
-     * @param Role[]|ArrayCollection $roles
-     */
-    public function setRoles($roles)
-    {
-        $this->roles = $roles;
-    }
+//    /**
+//     * @return array
+//     */
+//    public function getRoles()
+//    {
+//        // need to return array
+//        $roles = array_map(function ($r){
+//            /** @var Role $r  */
+//            return $r->getType();
+//        }, $this->roles->toArray());
+////        dump($roles);die;
+//        return $roles;
+//    }
+
+//    /**
+//     * @return Role[]|ArrayCollection
+//     */
+//    public function getRolesEntities()
+//    {
+//        return $this->roles;
+//    }
+
+//    /**
+//     * @param Role[]|ArrayCollection $roles
+//     */
+//    public function setRoles($roles)
+//    {
+//        $this->roles = $roles;
+//    }
+
+
+
+
+
 
     /**
      * @return UserAddress[]|ArrayCollection

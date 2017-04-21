@@ -67,8 +67,9 @@ class UserController extends Controller
 
             $role = $em->getRepository(Role::class)->findOneBy(['type' => 'ROLE_USER']);
 
-            $user->getRolesEntities()->add($role);
+//            $user->getRolesEntities()->add($role);
 
+            $user->setRole($role);
 
             $em->persist($user);
             $em->flush();

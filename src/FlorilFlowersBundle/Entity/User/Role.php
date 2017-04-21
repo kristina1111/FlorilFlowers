@@ -30,8 +30,14 @@ class Role
      */
     private $type;
 
+//    /**
+//     * @ORM\ManyToMany(targetEntity="FlorilFlowersBundle\Entity\User\User", mappedBy="roles")
+//     * @var User[]|ArrayCollection
+//     */
+//    private $users;
+
     /**
-     * @ORM\ManyToMany(targetEntity="FlorilFlowersBundle\Entity\User\User", mappedBy="roles")
+     * @ORM\OneToMany(targetEntity="FlorilFlowersBundle\Entity\User\User", mappedBy="role")
      * @var User[]|ArrayCollection
      */
     private $users;

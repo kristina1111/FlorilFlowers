@@ -13,6 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -82,7 +83,9 @@ class ProductOfferController extends Controller
             return $this->redirectToRoute('products_list');
         }
 
-        if(!$this->getUser()->isAuthor($productOffer) && !$this->getUser()->isEditor()){
+        if(!$this->getUser()->isAuthor($productOffer) && $this->denyAccessUnlessGranted(new Expression(
+                '"ROLE_EDITOR" in roles'
+            ))){
             $this->addFlash('info', 'You cannot edit this product!');
             return $this->redirectToRoute('products_list');
         }
