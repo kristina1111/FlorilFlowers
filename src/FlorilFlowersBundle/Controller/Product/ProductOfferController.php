@@ -6,7 +6,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use FlorilFlowersBundle\Entity\Product\Product;
 use FlorilFlowersBundle\Entity\Product\ProductImage;
 use FlorilFlowersBundle\Entity\Product\ProductOffer;
-use FlorilFlowersBundle\Entity\Product\ProductPrice;
 use FlorilFlowersBundle\Form\Product\ProductFormType;
 use FlorilFlowersBundle\Form\Product\ProductOfferFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -52,10 +51,48 @@ class ProductOfferController extends Controller
 //            dump($productOffer);exit;
             $em = $this->getDoctrine()->getManager();
             $em->persist($productOffer->getProduct());
-            foreach ($productOffer->getProductPrices() as $price){
-                $price->setProductOffer($productOffer);
-                $em->persist($price);
-            }
+//            foreach ($productOffer->getProductPrices() as $price){
+//                $price->setProductOffer($productOffer);
+//                $em->persist($price);
+//            }
+
+//            -- image upload processing --
+            foreach ($productOffer->getProductImages() as $image){
+                // $file stores the uploaded image file
+                /** @var UploadedFile $file */
+                $file = $image->getFile();
+//                    dump($file);exit;
+//                    && false === $originalImages->contains($image)
+                if(!!$file){
+//                    dump($file);exit;
+                    $fileName = $this->get('app.image_uploader')->upload($file);
+
+                    // Update the 'path' property to store the image file name
+                    // instead of its contents
+                    $image->setPath($fileName);
+                    $image->setProductOffer($productOffer);
+                    $image->setFile(null);
+
+//                    check if the checkbox for the image to be main image for the productOffer
+//                        need to be here and in the else statement because user can
+                    if(!!$image->getIsFrontImage()){
+                        $productOffer->setFrontProductImage($image);
+                    }
+                    $em->persist($image);
+
+                }
+                else{
+                        $productOffer->getProductImages()->removeElement($image);
+                        continue;
+                    }
+
+                }
+
+//                    check if the checkbox for the image to be main image for the productOffer
+//                    if(!!$image->getIsFrontImage()){
+//                        $productOffer->setFrontProductImage($image);
+//                    }
+
             $em->persist($productOffer);
             $em->flush();
 
@@ -117,12 +154,12 @@ class ProductOfferController extends Controller
         $productOffer = $this->getDoctrine()->getRepository(ProductOffer::class)->find($id);
 
         if($productOffer){
-            // In order to be able to remove prices properly, first we need to save the prices that this product offer has
-            // in array. We will compare the values of this array to the newly submitted prices thus distinguishing the removed prices
-            $originalPrices = new ArrayCollection();
-            foreach ($productOffer->getProductPrices() as $originalPrice){
-                $originalPrices->add($originalPrice);
-            }
+//            // In order to be able to remove prices properly, first we need to save the prices that this product offer has
+//            // in array. We will compare the values of this array to the newly submitted prices thus distinguishing the removed prices
+//            $originalPrices = new ArrayCollection();
+//            foreach ($productOffer->getProductPrices() as $originalPrice){
+//                $originalPrices->add($originalPrice);
+//            }
 
 
             $originalImages = new ArrayCollection();
@@ -144,31 +181,31 @@ class ProductOfferController extends Controller
 
 //                --- process prices ---
 
-                // Check if any of the prices that is in the original array before editing is not in the new array of prices
-                // after edition. If it is not, remove it from the db.
-//                dump($originalPrices);
-//                dump($productOffer->getProductPrices());exit;
-                foreach ($originalPrices as $originalPrice){
-                    if(false === $productOffer->getProductPrices()->contains($originalPrice)){
-                        /**
-                         * @var $originalPrice ProductPrice
-                         */
-                        $originalPrice->setProductOffer(null); // not necessary in this case!
-                        $em->persist($originalPrice);
-                        $em->remove($originalPrice);
-                    }
-                }
+//                // Check if any of the prices that is in the original array before editing is not in the new array of prices
+//                // after edition. If it is not, remove it from the db.
+////                dump($originalPrices);
+////                dump($productOffer->getProductPrices());exit;
+//                foreach ($originalPrices as $originalPrice){
+//                    if(false === $productOffer->getProductPrices()->contains($originalPrice)){
+//                        /**
+//                         * @var $originalPrice ProductPrice
+//                         */
+//                        $originalPrice->setProductOffer(null); // not necessary in this case!
+//                        $em->persist($originalPrice);
+//                        $em->remove($originalPrice);
+//                    }
+//                }
 
-                // Then check if any of the prices in the new array after the editing in not in the original
-                // array of prices before editing. If it is not, persist it in the db.
-//            !!!!!!!!    It is not working if the user enters empty price object!!!!!!!!!
-                foreach ($productOffer->getProductPrices() as $price){
-                    if(false === $originalPrices->contains($price)){
-                        $price->setProductOffer($productOffer);
-                        $em->persist($price);
-                    }
-
-                }
+//                // Then check if any of the prices in the new array after the editing in not in the original
+//                // array of prices before editing. If it is not, persist it in the db.
+////            !!!!!!!!    It is not working if the user enters empty price object!!!!!!!!!
+//                foreach ($productOffer->getProductPrices() as $price){
+//                    if(false === $originalPrices->contains($price)){
+//                        $price->setProductOffer($productOffer);
+//                        $em->persist($price);
+//                    }
+//
+//                }
 
 
 //               --- process images ---

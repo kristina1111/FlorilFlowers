@@ -9,6 +9,8 @@
 namespace FlorilFlowersBundle\Entity\User;
 
 
+use FlorilFlowersBundle\Entity\Cart\Cart;
+use FlorilFlowersBundle\Entity\Cart\Order;
 use FlorilFlowersBundle\Entity\Product\ProductOffer;
 use FlorilFlowersBundle\Entity\Product\ProductOfferReview;
 use FlorilFlowersBundle\Entity\Product\ProductReview;
@@ -124,6 +126,18 @@ class User implements UserInterface
     private $productOffers;
 
     /**
+     * @ORM\OneToMany(targetEntity="FlorilFlowersBundle\Entity\Cart\Order", mappedBy="user")
+     * @var Order[]|ArrayCollection
+     */
+    private $orders;
+
+    /**
+     * @ORM\OneToMany(targetEntity="FlorilFlowersBundle\Entity\Cart\Cart", mappedBy="user")
+     * @var Cart[]|ArrayCollection
+     */
+    private $carts;
+
+    /**
      *
      * @var ProductOffer[]|ArrayCollection
      */
@@ -139,6 +153,8 @@ class User implements UserInterface
         $this->phones = new ArrayCollection();
         $this->productOffers = new ArrayCollection();
         $this->favouriteOffers = new ArrayCollection();
+        $this->orders = new ArrayCollection();
+        $this->carts = new ArrayCollection();
     }
 
     /**
@@ -386,6 +402,43 @@ class User implements UserInterface
         $this->addresses = $addresses;
     }
 
+    /**
+     * @return ArrayCollection|Order[]
+     */
+    public function getOrders()
+    {
+        return $this->orders;
+    }
+
+    /**
+     * @param ArrayCollection|Order[] $orders
+     */
+    public function setOrders($orders)
+    {
+        $this->orders = $orders;
+    }
+
+    /**
+     * @return ArrayCollection|Cart[]
+     */
+    public function getCarts()
+    {
+        return $this->carts;
+    }
+
+    public function getActiveCart()
+    {
+
+    }
+
+    /**
+     * @param ArrayCollection|Cart[] $carts
+     */
+    public function setCarts($carts)
+    {
+        $this->carts = $carts;
+    }
+
 
 
 
@@ -436,15 +489,15 @@ class User implements UserInterface
         }
         return false;
     }
-
-    public function isAdmin()
-    {
-        return in_array(self::ROLE_ADMIN, $this->getRoles());
-    }
-
-    public function isEditor()
-    {
-        return in_array(self::ROLE_EDITOR, $this->getRoles());
-    }
+//
+//    public function isAdmin()
+//    {
+//        return in_array(self::ROLE_ADMIN, $this->getRoles());
+//    }
+//
+//    public function isEditor()
+//    {
+//        return in_array(self::ROLE_EDITOR, $this->getRoles());
+//    }
 
 }

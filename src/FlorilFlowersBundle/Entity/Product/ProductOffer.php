@@ -12,6 +12,7 @@ namespace FlorilFlowersBundle\Entity\Product;
 use FlorilFlowersBundle\Entity\User\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="FlorilFlowersBundle\Repository\Product\ProductOfferRepository")
@@ -55,11 +56,30 @@ class ProductOffer
      */
     private $product;
 
+//    --- product price ---
+
+//    /**
+//     * @ORM\OneToMany(targetEntity="FlorilFlowersBundle\Entity\Product\ProductPrice", mappedBy="productOffer")
+//     * @var ProductPrice[]|ArrayCollection
+//     */
+//    private $productPrices;
+
     /**
-     * @ORM\OneToMany(targetEntity="FlorilFlowersBundle\Entity\Product\ProductPrice", mappedBy="productOffer")
-     * @var ProductPrice[]|ArrayCollection
+     * @Assert\NotBlank(message="Please, enter price.")
+     * @Assert\Range(
+     *      min = 0.01,
+     *      minMessage = "The price amount must be at least {{ limit }}"
+     * )
+     * @ORM\Column(type="decimal", precision=19, scale=5)
      */
-    private $productPrices;
+    private $retailPrice;
+
+    /**
+     * @Assert\NotBlank(message="Please, enter currency.")
+     * @ORM\ManyToOne(targetEntity="FlorilFlowersBundle\Entity\Product\Currency")
+     * @var Currency
+     */
+    private $currency;
 
     /**
      * @ORM\OneToMany(targetEntity="FlorilFlowersBundle\Entity\Product\ProductOfferReview", mappedBy="productOffer")
@@ -183,32 +203,32 @@ class ProductOffer
         $this->product = $product;
     }
 
-    /**
-     * @return ProductPrice[]|ArrayCollection
-     */
-    public function getProductPrices()
-    {
-        return $this->productPrices;
-    }
-
-    /**
-     * @param ProductPrice[]|ArrayCollection $productPrices
-     */
-    public function setProductPrices($productPrices)
-    {
-        $this->productPrices = $productPrices;
-    }
-
-    public function addPrice(ProductPrice $price)
-    {
-        $price->setProductOffer($this);
-        $this->productPrices->add($price);
-    }
-
-    public function removePrice(ProductPrice $price)
-    {
-        $this->productPrices->removeElement($price);
-    }
+//    /**
+//     * @return ProductPrice[]|ArrayCollection
+//     */
+//    public function getProductPrices()
+//    {
+//        return $this->productPrices;
+//    }
+//
+//    /**
+//     * @param ProductPrice[]|ArrayCollection $productPrices
+//     */
+//    public function setProductPrices($productPrices)
+//    {
+//        $this->productPrices = $productPrices;
+//    }
+//
+//    public function addPrice(ProductPrice $price)
+//    {
+//        $price->setProductOffer($this);
+//        $this->productPrices->add($price);
+//    }
+//
+//    public function removePrice(ProductPrice $price)
+//    {
+//        $this->productPrices->removeElement($price);
+//    }
 
     /**
      * @return ProductOfferReview[]|ArrayCollection
@@ -256,6 +276,38 @@ class ProductOffer
     public function setFrontProductImage($frontProductImage)
     {
         $this->frontProductImage = $frontProductImage;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRetailPrice()
+    {
+        return $this->retailPrice;
+    }
+
+    /**
+     * @param mixed $retailPrice
+     */
+    public function setRetailPrice($retailPrice)
+    {
+        $this->retailPrice = $retailPrice;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
+    }
+
+    /**
+     * @param mixed $currency
+     */
+    public function setCurrency($currency)
+    {
+        $this->currency = $currency;
     }
 
 

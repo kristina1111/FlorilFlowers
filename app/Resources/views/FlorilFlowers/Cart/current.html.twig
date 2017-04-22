@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <section>
+        {{ form_start(formCart) }}
+            <table class="cart-table">
+                <thead>
+                <tr>
+                    <td>Product image</td>
+                    <td>Product name:</td>
+                    <td>Product quantity:</td>
+                    <td>Price per product:</td>
+                    <td>Total price:</td>
+                    <td>Remove from cart:</td>
+                    {#<td>Total price</td>#}
+                </tr>
+                </thead>
+                <tbody>
+                {% for cartProduct in formCart.cartProducts  %}
+                    <tr class="cart-row">
+                        <td>
+                    {% if cartProduct.vars.data.offer.frontProductImage != null %}
+                            <img style="width: 150px" src="{{ asset('Uploads/ProductImages/' ~ cartProduct.vars.data.offer.frontProductImage.path ~ '') }}" alt="">
+                    {% else %}
+                        <img style="width: 150px" src="{{ asset('Images/DSC06750.JPG') }}" alt="">
+                    {% endif %}
+                        </td>
+                        <td>{{ cartProduct.vars.data.offer.product.name }}</td>
+                        <td>{{ form_widget(cartProduct.quantity) }}</td>
+                        <td>{{ cartProduct.vars.data.offer.retailPrice }}</td>
+                        <td>{{ cartProduct.vars.data.offer.retailPrice * cartProduct.vars.data.quantity }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        <button type="submit" id="edit-cart">Edit!</button>
+        {#{{ dump(formCart.vars.data) }}#}
+        {{ form_end(formCart) }}
+    </section>
+{% endblock %}

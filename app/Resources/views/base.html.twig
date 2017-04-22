@@ -24,6 +24,9 @@
                         <a href="{{ path('user_profile_show', {'id' : app.user.id}) }}">My profile</a>
                     </li>
                     <li>
+                        {#<a href="{{ path('show_current_cart', {}) }}">My Cart</a>#}
+                    </li>
+                    <li>
                         <a href="{{ path('security_logout') }}">Logout</a>
                     </li>
                 {% else %}
@@ -69,6 +72,7 @@
     <script src="{{ asset('js/Bootstrap/bootstrap-datepicker.min.js') }}"></script>
     <script src="{{ asset('js/CustomScripts/addRemovePriceProductForm.js') }}"></script>
     <script src="{{ asset('js/CustomScripts/addRemoveImageProductForm.js') }}"></script>
+    <script src="{{ asset('js/CustomScripts/removeProductFromCart.js') }}"></script>
 {% endblock %}
 </body>
 </html>
