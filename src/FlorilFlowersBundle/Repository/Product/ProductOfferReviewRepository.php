@@ -12,7 +12,7 @@ use FlorilFlowersBundle\Entity\Product\Product;
 use Doctrine\ORM\EntityRepository;
 use Faker\Provider\cs_CZ\DateTime;
 
-class ProductReviewRepository extends EntityRepository
+class ProductOfferReviewRepository extends EntityRepository
 {
     public function findAllRecentNotesForProduct(Product $product)
     {

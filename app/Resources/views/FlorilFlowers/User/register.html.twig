@@ -2,7 +2,7 @@
 {% block body %}
     <div class="container">
         <div class="row">
-            <div class="coll-md-8">
+            <section class="coll-md-8">
                 <h1>Register!</h1>
 
                 {#{% if error %}#}
@@ -24,7 +24,7 @@
                 {{ form_rest(formRegister) }}
                 <button type="submit" class="btn btn-success">Register <span class="fa fa-lock"></span></button>
                 {{ form_end(formRegister) }}
-            </div>
+            </section>
         </div>
     </div>
 {% endblock %}

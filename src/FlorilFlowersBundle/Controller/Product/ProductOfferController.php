@@ -8,6 +8,7 @@ use FlorilFlowersBundle\Entity\Product\ProductImage;
 use FlorilFlowersBundle\Entity\Product\ProductOffer;
 use FlorilFlowersBundle\Form\Product\ProductFormType;
 use FlorilFlowersBundle\Form\Product\ProductOfferFormType;
+use FlorilFlowersBundle\Form\Product\ProductOfferReviewFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -20,7 +21,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @Route("/admin/products")
+ * @Route("/products")
  */
 class ProductOfferController extends Controller
 {
@@ -33,7 +34,6 @@ class ProductOfferController extends Controller
      */
     public function newAction(Request $request)
     {
-//        $form = $this->createForm(ProductFormType::class);
         $form = $this->createForm(ProductOfferFormType::class);
 
 //        dump($form);exit;
@@ -215,12 +215,15 @@ class ProductOfferController extends Controller
                 foreach ($originalImages as $originalImage){
 
                     if(false === $productOffer->getProductImages()->contains($originalImage)){
+                        if($productOffer->getFrontProductImage() === $originalImage){
+                            $productOffer->setFrontProductImage(null);
+                        }
 //                        dump($originalImage);exit;
                         /**
                          * @var $originalImage ProductImage
                          */
                         $originalImage->setProductOffer(null);
-//                        $em->persist($originalImage);
+                        $em->persist($originalImage);
                         $em->remove($originalImage);
                     }
                 }
@@ -285,34 +288,40 @@ class ProductOfferController extends Controller
     }
 
     /**
-     * @Route("/products/{id}", name="product_show")
+     * @Route("/product/{id}", name="product_show")
      * @param $id
      * @return Response
      */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $product = $em->getRepository('FlorilFlowersBundle:Product\Product')->findOneBy(['id' => $id]);
+//        $product = $em->getRepository('FlorilFlowersBundle:Product\Product')->findOneBy(['id' => $id]);
+        $productOffer = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Product\ProductOffer')->find($id);
 
-        if(!$product){
-            throw $this->createNotFoundException('No product found!');
+        if(!$productOffer){
+//            throw $this->createNotFoundException('No product found!');
+            $this->addFlash('info', 'There is no such product!');
+            return $this->redirectToRoute('products_list');
         }
 
-        $recentNotes = $em->getRepository('FlorilFlowersBundle:Product\ProductReview')
-            ->findAllRecentNotesForProduct($product);
+        $reviewForm = $this->createForm(ProductOfferReviewFormType::class);
 
-        $funfact = "**CHECK** this! Change??? NEW";
-        $transformer = $this->get('app.markdown_transformer');
-        $funfact = $transformer->parse($funfact);
+//        $recentNotes = $em->getRepository('FlorilFlowersBundle:Product\ProductReview')
+//            ->findAllRecentNotesForProduct($product);
+
+//        $funfact = "**CHECK** this! Change??? NEW";
+//        $transformer = $this->get('app.markdown_transformer');
+//        $funfact = $transformer->parse($funfact);
 
 //        dump($product);die;
 
         return $this->render(':FlorilFlowers/Product:show.html.twig',
             [
-                'product'=> $product,
-                'reviews' => $product->getReviews(),
-                'recentNotes' => $recentNotes,
-                'funfact' => $funfact,
+                'productOffer'=> $productOffer,
+                'reviewForm' => $reviewForm->createView()
+//                'reviews' => $product->getReviews(),
+//                'recentNotes' => $recentNotes,
+//                'funfact' => $funfact,
             ]);
     }
 
@@ -326,8 +335,8 @@ class ProductOfferController extends Controller
         $products = $em->getRepository('FlorilFlowersBundle:Product\ProductOffer')->findAll();
 //        ->findOneBy(['id' => 2]);
 
-//        dump($products->getProduct()->getName());exit;
-
+//        dump($products);exit;
+//
         return $this->render(':FlorilFlowers/Product:list.html.twig', [
             'productsOffers' => $products,
         ]);

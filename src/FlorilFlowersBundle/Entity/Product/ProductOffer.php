@@ -70,7 +70,7 @@ class ProductOffer
      *      min = 0.01,
      *      minMessage = "The price amount must be at least {{ limit }}"
      * )
-     * @ORM\Column(type="decimal", precision=19, scale=5)
+     * @ORM\Column(type="decimal", precision=19, scale=2)
      */
     private $retailPrice;
 
@@ -83,6 +83,7 @@ class ProductOffer
 
     /**
      * @ORM\OneToMany(targetEntity="FlorilFlowersBundle\Entity\Product\ProductOfferReview", mappedBy="productOffer")
+     * @ORM\OrderBy({"createdOn" = "DESC"})
      * @var ProductOfferReview[]|ArrayCollection
      */
     private $productOfferReviews;
@@ -263,7 +264,7 @@ class ProductOffer
     }
 
     /**
-     * @return mixed
+     * @return ProductImage
      */
     public function getFrontProductImage()
     {

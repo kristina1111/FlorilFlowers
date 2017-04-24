@@ -1,28 +1,30 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <section>
+    <section class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-xs-12 current-cart-container">
         {{ form_start(formCart) }}
             <table class="cart-table">
                 <thead>
                 <tr>
-                    <td>Product image</td>
-                    <td>Product name:</td>
-                    <td>Product quantity:</td>
-                    <td>Price per product:</td>
-                    <td>Total price:</td>
-                    <td>Remove from cart:</td>
+                    <th>Product image</th>
+                    <th>Product name:</th>
+                    <th>Product quantity:</th>
+                    <th>Price per product:</th>
+                    <th>Total price:</th>
+                    <th>Remove from cart:</th>
                     {#<td>Total price</td>#}
                 </tr>
                 </thead>
                 <tbody>
                 {% for cartProduct in formCart.cartProducts  %}
                     <tr class="cart-row">
-                        <td>
+                        <td class="table-cell-img">
+                            <div class="img-content align-block">
                     {% if cartProduct.vars.data.offer.frontProductImage != null %}
-                            <img style="width: 150px" src="{{ asset('Uploads/ProductImages/' ~ cartProduct.vars.data.offer.frontProductImage.path ~ '') }}" alt="">
+                            <img src="{{ asset('Uploads/ProductImages/' ~ cartProduct.vars.data.offer.frontProductImage.path ~ '') }}" alt="">
                     {% else %}
-                        <img style="width: 150px" src="{{ asset('Images/DSC06750.JPG') }}" alt="">
+                        <img src="{{ asset('Images/DSC06750.JPG') }}" alt="">
                     {% endif %}
+                            </div>
                         </td>
                         <td>{{ cartProduct.vars.data.offer.product.name }}</td>
                         <td>{{ form_widget(cartProduct.quantity) }}</td>

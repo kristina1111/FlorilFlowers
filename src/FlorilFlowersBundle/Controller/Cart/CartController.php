@@ -104,7 +104,7 @@ class CartController extends Controller
 
 
     /**
-     * @Route("product/{id}/addtocart", name="product_add_to_cart")
+     * @Route("/product/{id}/addtocart", name="product_add_to_cart")
      * @Security("is_granted('ROLE_USER')")
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse

@@ -26,11 +26,11 @@ class ProductFormType extends AbstractType
 //                return $repository->createAlphabeticalQueryBuilder();
 //                }
             ])
-            ->add('subcategory', EntityType::class, [
-                'label' => 'Subcategory:',
-                'class' => 'FlorilFlowersBundle\Entity\Category\Subcategory',
-                'placeholder' => 'Choose subcategory',
-            ])
+//            ->add('subcategory', EntityType::class, [
+//                'label' => 'Subcategory:',
+//                'class' => 'FlorilFlowersBundle\Entity\Category\Subcategory',
+//                'placeholder' => 'Choose subcategory',
+//            ])
 //            ->add('unitMeasure')
             ->add('description', TextareaType::class, [
                 'label' => 'Product description:'

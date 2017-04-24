@@ -12,10 +12,12 @@ namespace FlorilFlowersBundle\Entity\Category;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use FlorilFlowersBundle\Entity\Product\Product;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="FlorilFlowersBundle\Repository\Category\CategoryRepository")
  * @ORM\Table(name="categories")
+ * @UniqueEntity(fields={"name"}, message="This category already exists!")
  */
 class Category
 {
@@ -27,7 +29,7 @@ class Category
     private $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", unique=true)
      */
     private $name;
 
@@ -37,16 +39,16 @@ class Category
      */
     private $products;
 
-    /**
-     * @ORM\OneToMany(targetEntity="FlorilFlowersBundle\Entity\Category\Subcategory", mappedBy="category")
-     * @var Subcategory[]|ArrayCollection
-     */
-    private $subcategories;
+//    /**
+//     * @ORM\OneToMany(targetEntity="FlorilFlowersBundle\Entity\Category\Subcategory", mappedBy="category")
+//     * @var Subcategory[]|ArrayCollection
+//     */
+//    private $subcategories;
 
     public function __construct()
     {
         $this->products = new ArrayCollection();
-        $this->subcategories = new ArrayCollection();
+//        $this->subcategories = new ArrayCollection();
     }
 
     /**
@@ -83,21 +85,21 @@ class Category
         return $this->products;
     }
 
-    /**
-     * @return ArrayCollection|Subcategory[]
-     */
-    public function getSubcategories()
-    {
-        return $this->subcategories;
-    }
-
-    /**
-     * @param ArrayCollection|Subcategory[] $subcategories
-     */
-    public function setSubcategories($subcategories)
-    {
-        $this->subcategories = $subcategories;
-    }
+//    /**
+//     * @return ArrayCollection|Subcategory[]
+//     */
+//    public function getSubcategories()
+//    {
+//        return $this->subcategories;
+//    }
+//
+//    /**
+//     * @param ArrayCollection|Subcategory[] $subcategories
+//     */
+//    public function setSubcategories($subcategories)
+//    {
+//        $this->subcategories = $subcategories;
+//    }
 
 
 

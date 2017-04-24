@@ -1,35 +1,57 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <h1>Show product: {{ product.name }}</h1>
+    <h1>{{ productOffer.product.name }}</h1>
     <div>
-        This {{ product.name }} is incredible. It's subcategory is {{ product.category.name }}.
-        It's quantity is {{ product.quantity }} {{ product.unitMeasure }}.
+        This {{ productOffer.product.name }} is incredible. It's Category is {{ productOffer.product.category.name }}.
+        {#It's quantity is {{ product.quantity }} {{ product.unitMeasure }}.#}
     </div>
-    {% for prod in product.category.products %}
-        <h1>{{ prod.name }}</h1>
-        {% endfor %}
+    <section>
+        {% if 'edit' in app.request.pathInfo %}
+            {{ form_start(reviewForm) }}
+        {% else %}
+            {{ form_start(reviewForm, {'action': path('create_review', {'id' : productOffer.id}), 'method': 'POST'}) }}
+        {% endif %}
+            <div>
+                {{ form_label(reviewForm.reviewText) }}
+            </div>
+            <div>
+                {{ form_widget(reviewForm.reviewText) }}
+            </div>
+    {% if 'edit' in app.request.pathInfo %}
+        <button type="submit">Edit review</button>
+        {% else %}
+        <button type="submit">Post review</button>
+            {% endif %}
+        {{ form_end(reviewForm) }}
 
+    </section>
     <div>
         <h2>Reviews:</h2>
-        <h3>Recent reviews count: {{ recentNotes|length }}</h3>
-        <h4>{{ funfact|markdownify}}</h4>
         <table>
             <thead>
-                <tr>
-                    <th>Username</th>
-                    <th>Review</th>
-                    <th>Date</th>
-                </tr>
+            <tr>
+                <th>Username</th>
+                <th>Review</th>
+                <th>Date</th>
+                <th></th>
+            </tr>
             </thead>
             <tbody>
-                {% for review in reviews %}
-                    <tr>
-                        <td>{{ review.user.nickname }}</td>
-                        <td>{{ review.review }}</td>
-                        <td>{{ review.createdAt|date('d M Y') }}</td>
-                    </tr>
-                {% endfor %}
-                <tr></tr>
+            {% for review in productOffer.productOfferReviews %}
+                <tr>
+                    <td>{{ review.user.nickname }}</td>
+                    <td>{{ review.reviewText }}</td>
+                    <td>{{ review.createdOn|date('d M Y, h:i') }}</td>
+                    <td>
+                {% if app.getUser() and (app.user.isAuthor(review) or is_granted(expression(
+                '"ROLE_EDITOR" in roles'
+                ))) %}
+                        <a href="{{ path('edit_review', {'idProduct' : productOffer.id, 'idReview' : review.id}) }}">Edit</a>
+                    {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            <tr></tr>
             </tbody>
         </table>
     </div>

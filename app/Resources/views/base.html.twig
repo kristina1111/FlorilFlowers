@@ -21,6 +21,9 @@
             <ul class="">
                 {% if app.user %}
                     <li>
+                        <a href="{{ path('products_list') }}">Products</a>
+                    </li>
+                    <li>
                         <a href="{{ path('user_profile_show', {'id' : app.user.id}) }}">My profile</a>
                     </li>
                     <li>
@@ -40,10 +43,7 @@
         <section class="navig">
                 <ul>
                     <li>
-                        <a href="{{ path('admin_categories_list') }}">Categories</a>
-                    </li>
-                    <li>
-                        <a href="">Products</a>
+                        <a href="{{ path('create_categories_list') }}">Categories</a>
                     </li>
                     {% if is_granted('ROLE_ADMIN') %}
                     <li>

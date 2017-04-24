@@ -5,7 +5,7 @@ namespace FlorilFlowersBundle\Entity\Product;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use FlorilFlowersBundle\Entity\Category\Category;
-use FlorilFlowersBundle\Entity\Category\Subcategory;
+//use FlorilFlowersBundle\Entity\Category\Subcategory;
 
 
 /**
@@ -34,13 +34,13 @@ class Product
      */
     private $category;
 
-    /**
-     * Many products has one subcategory
-     * @var Subcategory
-     * @ORM\ManyToOne(targetEntity="FlorilFlowersBundle\Entity\Category\Subcategory", inversedBy="products")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $subcategory;
+//    /**
+//     * Many products has one subcategory
+//     * @var Subcategory
+//     * @ORM\ManyToOne(targetEntity="FlorilFlowersBundle\Entity\Category\Subcategory", inversedBy="products")
+//     * @ORM\JoinColumn(nullable=false)
+//     */
+//    private $subcategory;
 
 //    /**
 //     * @ORM\Column(type="string")
@@ -54,14 +54,6 @@ class Product
 
 
     /**
-     * @ORM\OneToMany(targetEntity="FlorilFlowersBundle\Entity\Product\ProductReview", mappedBy="product")
-     * it's still only one relation in the DB but this allows another way to access the data on it
-     *
-     * @ORM\OrderBy({"createdAt" = "DESC"})
-     */
-    private $reviews;
-
-    /**
      * @ORM\OneToMany(targetEntity="FlorilFlowersBundle\Entity\Product\ProductOffer", mappedBy="product")
      * @var ProductOffer[]|ArrayCollection
      */
@@ -72,7 +64,6 @@ class Product
      */
     public function __construct()
     {
-        $this->reviews = new ArrayCollection();
         $this->productOffers = new ArrayCollection();
     }
 
@@ -134,13 +125,6 @@ class Product
         $this->description = $description;
     }
 
-    /**
-     * @return ArrayCollection|ProductReview[]
-     */
-    public function getReviews()
-    {
-        return $this->reviews;
-    }
 
     /**
      * @return Category
@@ -158,21 +142,21 @@ class Product
         $this->category = $category;
     }
 
-    /**
-     * @return Subcategory
-     */
-    public function getSubcategory()
-    {
-        return $this->subcategory;
-    }
-
-    /**
-     * @param Subcategory $subcategory
-     */
-    public function setSubcategory($subcategory)
-    {
-        $this->subcategory = $subcategory;
-    }
+//    /**
+//     * @return Subcategory
+//     */
+//    public function getSubcategory()
+//    {
+//        return $this->subcategory;
+//    }
+//
+//    /**
+//     * @param Subcategory $subcategory
+//     */
+//    public function setSubcategory($subcategory)
+//    {
+//        $this->subcategory = $subcategory;
+//    }
 
     /**
      * @return ArrayCollection|ProductOffer[]

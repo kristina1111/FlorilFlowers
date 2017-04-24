@@ -13,7 +13,7 @@ use FlorilFlowersBundle\Entity\User\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="FlorilFlowersBundle\Repository\Product\ProductOfferReviewRepository")
  * @ORM\Table(name="product_offer_reviews")
  */
 class ProductOfferReview

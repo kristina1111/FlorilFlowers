@@ -2,27 +2,32 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="72ef5500-8e48-4a62-b920-19ff26af9b49" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Cart/current.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/FlorilFlowersBundle/Controller/Cart/CartController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Cart/Cart.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Cart/CartProduct.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Cart/Order.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/FlorilFlowersBundle/Form/Cart/CartProductTypeForm.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/FlorilFlowersBundle/Form/Cart/CartTypeForm.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/FlorilFlowersBundle/Repository/Cart/CartProductRepository.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/FlorilFlowersBundle/Repository/Cart/CartRepository.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/js/CustomScripts/removeProductFromCart.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/FlorilFlowersBundle/Controller/Product/ProductOfferReviewController.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/FlorilFlowersBundle/Form/Category/CategoryFormType.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/FlorilFlowersBundle/Form/Product/ProductOfferReviewFormType.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Admin/Category/list.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Admin/Category/list.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Cart/current.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Cart/current.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Product/create.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Product/create.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Product/edit.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Product/edit.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Product/list.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Product/list.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Product/show.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Product/show.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/FlorilFlowers/User/register.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/FlorilFlowers/User/register.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/base.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/base.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/FlorilFlowersBundle/Controller/Admin/CategoryController.php" afterPath="$PROJECT_DIR$/src/FlorilFlowersBundle/Controller/Admin/CategoryController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/FlorilFlowersBundle/Controller/Cart/CartController.php" afterPath="$PROJECT_DIR$/src/FlorilFlowersBundle/Controller/Cart/CartController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/FlorilFlowersBundle/Controller/Product/ProductOfferController.php" afterPath="$PROJECT_DIR$/src/FlorilFlowersBundle/Controller/Product/ProductOfferController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Category/Category.php" afterPath="$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Category/Category.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Category/Subcategory.php" afterPath="$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Category/Subcategory.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Product/Product.php" afterPath="$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Product/Product.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Product/ProductOffer.php" afterPath="$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Product/ProductOffer.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Product/ProductPrice.php" afterPath="$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Product/ProductPrice.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/User/User.php" afterPath="$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/User/User.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/FlorilFlowersBundle/Form/Product/ProductOfferFormType.php" afterPath="$PROJECT_DIR$/src/FlorilFlowersBundle/Form/Product/ProductOfferFormType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/FlorilFlowersBundle/Form/Product/ProductPriceFormType.php" afterPath="$PROJECT_DIR$/src/FlorilFlowersBundle/Form/Product/ProductPriceFormType.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Product/ProductOfferReview.php" afterPath="$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Product/ProductOfferReview.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Product/ProductReview.php" afterPath="$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Product/ProductReview.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/FlorilFlowersBundle/Form/Product/ProductFormType.php" afterPath="$PROJECT_DIR$/src/FlorilFlowersBundle/Form/Product/ProductFormType.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/FlorilFlowersBundle/Repository/Category/Subcategory.php" afterPath="$PROJECT_DIR$/src/FlorilFlowersBundle/Repository/Category/Subcategory.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/css/custom_style.css" afterPath="$PROJECT_DIR$/web/css/custom_style.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/CustomScripts/removeProductFromCart.js" afterPath="$PROJECT_DIR$/web/js/CustomScripts/removeProductFromCart.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/FlorilFlowersBundle/Repository/Product/ProductReviewRepository.php" afterPath="$PROJECT_DIR$/src/FlorilFlowersBundle/Repository/Product/ProductOfferReviewRepository.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -41,94 +46,40 @@
     <option name="SHOW_TABLE_DETAILS" value="true" />
     <option name="SHOW_EMPTY_GROUPS" value="false" />
     <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
-    <PATH>
-      <PATH_ELEMENT>
-        <option name="myItemId" />
-        <option name="myItemType" value="com.intellij.database.view.DatabaseStructure$Root" />
-      </PATH_ELEMENT>
-      <PATH_ELEMENT>
-        <option name="myItemId" value="MySQL - buysellBlizzard@localhost" />
-        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
-      </PATH_ELEMENT>
-    </PATH>
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="current.html.twig" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Cart/current.html.twig">
+      <file leaf-file-name="list.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Category/list.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="19" column="28" lean-forward="true" selection-start-line="19" selection-start-column="28" selection-end-line="19" selection-end-column="28" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CartProductTypeForm.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Form/Cart/CartProductTypeForm.php">
+      <file leaf-file-name="list.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Admin/Category/list.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="15" column="19" lean-forward="false" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="27" />
+            <state relative-caret-position="34">
+              <caret line="2" column="10" lean-forward="true" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="40" />
               <folding>
-                <element signature="e#49#97#0#PHP" expanded="true" />
+                <element signature="e#1134#1149#0#Twig" expanded="true" />
+                <element signature="e#1234#1249#0#Twig" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CartTypeForm.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Form/Cart/CartTypeForm.php">
+      <file leaf-file-name="ProductOfferReviewFormType.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Form/Product/ProductOfferReviewFormType.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="18" column="27" lean-forward="false" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
+            <state relative-caret-position="-60">
+              <caret line="15" column="21" lean-forward="false" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
               <folding>
-                <element signature="e#49#90#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="removeProductFromCart.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/js/CustomScripts/removeProductFromCart.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="25" column="32" lean-forward="false" selection-start-line="25" selection-start-column="32" selection-end-line="25" selection-end-column="32" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="base.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Resources/views/base.html.twig">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="215">
-              <caret line="74" column="68" lean-forward="false" selection-start-line="74" selection-start-column="68" selection-end-line="74" selection-end-column="68" />
-              <folding>
-                <element signature="e#784#792#0#Twig" expanded="true" />
-                <element signature="e#1729#1750#0#Twig" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CartController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Controller/Cart/CartController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="98" column="9" lean-forward="true" selection-start-line="98" selection-start-column="9" selection-end-line="98" selection-end-column="9" />
-              <folding>
-                <element signature="e#55#103#0#PHP" expanded="true" />
-                <element signature="e#1107#1122#1#PHP" expanded="true" />
-                <element signature="e#1239#1270#1#PHP" expanded="true" />
-                <element signature="e#1588#1627#0#PHP" expanded="true" />
-                <element signature="e#2222#2237#1#PHP" expanded="true" />
-                <element signature="e#2354#2385#1#PHP" expanded="true" />
-                <element signature="e#3679#3703#1#PHP" expanded="true" />
-                <element signature="e#3817#3841#1#PHP" expanded="true" />
-                <element signature="e#4171#4213#1#PHP" expanded="true" />
-                <element signature="e#4466#4497#1#PHP" expanded="true" />
-                <element signature="e#5036#5074#1#PHP" expanded="true" />
+                <element signature="e#52#110#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -137,23 +88,45 @@
       <file leaf-file-name="ProductOfferController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Controller/Product/ProductOfferController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1836">
-              <caret line="99" column="12" lean-forward="false" selection-start-line="99" selection-start-column="12" selection-end-line="99" selection-end-column="59" />
+            <state relative-caret-position="161">
+              <caret line="317" column="8" lean-forward="true" selection-start-line="317" selection-start-column="8" selection-end-line="324" selection-end-column="15" />
               <folding>
                 <element signature="e#58#106#0#PHP" expanded="true" />
-                <element signature="e#13126#13165#0#PHP" expanded="true" />
+                <element signature="e#1927#1995#0#PHP" expanded="false" />
+                <element signature="e#3472#3567#0#PHP" expanded="false" />
+                <element signature="e#5794#5918#0#PHP" expanded="false" />
+                <element signature="e#7024#7150#0#PHP" expanded="false" />
+                <element signature="e#7867#7977#0#PHP" expanded="false" />
+                <element signature="e#11045#11140#0#PHP" expanded="false" />
+                <element signature="e#12200#12242#1#PHP" expanded="true" />
+                <element signature="e#12950#12989#0#PHP" expanded="true" />
+                <element signature="e#13536#13578#1#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ProductOffer.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Product/ProductOffer.php">
+      <file leaf-file-name="show.html.twig" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Product/show.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="14" column="54" lean-forward="false" selection-start-line="14" selection-start-column="54" selection-end-line="14" selection-end-column="54" />
+            <state relative-caret-position="130">
+              <caret line="43" column="58" lean-forward="false" selection-start-line="43" selection-start-column="58" selection-end-line="43" selection-end-column="58" />
               <folding>
-                <element signature="e#141#182#0#PHP" expanded="true" />
+                <element signature="e#1761#1772#0#Twig" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="base.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Resources/views/base.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="24" column="25" lean-forward="false" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
+              <folding>
+                <element signature="e#784#792#0#Twig" expanded="true" />
+                <element signature="e#1000#1013#0#Twig" expanded="true" />
+                <element signature="e#1855#1877#0#Twig" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -162,20 +135,53 @@
       <file leaf-file-name="ProductOfferFormType.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Form/Product/ProductOfferFormType.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="31" column="30" lean-forward="false" selection-start-line="31" selection-start-column="30" selection-end-line="31" selection-end-column="30" />
+            <state relative-caret-position="127">
+              <caret line="21" column="49" lean-forward="false" selection-start-line="21" selection-start-column="49" selection-end-line="21" selection-end-column="49" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="edit.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Product/edit.html.twig">
+      <file leaf-file-name="list.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Product/list.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="215">
-              <caret line="82" column="8" lean-forward="true" selection-start-line="82" selection-start-column="8" selection-end-line="82" selection-end-column="44" />
+            <state relative-caret-position="221">
+              <caret line="49" column="24" lean-forward="false" selection-start-line="49" selection-start-column="24" selection-end-line="51" selection-end-column="30" />
               <folding>
-                <element signature="e#12#26#0#Twig" expanded="false" />
+                <element signature="e#528#540#0#Twig" expanded="true" />
+                <element signature="e#857#869#0#Twig" expanded="true" />
+                <element signature="e#1233#1245#0#Twig" expanded="true" />
+                <marker date="1492977328401" expanded="false" signature="3782:3794" ph="/admin/products/products/{id}" />
+                <marker date="1492977328401" expanded="false" signature="4542:4554" ph="/admin/products/edit/{id}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="create.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Product/create.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1275">
+              <caret line="78" column="8" lean-forward="true" selection-start-line="78" selection-start-column="8" selection-end-line="78" selection-end-column="46" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProductOfferReviewController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Controller/Product/ProductOfferReviewController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="224">
+              <caret line="63" column="28" lean-forward="true" selection-start-line="63" selection-start-column="28" selection-end-line="63" selection-end-column="28" />
+              <folding>
+                <element signature="e#58#116#0#PHP" expanded="true" />
+                <element signature="e#734#776#1#PHP" expanded="true" />
+                <element signature="e#1570#1584#0#PHP" expanded="true" />
+                <element signature="e#1733#1747#0#PHP" expanded="true" />
+                <element signature="e#2141#2183#1#PHP" expanded="true" />
+                <element signature="e#2258#2306#1#PHP" expanded="true" />
+                <element signature="e#2766#2780#0#PHP" expanded="true" />
+                <element signature="e#2849#2888#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -193,9 +199,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>markdown</find>
-      <find>email</find>
-      <find>user</find>
       <find>UserRegistrationInfo</find>
       <find>USer</find>
       <find>Entity\Pro</find>
@@ -215,6 +218,17 @@
       <find>remove-tag</find>
       <find>$removeFormA</find>
       <find>public</find>
+      <find>subca</find>
+      <find>getprod</find>
+      <find>photo-cntnr</find>
+      <find>h</find>
+      <find>product-offer-container-small</find>
+      <find>create_categories_list</find>
+      <find>admin_categories_list</find>
+      <find>revi</find>
+      <find>product</find>
+      <find>createdOn</find>
+      <find>userna</find>
     </findStrings>
     <replaceStrings>
       <replace>User</replace>
@@ -228,28 +242,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Form/CurencyFormType.php" />
-        <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Form/Product/CurencyFormType.php" />
-        <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Form/Product/CurrencyFormType.php" />
-        <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Product/Currency.php" />
-        <option value="$PROJECT_DIR$/web/js/Bootstrap/bootstrap-datetimepicker.min.js" />
-        <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Controller/Product/ProductController.php" />
-        <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Form/Product/ProductFormType.php" />
-        <option value="$PROJECT_DIR$/web/css/custom_style.css" />
-        <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Repository/Product/ProductOfferRepository.php" />
-        <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Security/LoginFormAuthenticator.php" />
-        <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Controller/Admin/CategoryController.php" />
-        <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Product/Product.php" />
-        <option value="$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Admin/Category/list.html.twig" />
-        <option value="$PROJECT_DIR$/web/js/CustomScripts/addPriceToCreateProductForm.js" />
-        <option value="$PROJECT_DIR$/app/config/config.yml" />
-        <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Service/Upload/FileUploader.php" />
-        <option value="$PROJECT_DIR$/app/config/services.yml" />
-        <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Service/Upload/ImageUploader.php" />
-        <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Form/ProductImageFormType.php" />
-        <option value="$PROJECT_DIR$/web/js/CustomScripts/addRemoveImageFromProductForm.js" />
-        <option value="$PROJECT_DIR$/web/js/CustomScripts/addRemoveImageProductForm.js" />
-        <option value="$PROJECT_DIR$/web/js/CustomScripts/addRemovePriceProductForm.js" />
         <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Form/Product/ProductImageFormType.php" />
         <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Product/ProductImage.php" />
         <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/User/Role.php" />
@@ -258,7 +250,6 @@
         <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Cart/Order.php" />
         <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Cart/CartProducts.php" />
         <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Controller/CartController.php" />
-        <option value="$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Product/list.html.twig" />
         <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Cart/CartProduct.php" />
         <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Repository/Cart/CartProductRepository.php" />
         <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Repository/Cart/CartRepository.php" />
@@ -271,14 +262,37 @@
         <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Form/Product/ProductPriceFormType.php" />
         <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Product/ProductPrice.php" />
         <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Form/Product/ProductOfferFormType.php" />
-        <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Product/ProductOffer.php" />
+        <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Repository/Category/Subcategory.php" />
+        <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Form/Product/ProductFormType.php" />
+        <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Category/Subcategory.php" />
         <option value="$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Product/edit.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Product/create.html.twig" />
-        <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Controller/Product/ProductOfferController.php" />
-        <option value="$PROJECT_DIR$/app/Resources/views/base.html.twig" />
         <option value="$PROJECT_DIR$/web/js/CustomScripts/removeProductFromCart.js" />
+        <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Form/CategoryFormType.php" />
+        <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Form/Category/CategoryFormType.php" />
+        <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Category/Category.php" />
+        <option value="$PROJECT_DIR$/app/Resources/views/FlorilFlowers/User/register.html.twig" />
+        <option value="$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Admin/Category/create.html.twig" />
+        <option value="$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Admin/Category/list.html.twig" />
+        <option value="$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Product/list.html.twig" />
+        <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Form/ProductReviewFormType.php" />
+        <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Controller/ProductReviewController.php" />
         <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Controller/Cart/CartController.php" />
         <option value="$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Cart/current.html.twig" />
+        <option value="$PROJECT_DIR$/web/css/custom_style.css" />
+        <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Product/Product.php" />
+        <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Product/ProductReview.php" />
+        <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Form/Product/ProductReviewFormType.php" />
+        <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Product/ProductOffer.php" />
+        <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Controller/Admin/CategoryController.php" />
+        <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Repository/Product/ProductReviewRepository.php" />
+        <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Product/ProductOfferReview.php" />
+        <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Controller/Product/ProductReviewController.php" />
+        <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Controller/Product/ProductOfferController.php" />
+        <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Controller/Product/ProductOfferReviewController.php" />
+        <option value="$PROJECT_DIR$/src/FlorilFlowersBundle/Form/Product/ProductOfferReviewFormType.php" />
+        <option value="$PROJECT_DIR$/app/Resources/views/base.html.twig" />
+        <option value="$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Product/show.html.twig" />
       </list>
     </option>
   </component>
@@ -290,8 +304,8 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="60" />
-    <option name="y" value="15" />
+    <option name="x" value="44" />
+    <option name="y" value="38" />
     <option name="width" value="1306" />
     <option name="height" value="723" />
   </component>
@@ -711,6 +725,32 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="Category" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FlorilFlowers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FlorilFlowers" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FlorilFlowersBundle" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Form" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="Cart" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
@@ -1033,7 +1073,67 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="User" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FlorilFlowers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FlorilFlowers" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Resources" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FlorilFlowers" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="Product" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FlorilFlowers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FlorilFlowers" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Resources" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FlorilFlowers" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Category" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -1096,6 +1196,10 @@
               <option name="myItemId" value="Admin" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Category" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
@@ -1116,15 +1220,15 @@
     <property name="list.type.of.created.stylesheet" value="CSS" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\!!IT\FlorilFlowers\src\FlorilFlowersBundle\Form\Cart" />
-      <recent name="D:\!!IT\FlorilFlowers\src\FlorilFlowersBundle\Controller\Cart" />
-      <recent name="D:\!!IT\FlorilFlowers\src\FlorilFlowersBundle\Form\Product" />
-      <recent name="D:\!!IT\FlorilFlowers\src\FlorilFlowersBundle\Controller\Admin" />
-      <recent name="D:\!!IT\FlorilFlowers\src\FlorilFlowersBundle\Repository\Category" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\!!IT\FlorilFlowers\app\Resources\views\FlorilFlowers\Admin\Category" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\!!IT\FlorilFlowers\src\FlorilFlowersBundle\Controller\Product" />
+      <recent name="D:\!!IT\FlorilFlowers\src\FlorilFlowersBundle\Form\Product" />
+      <recent name="D:\!!IT\FlorilFlowers\src\FlorilFlowersBundle\Form\Category" />
+      <recent name="D:\!!IT\FlorilFlowers\src\FlorilFlowersBundle\Form\Cart" />
+      <recent name="D:\!!IT\FlorilFlowers\src\FlorilFlowersBundle\Controller\Cart" />
     </key>
   </component>
   <component name="RunManager">
@@ -1234,24 +1338,25 @@
       <workItem from="1492527762289" duration="7758000" />
       <workItem from="1492586710343" duration="31873000" />
       <workItem from="1492701200703" duration="13181000" />
-      <workItem from="1492757886607" duration="47705000" />
+      <workItem from="1492757886607" duration="50478000" />
+      <workItem from="1492950242308" duration="32606000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="350012000" />
+    <option name="totallyTimeSpent" value="385391000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="60" y="15" width="1306" height="723" extended-state="1" />
-    <editor active="false" />
+    <frame x="44" y="38" width="1306" height="723" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31861958" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26163724" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25945017" sideWeight="0.5120385" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19213313" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1918138" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26226735" sideWeight="0.48796147" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26226735" sideWeight="0.48796147" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1278,150 +1383,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Controller/Product/CategoryController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/css/custom_style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="36" lean-forward="false" selection-start-line="2" selection-start-column="36" selection-end-line="2" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/FlorilFlowers/index.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Controller/IndexController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="12" column="24" lean-forward="true" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Security/LoginFormAuthenticator.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="109" column="48" lean-forward="false" selection-start-line="109" selection-start-column="48" selection-end-line="109" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Category/list.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Controller/Admin/SubcategoryController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Category/Subcategory.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="43" column="18" lean-forward="false" selection-start-line="43" selection-start-column="18" selection-end-line="43" selection-end-column="18" />
-          <folding>
-            <element signature="e#6#91#0#PHP" expanded="false" />
-            <element signature="e#142#190#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Controller/Admin/CategoryController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="11" column="11" lean-forward="false" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="17" />
-          <folding>
-            <element signature="e#56#88#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Admin/Category/list.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="23" column="43" lean-forward="false" selection-start-line="23" selection-start-column="43" selection-end-line="23" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Category/Category.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="34" column="7" lean-forward="false" selection-start-line="34" selection-start-column="7" selection-end-line="34" selection-end-column="101" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Repository/Product/ProductOfferRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="8" column="46" lean-forward="false" selection-start-line="8" selection-start-column="46" selection-end-line="8" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/config/config.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="12" column="10" lean-forward="true" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/config/services.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="36" column="23" lean-forward="true" selection-start-line="36" selection-start-column="23" selection-end-line="36" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/js/CustomScripts/addRemovePriceProductForm.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="60" column="0" lean-forward="true" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/xampp/htdocs/!PHP-Fundamentals/10.MySQL_and_PHP/MakeFriendsSite/Service/Upload/UploadService.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="51" column="0" lean-forward="true" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Service/Upload/ImageUploader.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="25" column="33" lean-forward="false" selection-start-line="25" selection-start-column="33" selection-end-line="25" selection-end-column="33" />
-          <folding>
-            <element signature="e#6#91#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Product/ProductImage.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="35" column="7" lean-forward="false" selection-start-line="35" selection-start-column="7" selection-end-line="35" selection-end-column="89" />
-          <folding>
-            <element signature="e#6#91#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/User/Role.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -1434,17 +1395,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="18" column="30" lean-forward="false" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Controller/User/UserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-340">
-          <caret line="71" column="34" lean-forward="false" selection-start-line="71" selection-start-column="34" selection-end-line="71" selection-end-column="34" />
-          <folding>
-            <element signature="e#2967#2998#1#PHP" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1464,33 +1414,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/User/User.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="430" column="0" lean-forward="false" selection-start-line="430" selection-start-column="0" selection-end-line="430" selection-end-column="0" />
-          <folding>
-            <element signature="e#137#178#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Repository/Product/ProductReviewRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="25" column="5" lean-forward="true" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
-          <folding>
-            <element signature="e#6#90#0#PHP" expanded="false" />
-            <element signature="e#143#190#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Repository/Cart/CartProductRepository.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="25" column="24" lean-forward="false" selection-start-line="25" selection-start-column="24" selection-end-line="25" selection-end-column="24" />
           <folding>
-            <element signature="e#142#176#0#PHP" expanded="true" />
+            <element signature="e#142#176#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1500,7 +1429,7 @@
         <state relative-caret-position="68">
           <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding>
-            <element signature="e#142#176#0#PHP" expanded="true" />
+            <element signature="e#142#176#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1521,36 +1450,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Form/Product/ProductImageFormType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="23" column="31" lean-forward="false" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Form/Product/ProductFormType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="20" column="32" lean-forward="true" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Product/Product.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="67" column="22" lean-forward="true" selection-start-line="67" selection-start-column="22" selection-end-line="67" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Cart/Cart.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="92">
           <caret line="78" column="25" lean-forward="true" selection-start-line="78" selection-start-column="25" selection-end-line="78" selection-end-column="25" />
           <folding>
-            <element signature="e#138#186#0#PHP" expanded="true" />
+            <element signature="e#138#186#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1560,7 +1465,7 @@
         <state relative-caret-position="85">
           <caret line="31" column="16" lean-forward="false" selection-start-line="31" selection-start-column="16" selection-end-line="31" selection-end-column="16" />
           <folding>
-            <element signature="e#138#170#0#PHP" expanded="true" />
+            <element signature="e#138#170#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1589,80 +1494,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Product/ProductOfferReview.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Product/create.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="77" column="14" lean-forward="false" selection-start-line="77" selection-start-column="14" selection-end-line="77" selection-end-column="14" />
-          <folding>
-            <element signature="e#12#26#0#Twig" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Product/list.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="60" lean-forward="true" selection-start-line="10" selection-start-column="60" selection-end-line="10" selection-end-column="81" />
-          <folding>
-            <element signature="e#1457#1476#0#Twig" expanded="true" />
-            <element signature="e#2196#2208#0#Twig" expanded="true" />
-            <element signature="e#3607#3619#0#Twig" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Product/edit.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="82" column="8" lean-forward="true" selection-start-line="82" selection-start-column="8" selection-end-line="82" selection-end-column="44" />
-          <folding>
-            <element signature="e#12#26#0#Twig" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Form/Product/ProductOfferFormType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="31" column="30" lean-forward="false" selection-start-line="31" selection-start-column="30" selection-end-line="31" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Product/ProductOffer.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="14" column="54" lean-forward="false" selection-start-line="14" selection-start-column="54" selection-end-line="14" selection-end-column="54" />
-          <folding>
-            <element signature="e#141#182#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/js/CustomScripts/addRemoveImageProductForm.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="935">
           <caret line="57" column="28" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/base.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="74" column="68" lean-forward="false" selection-start-line="74" selection-start-column="68" selection-end-line="74" selection-end-column="68" />
-          <folding>
-            <element signature="e#784#792#0#Twig" expanded="true" />
-            <element signature="e#1729#1750#0#Twig" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1671,27 +1506,8 @@
         <state relative-caret-position="187">
           <caret line="15" column="19" lean-forward="false" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="27" />
           <folding>
-            <element signature="e#49#97#0#PHP" expanded="true" />
+            <element signature="e#49#97#0#PHP" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Controller/Product/ProductOfferController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1836">
-          <caret line="99" column="12" lean-forward="false" selection-start-line="99" selection-start-column="12" selection-end-line="99" selection-end-column="59" />
-          <folding>
-            <element signature="e#58#106#0#PHP" expanded="true" />
-            <element signature="e#13126#13165#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/js/CustomScripts/removeProductFromCart.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="25" column="32" lean-forward="false" selection-start-line="25" selection-start-column="32" selection-end-line="25" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1700,36 +1516,342 @@
         <state relative-caret-position="195">
           <caret line="18" column="27" lean-forward="false" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
           <folding>
-            <element signature="e#49#90#0#PHP" expanded="true" />
+            <element signature="e#49#90#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Repository/Category/Subcategory.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="16" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Category/Subcategory.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="31" column="20" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="111" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Controller/Admin/SubcategoryController.php" />
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Product/edit.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-952">
+          <caret line="13" column="8" lean-forward="false" selection-start-line="13" selection-start-column="10" selection-end-line="16" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../SoftUni-SoftwareTechnologies-projects/petbook/public/stylesheets/custom_k.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="647" column="24" lean-forward="true" selection-start-line="647" selection-start-column="24" selection-end-line="647" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/js/CustomScripts/removeProductFromCart.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="24" column="18" lean-forward="false" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Form/Category/CategoryFormType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="17" column="15" lean-forward="false" selection-start-line="17" selection-start-column="15" selection-end-line="17" selection-end-column="15" />
+          <folding>
+            <element signature="e#53#102#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/FlorilFlowers/User/register.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="20" lean-forward="false" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
+          <folding>
+            <element signature="e#12#26#0#Twig" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Admin/Category/create.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="8" lean-forward="false" selection-start-line="3" selection-start-column="8" selection-end-line="10" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Controller/User/UserController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="110" column="31" lean-forward="true" selection-start-line="110" selection-start-column="31" selection-end-line="110" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Category/Category.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="30" column="7" lean-forward="true" selection-start-line="30" selection-start-column="7" selection-end-line="30" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/css/custom_style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="109" column="19" lean-forward="true" selection-start-line="109" selection-start-column="19" selection-end-line="109" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Cart/current.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="19" column="35" lean-forward="true" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Product/ProductReview.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="9" column="39" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="120" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Product/ProductImage.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="35" column="7" lean-forward="false" selection-start-line="35" selection-start-column="7" selection-end-line="35" selection-end-column="89" />
+          <folding>
+            <element signature="e#141#189#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Product/Product.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1122">
+          <caret line="66" column="53" lean-forward="true" selection-start-line="66" selection-start-column="53" selection-end-line="66" selection-end-column="53" />
+          <folding>
+            <element signature="e#54#102#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Controller/Product/CategoryController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Form/Product/ProductImageFormType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="31" lean-forward="false" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="31" />
+          <folding>
+            <element signature="e#52#104#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Form/Product/ProductFormType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="28" column="14" lean-forward="false" selection-start-line="28" selection-start-column="14" selection-end-line="32" selection-end-column="16" />
+          <folding>
+            <element signature="e#52#115#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Product/ProductOffer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="17" column="82" lean-forward="false" selection-start-line="17" selection-start-column="82" selection-end-line="17" selection-end-column="82" />
+          <folding>
+            <element signature="e#141#182#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Controller/Cart/CartController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="98" column="9" lean-forward="true" selection-start-line="98" selection-start-column="9" selection-end-line="98" selection-end-column="9" />
+        <state relative-caret-position="1629">
+          <caret line="106" column="16" lean-forward="false" selection-start-line="106" selection-start-column="16" selection-end-line="106" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/Product/ProductOfferReview.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="15" column="99" lean-forward="false" selection-start-line="15" selection-start-column="99" selection-end-line="15" selection-end-column="99" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Controller/Admin/CategoryController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="77" column="30" lean-forward="true" selection-start-line="77" selection-start-column="30" selection-end-line="77" selection-end-column="30" />
           <folding>
-            <element signature="e#55#103#0#PHP" expanded="true" />
-            <element signature="e#1107#1122#1#PHP" expanded="true" />
-            <element signature="e#1239#1270#1#PHP" expanded="true" />
-            <element signature="e#1588#1627#0#PHP" expanded="true" />
-            <element signature="e#2222#2237#1#PHP" expanded="true" />
-            <element signature="e#2354#2385#1#PHP" expanded="true" />
-            <element signature="e#3679#3703#1#PHP" expanded="true" />
-            <element signature="e#3817#3841#1#PHP" expanded="true" />
-            <element signature="e#4171#4213#1#PHP" expanded="true" />
-            <element signature="e#4466#4497#1#PHP" expanded="true" />
-            <element signature="e#5036#5074#1#PHP" expanded="true" />
+            <element signature="e#56#88#0#PHP" expanded="true" />
+            <element signature="e#1473#1497#1#PHP" expanded="true" />
+            <element signature="e#1540#1585#0#PHP" expanded="true" />
+            <element signature="e#2345#2369#1#PHP" expanded="true" />
+            <element signature="e#2803#2827#1#PHP" expanded="true" />
+            <element signature="e#2870#2915#0#PHP" expanded="true" />
+            <element signature="e#3634#3649#1#PHP" expanded="true" />
+            <element signature="e#3941#3965#1#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Cart/current.html.twig">
+    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Entity/User/User.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="19" column="28" lean-forward="true" selection-start-line="19" selection-start-column="28" selection-end-line="19" selection-end-column="28" />
+        <state relative-caret-position="117">
+          <caret line="332" column="29" lean-forward="false" selection-start-line="332" selection-start-column="23" selection-end-line="332" selection-end-column="29" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Repository/Product/ProductOfferReviewRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="14" column="18" lean-forward="false" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
+          <folding>
+            <element signature="e#143#190#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Controller/Product/ProductOfferController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="317" column="8" lean-forward="true" selection-start-line="317" selection-start-column="8" selection-end-line="324" selection-end-column="15" />
+          <folding>
+            <element signature="e#58#106#0#PHP" expanded="true" />
+            <element signature="e#1927#1995#0#PHP" expanded="false" />
+            <element signature="e#3472#3567#0#PHP" expanded="false" />
+            <element signature="e#5794#5918#0#PHP" expanded="false" />
+            <element signature="e#7024#7150#0#PHP" expanded="false" />
+            <element signature="e#7867#7977#0#PHP" expanded="false" />
+            <element signature="e#11045#11140#0#PHP" expanded="false" />
+            <element signature="e#12200#12242#1#PHP" expanded="true" />
+            <element signature="e#12950#12989#0#PHP" expanded="true" />
+            <element signature="e#13536#13578#1#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Category/list.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Controller/Product/ProductOfferReviewController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="63" column="28" lean-forward="true" selection-start-line="63" selection-start-column="28" selection-end-line="63" selection-end-column="28" />
+          <folding>
+            <element signature="e#58#116#0#PHP" expanded="true" />
+            <element signature="e#734#776#1#PHP" expanded="true" />
+            <element signature="e#1570#1584#0#PHP" expanded="true" />
+            <element signature="e#1733#1747#0#PHP" expanded="true" />
+            <element signature="e#2141#2183#1#PHP" expanded="true" />
+            <element signature="e#2258#2306#1#PHP" expanded="true" />
+            <element signature="e#2766#2780#0#PHP" expanded="true" />
+            <element signature="e#2849#2888#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Admin/Category/list.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="10" lean-forward="true" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="40" />
+          <folding>
+            <element signature="e#1134#1149#0#Twig" expanded="true" />
+            <element signature="e#1234#1249#0#Twig" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Product/create.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1275">
+          <caret line="78" column="8" lean-forward="true" selection-start-line="78" selection-start-column="8" selection-end-line="78" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Form/Product/ProductOfferFormType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="127">
+          <caret line="21" column="49" lean-forward="false" selection-start-line="21" selection-start-column="49" selection-end-line="21" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/FlorilFlowersBundle/Form/Product/ProductOfferReviewFormType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-60">
+          <caret line="15" column="21" lean-forward="false" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
+          <folding>
+            <element signature="e#52#110#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/base.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="24" column="25" lean-forward="false" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
+          <folding>
+            <element signature="e#784#792#0#Twig" expanded="true" />
+            <element signature="e#1000#1013#0#Twig" expanded="true" />
+            <element signature="e#1855#1877#0#Twig" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Product/list.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="49" column="24" lean-forward="false" selection-start-line="49" selection-start-column="24" selection-end-line="51" selection-end-column="30" />
+          <folding>
+            <element signature="e#528#540#0#Twig" expanded="true" />
+            <element signature="e#857#869#0#Twig" expanded="true" />
+            <element signature="e#1233#1245#0#Twig" expanded="true" />
+            <marker date="1492977328401" expanded="false" signature="3782:3794" ph="/admin/products/products/{id}" />
+            <marker date="1492977328401" expanded="false" signature="4542:4554" ph="/admin/products/edit/{id}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/FlorilFlowers/Product/show.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="43" column="58" lean-forward="false" selection-start-line="43" selection-start-column="58" selection-end-line="43" selection-end-column="58" />
+          <folding>
+            <element signature="e#1761#1772#0#Twig" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -8,16 +8,16 @@ $(document).ready(function() {
 
     // add a delete link to all of the existing rows with products
     $collectionHolder.find('tr.cart-row').each(function() {
-        addImageFormDeleteLink($(this));
+        editProductFormDeleteLink($(this));
     });
 
 });
 
-function addImageFormDeleteLink($productFormCart) {
-    var $removeImageFormA = $('<td><a href="#">Remove this product</a></td>');
-    $productFormCart.append($removeImageFormA);
+function editProductFormDeleteLink($productFormCart) {
+    var $removeProductFormCart = $('<td><a href="#">Remove this product</a></td>');
+    $productFormCart.append($removeProductFormCart);
 
-    $removeImageFormA.on('click', function(e) {
+    $removeProductFormCart.on('click', function(e) {
         // prevent the link from creating a "#" on the URL
         e.preventDefault();
 

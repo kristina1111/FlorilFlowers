@@ -1,6 +1,25 @@
 {% extends 'base.html.twig' %}
 {% block body %}
+    {% if 'edit' in app.request.pathInfo %}
+        <h1>Edit this category:</h1>
+    {% else %}
+        <h1>Create new category here: </h1>
+    {% endif %}
     <section class="">
+        {{ form_start(form) }}
+        {{ form_errors(form.name) }}
+        {{ form_label(form.name) }}
+        {{ form_widget(form.name) }}
+    {% if 'edit' in app.request.pathInfo %}
+        <button type="submit">Edit category!</button>
+    {% else %}
+        <button type="submit">Create category!</button>
+    {% endif %}
+        {{ form_end(form) }}
+    </section>
+<hr>
+    <section class="">
+
         <h1>All Categories</h1>
         <article class="">
             <table>
@@ -15,25 +34,28 @@
                 {% for category in categories %}
                 <tr class="table-row-light">
                     <td><a href="">{{ category.name }}</a></td>
-                    <td><a href="">Edit</a></td>
-                    <td><a href="">Delete</a></td>
+                    <td><a href="{{ path('categories_edit', {'id' : category.id}) }}">Edit</a></td>
+                    <td><a href="{{ path('delete_category', {'id' : category.id}) }}">Delete</a></td>
                 </tr>
-                    {% for subcategory in category.subcategories %}
-                        <tr class="table-row-dark">
-                            <td><a href="">{{ subcategory.name }}</a></td>
-                            <td><a href="">Edit</a></td>
-                            <td><a href="">Delete</a></td>
-                        </tr>
-                        {% for product in subcategory.products %}
-                            {% for productOffer in product.productOffers %}
-                                <tr class="table-row-light">
-                                    <td>{{ productOffer.product.name }}</td>
-                                    <td>{{ productOffer.product.description }}</td>
-                                    <td>{{ productOffer.description }}</td>
-                                </tr>
-                            {% endfor %}
-                        {% endfor %}
+                    {% for product in category.products %}
+                        
                     {% endfor %}
+                    {#{% for subcategory in category.subcategories %}#}
+                        {#<tr class="table-row-dark">#}
+                            {#<td><a href="">{{ subcategory.name }}</a></td>#}
+                            {#<td><a href="">Edit</a></td>#}
+                            {#<td><a href="">Delete</a></td>#}
+                        {#</tr>#}
+                        {#{% for product in subcategory.products %}#}
+                            {#{% for productOffer in product.productOffers %}#}
+                                {#<tr class="table-row-light">#}
+                                    {#<td>{{ productOffer.product.name }}</td>#}
+                                    {#<td>{{ productOffer.product.description }}</td>#}
+                                    {#<td>{{ productOffer.description }}</td>#}
+                                {#</tr>#}
+                            {#{% endfor %}#}
+                        {#{% endfor %}#}
+                    {#{% endfor %}#}
                 {% endfor %}
                 </tbody>
             </table>
