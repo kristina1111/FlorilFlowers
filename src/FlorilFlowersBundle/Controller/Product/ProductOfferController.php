@@ -277,14 +277,35 @@ class ProductOfferController extends Controller
                 $em->flush();
 
                 $this->addFlash('info', 'You just edited a product!');
-                return $this->redirectToRoute('products_list');
+                return $this->redirectToRoute('create_categories_list');
             }
 
             return $this->render(':FlorilFlowers/Product:edit.html.twig', ['productForm' => $form->createView()]);
         }
 
         $this->addFlash('info', 'There is no such product!');
-        return $this->redirectToRoute('products_list');
+        return $this->redirectToRoute('create_categories_list');
+    }
+
+    /**
+     * @Route("/delete/{id}", name="delete_productOffer")
+     * @Security("is_granted('ROLE_USER')")
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteProductOfferAction($id)
+    {
+        $productOffer = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Product\ProductOffer')->find($id);
+        if(!$productOffer){
+            $this->addFlash('info', 'There are no such product');
+            return $this->redirectToRoute('create_categories_list');
+        }
+        $em = $this->getDoctrine()->getManager();
+        $productOffer->setDeletedOn(new \DateTime());
+        $em->persist($productOffer);
+        $em->flush();
+        $this->addFlash('success', 'You successfully deleted product '. $productOffer->getProduct()->getName() . ' from the database');
+        return $this->redirectToRoute('create_categories_list');
     }
 
     /**

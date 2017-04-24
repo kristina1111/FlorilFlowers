@@ -10,55 +10,116 @@
         {{ form_errors(form.name) }}
         {{ form_label(form.name) }}
         {{ form_widget(form.name) }}
-    {% if 'edit' in app.request.pathInfo %}
-        <button type="submit">Edit category!</button>
-    {% else %}
-        <button type="submit">Create category!</button>
-    {% endif %}
+        {% if 'edit' in app.request.pathInfo %}
+            <button type="submit">Edit category!</button>
+        {% else %}
+            <button type="submit">Create category!</button>
+        {% endif %}
         {{ form_end(form) }}
     </section>
-<hr>
+    <hr>
     <section class="">
 
         <h1>All Categories</h1>
-        <article class="">
-            <table>
-                <thead>
-                <tr>
-                    <th>Category name</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for category in categories %}
-                <tr class="table-row-light">
-                    <td><a href="">{{ category.name }}</a></td>
-                    <td><a href="{{ path('categories_edit', {'id' : category.id}) }}">Edit</a></td>
-                    <td><a href="{{ path('delete_category', {'id' : category.id}) }}">Delete</a></td>
-                </tr>
-                    {% for product in category.products %}
-                        
-                    {% endfor %}
-                    {#{% for subcategory in category.subcategories %}#}
-                        {#<tr class="table-row-dark">#}
-                            {#<td><a href="">{{ subcategory.name }}</a></td>#}
-                            {#<td><a href="">Edit</a></td>#}
-                            {#<td><a href="">Delete</a></td>#}
-                        {#</tr>#}
-                        {#{% for product in subcategory.products %}#}
-                            {#{% for productOffer in product.productOffers %}#}
-                                {#<tr class="table-row-light">#}
-                                    {#<td>{{ productOffer.product.name }}</td>#}
-                                    {#<td>{{ productOffer.product.description }}</td>#}
-                                    {#<td>{{ productOffer.description }}</td>#}
-                                {#</tr>#}
-                            {#{% endfor %}#}
-                        {#{% endfor %}#}
+        {% for category in categories %}
+            <article class="col-lg-10 col-md-10 col-sm-12 col-xs-12 current-cart-container">
+                <h2>{{ category.name }}</h2>
+                <a href="{{ path('categories_edit', {'id' : category.id}) }}">Edit</a>
+                <a href="{{ path('delete_category', {'id' : category.id}) }}">Delete</a>
+                {% if category.products|length == 0 %}
+                    <p>There are no products in this category</p>
+                {% else %}
+                    <table class="products-table">
+                        <thead>
+                        <tr>
+                            <th>Product image</th>
+                            <th>Product name</th>
+                            <th>Product category</th>
+                            <th>Product quantity</th>
+                            <th>Product price</th>
+                            <th>Product owner</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for product in category.products %}
+                            {% for productOffer in product.productOffers %}
+                                {% if productOffer.deletedOn == null %}
+                                    <tr class="products-table-row">
+                                        <td class="products-table-cell-img">
+                                            <div class="img-content align-block">
+                                                {% if productOffer.frontProductImage != null %}
+                                                    <img src="{{ asset('Uploads/ProductImages/' ~ productOffer.frontProductImage.path ~ '') }}"
+                                                         alt="">
+                                                {% else %}
+                                                    <img src="{{ asset('Images/DSC06750.JPG') }}" alt="">
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                        <td>{{ productOffer.product.name }}</td>
+                                        <td>{{ productOffer.product.category }}</td>
+                                        <td>{{ productOffer.quantityForSale }}</td>
+                                        <td>{{ productOffer.retailPrice }}</td>
+                                        <td>
+                                            {% if is_granted(expression('"ROLE_EDITOR" in roles')) %}
+                                                FlorilFlowers
+                                            {% else %}
+                                                {{ productOffer.user.nickname }}
+                                            {% endif %}
+                                        </td>
+                                        <td><a href="{{ path('edit_product',{'id' : productOffer.id}) }}">Edit</a></td>
+                                        <td><a href="{{ path('delete_productOffer', {'id' : productOffer.id}) }}">Delete</a></td>
+                                    </tr>
+                                {% endif %}
+
+                            {% endfor %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            </article>
+        {% endfor %}
+
+
+        {#<article class="">#}
+            {#<table>#}
+                {#<thead>#}
+                {#<tr>#}
+                    {#<th>Category name</th>#}
+                    {#<th>Edit</th>#}
+                    {#<th>Delete</th>#}
+                {#</tr>#}
+                {#</thead>#}
+                {#<tbody>#}
+                {#{% for category in categories %}#}
+                    {#<tr class="table-row-light">#}
+                        {#<td><a href="">{{ category.name }}</a></td>#}
+                        {#<td><a href="{{ path('categories_edit', {'id' : category.id}) }}">Edit</a></td>#}
+                        {#<td><a href="{{ path('delete_category', {'id' : category.id}) }}">Delete</a></td>#}
+                    {#</tr>#}
+                    {#{% for product in category.products %}#}
+
                     {#{% endfor %}#}
-                {% endfor %}
-                </tbody>
-            </table>
-        </article>
+                    {#{% for subcategory in category.subcategories %}#}
+                    {#<tr class="table-row-dark">#}
+                    {#<td><a href="">{{ subcategory.name }}</a></td>#}
+                    {#<td><a href="">Edit</a></td>#}
+                    {#<td><a href="">Delete</a></td>#}
+                    {#</tr>#}
+                    {#{% for product in subcategory.products %}#}
+                    {#{% for productOffer in product.productOffers %}#}
+                    {#<tr class="table-row-light">#}
+                    {#<td>{{ productOffer.product.name }}</td>#}
+                    {#<td>{{ productOffer.product.description }}</td>#}
+                    {#<td>{{ productOffer.description }}</td>#}
+                    {#</tr>#}
+                    {#{% endfor %}#}
+                    {#{% endfor %}#}
+                    {#{% endfor %}#}
+                {#{% endfor %}#}
+                {#</tbody>#}
+            {#</table>#}
+        {#</article>#}
     </section>
 {% endblock %}

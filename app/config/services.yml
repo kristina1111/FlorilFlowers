@@ -37,3 +37,9 @@ services:
     app.image_uploader:
         class: FlorilFlowersBundle\Service\Upload\ImageUploader
         arguments: ['%image_directory%']
+
+    app.database_globals_extension:
+        class: FlorilFlowersBundle\Twig\Extension\DatabaseGlobalsExtension
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: twig.extension }

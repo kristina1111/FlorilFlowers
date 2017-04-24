@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use FlorilFlowersBundle\Entity\Cart\Cart;
 use FlorilFlowersBundle\Entity\Cart\CartProduct;
+use FlorilFlowersBundle\Entity\Product\ProductOffer;
 use FlorilFlowersBundle\Entity\User\User;
 use FlorilFlowersBundle\Form\Cart\CartTypeForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -17,14 +18,15 @@ use Symfony\Component\HttpFoundation\Request;
 class CartController extends Controller
 {
     /**
-     * @Route("/user/cart", name="show_edit_current_cart")
+     * @Route("/user/{id}/cart", name="show_edit_current_cart")
      * @Method("GET")
      * @Security("is_granted('ROLE_USER')")
+     * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function showEditCartAction()
+    public function showEditCartAction($id)
     {
-        $user = $this->getUser();
+        $user = $this->getDoctrine()->getRepository('FlorilFlowersBundle:User\User')->find($id);
         if(!$user){
             $this->addFlash('info', 'You cannot see this cart!');
             return $this->redirectToRoute('products_list');
@@ -45,15 +47,16 @@ class CartController extends Controller
     }
 
     /**
-     * @Route("/user/cart", name="show_edit_current_cart_process")
+     * @Route("/user/{id}/cart", name="show_edit_current_cart_process")
      * @Method("POST")
      * @Security("is_granted('ROLE_USER')")
+     * @param $id
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function showEditCartActionProcess(Request $request)
+    public function showEditCartActionProcess($id, Request $request)
     {
-        $user = $this->getUser();
+        $user = $this->getDoctrine()->getRepository('FlorilFlowersBundle:User\User')->find($id);
         if(!$user){
             $this->addFlash('info', 'You cannot see this cart!');
             return $this->redirectToRoute('products_list');
@@ -70,6 +73,9 @@ class CartController extends Controller
         $cart = $cart[0];
 
 //        this is necessary for the removal of products from the cart
+        /**
+         * @var CartProduct[]|ArrayCollection
+         */
         $originalProducts = new ArrayCollection();
         foreach ($cart->getCartProducts() as $product){
             $originalProducts->add($product);
@@ -82,8 +88,15 @@ class CartController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             foreach ($originalProducts as $originalProduct){
+                /**
+                 * @var CartProduct $originalProduct
+                 */
                 if(false === $cart->getCartProducts()->contains($originalProduct)){
                     $em->remove($originalProduct);
+
+                    // for updating product available quantities after deleting a product form cart
+                    $num = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Cart\CartProduct')->findByCartAndProductOffer($cart, $originalProduct->getOffer())[0]->getQuantity();
+                    $originalProduct->getOffer()->increaseQuantityForSale($num);
                 }
             }
 
@@ -95,11 +108,15 @@ class CartController extends Controller
             $em->flush();
 
             $this->addFlash('info', 'You just edited your cart!');
-            return $this->redirectToRoute('show_edit_current_cart');
+            return $this->redirectToRoute('show_edit_current_cart', array(
+                'id' => $user->getId()
+            ));
         }
 
         $this->addFlash('info', 'You entered invalid data!');
-        return $this->redirectToRoute('show_edit_current_cart');
+        return $this->redirectToRoute('show_edit_current_cart', array(
+            'id' => $this->getUser()->getId()
+        ));
     }
 
 
@@ -111,6 +128,9 @@ class CartController extends Controller
      */
     public function addToCartAction($id)
     {
+        /**
+         * @var ProductOffer $productOffer
+         */
         $productOffer = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Product\ProductOffer')->find($id);
         if($productOffer){
             $em = $this->getDoctrine()->getManager();
@@ -141,7 +161,11 @@ class CartController extends Controller
                 $cartProduct->setQuantity(1);
                 $cartProduct->setCart($cart);
 
+                // for decreasing available quantity for sale of the addet to cart product
+                $productOffer->decreaseQuantityForSale(1);
+
                 $em->persist($cartProduct);
+                $em->persist($productOffer);
 
                 $cart->getCartProducts()->add($cartProduct);
                 $em->persist($cart);

@@ -24,10 +24,18 @@
                         <a href="{{ path('products_list') }}">Products</a>
                     </li>
                     <li>
+                        <div class="dropdown">Categories</div>
+                        <ul class="dropdown-categories">
+                            {% for category in categories  %}
+                                <li><a href="{{ path('show_all_in_category', {'id' : category.id}) }}">{{ category.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li>
                         <a href="{{ path('user_profile_show', {'id' : app.user.id}) }}">My profile</a>
                     </li>
                     <li>
-                        {#<a href="{{ path('show_current_cart', {}) }}">My Cart</a>#}
+                        <a href="{{ path('show_edit_current_cart', {'id' : app.user.id}) }}">My cart</a>
                     </li>
                     <li>
                         <a href="{{ path('security_logout') }}">Logout</a>
@@ -43,7 +51,7 @@
         <section class="navig">
                 <ul>
                     <li>
-                        <a href="{{ path('create_categories_list') }}">Categories</a>
+                        <a href="{{ path('create_categories_list') }}">Categories & Products</a>
                     </li>
                     {% if is_granted('ROLE_ADMIN') %}
                     <li>
@@ -70,6 +78,7 @@
     <script src="{{ asset('js/moment.min.js') }}"></script>
     <script src="{{ asset('js/Bootstrap/bootstrap.js') }}"></script>
     <script src="{{ asset('js/Bootstrap/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('js/CustomScripts/dropdownMenu.js') }}"></script>
     <script src="{{ asset('js/CustomScripts/addRemovePriceProductForm.js') }}"></script>
     <script src="{{ asset('js/CustomScripts/addRemoveImageProductForm.js') }}"></script>
     <script src="{{ asset('js/CustomScripts/removeProductFromCart.js') }}"></script>

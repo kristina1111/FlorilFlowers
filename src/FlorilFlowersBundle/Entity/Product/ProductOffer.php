@@ -28,7 +28,7 @@ class ProductOffer
     private $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $description;
 
@@ -36,6 +36,11 @@ class ProductOffer
      * @ORM\Column(type="datetime")
      */
     private $createdOn;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $deletedOn;
 
     /**
      * @ORM\Column(type="integer")
@@ -170,6 +175,20 @@ class ProductOffer
     public function setQuantityForSale($quantityForSale)
     {
         $this->quantityForSale = $quantityForSale;
+    }
+
+    public function increaseQuantityForSale($number)
+    {
+        $this->setQuantityForSale($this->getQuantityForSale() + $number);
+    }
+
+    public function decreaseQuantityForSale($number)
+    {
+        if($this->getQuantityForSale()<$number){
+            $this->setQuantityForSale(0);
+        }else{
+            $this->setQuantityForSale($this->getQuantityForSale()-$number);
+        }
     }
 
     /**
@@ -309,6 +328,22 @@ class ProductOffer
     public function setCurrency($currency)
     {
         $this->currency = $currency;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeletedOn()
+    {
+        return $this->deletedOn;
+    }
+
+    /**
+     * @param mixed $deletedOn
+     */
+    public function setDeletedOn($deletedOn)
+    {
+        $this->deletedOn = $deletedOn;
     }
 
 

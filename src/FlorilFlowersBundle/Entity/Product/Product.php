@@ -166,5 +166,15 @@ class Product
         return $this->productOffers;
     }
 
+    /**
+     * @param ArrayCollection|ProductOffer[] $productOffers
+     */
+    public function setProductOffers($productOffers)
+    {
+        $this->productOffers = $productOffers;
+    }
+
+
+
 
 }
