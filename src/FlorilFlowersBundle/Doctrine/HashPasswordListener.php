@@ -44,9 +44,10 @@ class HashPasswordListener implements EventSubscriber
     public function preUpdate(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
-        if(!$entity instanceof User){
+        if(!$entity instanceof User || $entity->getPlainPassword()===null){
             return;
         }
+//        dump($entity);exit;
 
         $this->encodePassword($entity);
         $em = $args->getEntityManager();

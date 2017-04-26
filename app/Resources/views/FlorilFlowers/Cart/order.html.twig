@@ -48,11 +48,21 @@
             </tbody>
         </table>
     </section>
-    <section>
+    <section class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         {{ form_start(form, {'action': path('confirm_order_current_cart_process', {'idUser' : app.user.id ,'idCart' : order.cart.id}), 'method': 'POST'}) }}
+        <div>
+            {{ form_label(form.addresses) }}
+            {{ form_errors(form.addresses) }}
+            {{ form_widget(form.addresses) }}
+        </div>
         <div>
             {{ form_errors(form.address) }}
             {{ form_widget(form.address) }}
+        </div>
+        <div>
+            {{ form_label(form.phones) }}
+            {{ form_errors(form.phones) }}
+            {{ form_widget(form.phones) }}
         </div>
         <div>
             {{ form_errors(form.phone) }}

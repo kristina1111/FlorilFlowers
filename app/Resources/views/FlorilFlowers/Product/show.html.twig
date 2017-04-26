@@ -41,7 +41,7 @@
                 <tr>
                     <td>{{ review.user.nickname }}</td>
                     <td>{{ review.reviewText }}</td>
-                    <td>{{ review.createdOn|date('d M Y, h:i') }}</td>
+                    <td>{{ review.createdOn|date('d M Y, h:i a') }}</td>
                     <td>
                 {% if app.getUser() and (app.user.isAuthor(review) or is_granted(expression(
                 '"ROLE_EDITOR" in roles'

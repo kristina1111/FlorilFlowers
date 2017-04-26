@@ -14,7 +14,7 @@ class AddressFormType extends AbstractType
     {
         $builder
             ->add('address', TextType::class, array(
-                'label' => 'Enter shipment address',
+                'label' => 'Enter new shipment address',
                 'attr' => array(
                     'placeholder' => 'City, full address'
                 )

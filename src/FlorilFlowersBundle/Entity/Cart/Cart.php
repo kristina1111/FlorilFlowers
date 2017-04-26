@@ -34,6 +34,7 @@ class Cart
 
     /**
      * @ORM\OneToOne(targetEntity="FlorilFlowersBundle\Entity\Cart\Order", inversedBy="cart")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      * @var Order
      */
     private $order;

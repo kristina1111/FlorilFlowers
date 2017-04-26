@@ -13,7 +13,7 @@ use FlorilFlowersBundle\Entity\Cart\Cart;
 use FlorilFlowersBundle\Entity\Cart\Order;
 use FlorilFlowersBundle\Entity\Product\ProductOffer;
 use FlorilFlowersBundle\Entity\Product\ProductOfferReview;
-use FlorilFlowersBundle\Entity\Product\Tag;
+//use FlorilFlowersBundle\Entity\Product\Tag;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -86,12 +86,12 @@ class User implements UserInterface
      */
     private $productOfferReviews;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="FlorilFlowersBundle\Entity\Product\Tag", inversedBy="users")
-     * @ORM\JoinTable(name="users_tags")
-     * @var Tag[]|ArrayCollection
-     */
-    private $tags;
+//    /**
+//     * @ORM\ManyToMany(targetEntity="FlorilFlowersBundle\Entity\Product\Tag", inversedBy="users")
+//     * @ORM\JoinTable(name="users_tags")
+//     * @var Tag[]|ArrayCollection
+//     */
+//    private $tags;
 
 //    /**
 //     * @ORM\ManyToMany(targetEntity="FlorilFlowersBundle\Entity\User\Role", inversedBy="users")
@@ -106,11 +106,11 @@ class User implements UserInterface
      */
     private $role;
 
-//    /**
-//     * @ORM\OneToMany(targetEntity="FlorilFlowersBundle\Entity\User\UserAddress", mappedBy="user")
-//     * @var UserAddress[]|ArrayCollection
-//     */
-//    private $addresses;
+    /**
+     * @ORM\OneToMany(targetEntity="FlorilFlowersBundle\Entity\User\UserAddress", mappedBy="user")
+     * @var UserAddress[]|ArrayCollection
+     */
+    private $addresses;
 
     /**
      * @ORM\OneToMany(targetEntity="FlorilFlowersBundle\Entity\User\UserPhone", mappedBy="user")
@@ -151,7 +151,7 @@ class User implements UserInterface
     {
         $this->datetimeRegistered = new \DateTime('now');
         $this->productOfferReviews = new ArrayCollection();
-        $this->tags = new ArrayCollection();
+//        $this->tags = new ArrayCollection();
 //        $this->roles = new ArrayCollection();
         $this->addresses = new ArrayCollection();
         $this->phones = new ArrayCollection();
@@ -233,21 +233,21 @@ class User implements UserInterface
         $this->productOfferReviews = $productOfferReviews;
     }
 
-    /**
-     * @return Tag[]|ArrayCollection
-     */
-    public function getTags()
-    {
-        return $this->tags;
-    }
-
-    /**
-     * @param Tag[]|ArrayCollection $tags
-     */
-    public function setTags($tags)
-    {
-        $this->tags = $tags;
-    }
+//    /**
+//     * @return Tag[]|ArrayCollection
+//     */
+//    public function getTags()
+//    {
+//        return $this->tags;
+//    }
+//
+//    /**
+//     * @param Tag[]|ArrayCollection $tags
+//     */
+//    public function setTags($tags)
+//    {
+//        $this->tags = $tags;
+//    }
 
     /**
      * @return ProductOffer[]|ArrayCollection
@@ -346,6 +346,11 @@ class User implements UserInterface
     public function getRoles()
     {
         return array($this->role->getType());
+    }
+
+    public function isGranted($role)
+    {
+        return in_array($role, $this->getRoles());
     }
 
     /**
@@ -500,7 +505,7 @@ class User implements UserInterface
 //    for user access to their products, reviews... whatever they are authors to.
 
     /**
-     * @param $entity ProductOffer | ProductReview // or any entity that has user author
+     * @param $entity ProductOffer | ProductOfferReview// or any entity that has user author
      * @return bool
      */
     public function isAuthor($entity)

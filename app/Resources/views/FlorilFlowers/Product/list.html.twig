@@ -30,6 +30,16 @@
                                 <span>Category: </span><a href="#"><span>{{ productOffer.product.category }}</span></a>
                             </li>
                             <li>
+                                <span>Owner: </span>
+                                <span>
+                                    {% if "ROLE_ADMIN" in productOffer.user.roles or "ROLE_EDITOR" in productOffer.user.roles %}
+                                        FlorilFlowers
+                                    {% else %}
+                                        {{ productOffer.user.nickname }}
+                                    {% endif %}
+                                </span>
+                            </li>
+                            <li>
                                 <span>Quantity: {{ productOffer.quantityForSale }}</span>
                             </li>
                             {#<li>#}

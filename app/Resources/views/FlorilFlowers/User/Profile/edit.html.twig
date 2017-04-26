@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h1>Hello {{ user.nickname }}</h1>
+    <section class="profile-info-container">
+        <article class="prifile-info-container">
+            <header>
+                <ul>
+
+                </ul>
+            </header>
+            <section>
+                {{ form_start(form) }}
+                <ul>
+                    <li>
+                        {{ form_errors(form.firstName) }}
+                        {{ form_label(form.firstName) }}
+                        {{ form_widget(form.firstName) }}
+                    </li>
+                    <li>
+                        {{ form_errors(form.lastName) }}
+                        {{ form_label(form.lastName) }}
+                        {{ form_widget(form.lastName) }}
+                    </li>
+                    <li>
+                        {{ form_errors(form.nickname) }}
+                        {{ form_label(form.nickname) }}
+                        {{ form_widget(form.nickname) }}
+                    </li>
+                    <li>
+                        {{ form_errors(form.email) }}
+                        {{ form_label(form.email) }}
+                        {{ form_widget(form.email) }}
+                    </li>
+                    <li>
+                        {{ form_errors(form.plainPassword.first) }}
+                        {{ form_label(form.plainPassword.first) }}
+                        {{ form_widget(form.plainPassword.first) }}
+                    </li>
+                    <li>
+                        {{ form_errors(form.plainPassword.second) }}
+                        {{ form_label(form.plainPassword.second) }}
+                        {{ form_widget(form.plainPassword.second) }}
+                    </li>
+                    <li>
+                        {{ form_errors(form.checkPass) }}
+                        {{ form_label(form.checkPass) }}
+                        {{ form_widget(form.checkPass) }}
+                    </li>
+                    <li>
+                        <button type="submit">Edit profile!</button>
+                    </li>
+                </ul>
+                {{ form_end(form) }}
+            </section>
+        </article>
+
+    </section>
+
+{% endblock %}

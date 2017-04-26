@@ -14,7 +14,7 @@ class PhoneFormType extends AbstractType
     {
         $builder
             ->add('phoneNumber', TextType::class, array(
-                'label' => 'Enter phone number',
+                'label' => 'Enter new phone number',
                 'attr' => array(
                     'placeholder' => 'e.g. 0888888888'
                 )

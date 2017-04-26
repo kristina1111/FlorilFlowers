@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="FlorilFlowersBundle\Repository\User\UserAddressRepository")
  * @ORM\Table(name="user_addresses")
  */
 class UserAddress

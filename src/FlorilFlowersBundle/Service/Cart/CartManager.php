@@ -14,6 +14,7 @@ use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManager;
 use FlorilFlowersBundle\Entity\Cart\Cart;
 use FlorilFlowersBundle\Entity\Cart\CartProduct;
+use FlorilFlowersBundle\Entity\Cart\Order;
 use FlorilFlowersBundle\Entity\Product\ProductOffer;
 use FlorilFlowersBundle\Entity\User\User;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -148,7 +149,23 @@ class CartManager
 
     public function addToCart(User $user, ProductOffer $productOffer)
     {
+
+
+        /** @var Order $order */
+        $order = $this->em->getRepository('FlorilFlowersBundle:Cart\Order')->findByUserAndNotConfirmed($user);
+        if(!!$order){
+//            This logic is in case user already has order which is not confirmed and without passing through edit,
+// they want to add more products to the cart   ?!?! why not call editFinalisedCartAction function in CartController
+            $this->em->remove($order[0]);
+            $cart = $order[0]->getCart();
+            $cart->setOrder(null);
+            $this->em->persist($cart);
+            $this->em->flush($order[0]);
+//            return $this->addToCart($user, $productOffer);
+        }
+
         $cart = $this->em->getRepository('FlorilFlowersBundle:Cart\Cart')->findCartByUser($user);
+
 //            dump(!$cart);exit;
         if(!$cart){
             $cart = new Cart();

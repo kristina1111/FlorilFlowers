@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <section>
+        {% if boughtProducts|length>0 %}
+            <h1>Here are the products that you bought until now:</h1>
+            <article class="col-lg-10 col-md-10 col-sm-12 col-xs-12 current-cart-container">
+                <table class="products-table">
+                    <thead>
+                    <tr>
+                        <th>Product image</th>
+                        <th>Product name</th>
+                        <th>Product category</th>
+                        <th>Product quantity</th>
+                        <th>Retail price</th>
+                        <th>Announce to sell</th>
+                        {#<th></th>#}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for product in boughtProducts %}
+                        {#<tr>#}
+                            {#<td>{{ product[1] }}</td>#}
+                        {#</tr>#}
+                        <tr class="products-table-row">
+                            <td class="products-table-cell-img">
+                                <div class="img-content align-block">
+                                    {% if product[0].offer.frontProductImage != null %}
+                                        <img src="{{ asset('Uploads/ProductImages/' ~ product[0].offer.frontProductImage.path ~ '') }}"
+                                             alt="">
+                                    {% else %}
+                                        <img src="{{ asset('Images/DSC06750.JPG') }}" alt="">
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td>{{ product[0].offer.product.name }}</td>
+                            <td>{{ product[0].offer.product.category }}</td>
+                            <td>{{ product[1]}}</td>
+                            <td>{{ product[0].offer.retailPrice }}</td>
+                            <td></td>
+                            {#<td><a href="{{ path('edit_product',{'id' : productOffer.id}) }}">Edit</a></td>#}
+                            {#<td><a href="{{ path('delete_productOffer', {'id' : productOffer.id}) }}">Delete</a></td>#}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </article>
+        {% else %}
+            <h1>You haven't bought any products! It's time to shop!</h1>
+        {% endif %}
+    </section>
+{% endblock %}

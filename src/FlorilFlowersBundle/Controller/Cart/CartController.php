@@ -257,14 +257,14 @@ class CartController extends Controller
             /**
              * @var User $user
              */
-            $user = $this->getUser();
+            $user = $this->getDoctrine()->getRepository('FlorilFlowersBundle:User\User')->find($idUser);
 
             /**
              * @var Cart $cart
              */
             $cart = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Cart\Cart')->find($idCart);
 
-            $form = $this->createForm(OrderFormType::class);
+            $form = $this->createForm(OrderFormType::class,  null, array('user'=>$user));
 
             $order = $cart->getOrder();
             if(!$order){
@@ -300,8 +300,11 @@ class CartController extends Controller
      * @Route("/user/{idUser}/cart/{idCart}/order/edit", name="edit_order_before_finalised")
      * @Method("POST")
      * @Security("is_granted('ROLE_USER')")
+     * @param $idUser
+     * @param $idCart
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function showFinalisedCartAction($idUser, $idCart)
+    public function editFinalisedCartAction($idUser, $idCart)
     {
         if($this->getUser()->getId() == $idUser
             || $this->get('security.authorization_checker')->isGranted(new Expression('"ROLE_ADMIN" in roles'))){
@@ -311,6 +314,7 @@ class CartController extends Controller
             $cart = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Cart\Cart')->find($idCart);
 
             $order = $cart->getOrder();
+//            dump($order);exit;
 
             if(!!$order){
                 if($order->getCompletedOn()===null){
@@ -341,6 +345,7 @@ class CartController extends Controller
      * @param $idUser
      * @param $idCart
      * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function confirmOrderAction($idUser, $idCart, Request $request)
     {
@@ -348,27 +353,63 @@ class CartController extends Controller
             || $this->get('security.authorization_checker')->isGranted(new Expression('"ROLE_ADMIN" in roles'))){
 
             /** @var User $user */
-            $user = $this->getUser();
+            $user = $this->getDoctrine()->getRepository('FlorilFlowersBundle:User\User')->find($idUser);
 
             /** @var Cart $cart */
             $cart = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Cart\Cart')->find($idCart);
             $totalSum = $this->get('app.cart_manager')->calculateCartTotalPrice($cart);
             /** @var Order $order */
             $order = $cart->getOrder();
-            $form = $this->createForm(OrderFormType::class, $order);
+            if($order->getConfirmedOn()!=null){
+                $this->addFlash('success', "You have already confirmed that order!");
+                return $this->redirectToRoute('products_list');
+            }
+            $form = $this->createForm(OrderFormType::class, null, array('user'=>$user));
             $form->handleRequest($request);
 //            dump($form->isValid());exit;
             if($form->isValid() && $form->isSubmitted()){
-                $order = $form->getData();
+                $em = $this->getDoctrine()->getManager();
+//                dump($form->get('address')->getData());exit;
+
+                if($form->get('address')->getData()!=null || $form->get('addresses')->getData()!= null){
+                    if($form->get('address')->getData()!=null){
+                        $order->setAddress($form->get('address')->getData());
+                        $order->getAddress()->setUser($user);
+                        $em->persist($order->getAddress());
+                    }else{
+                        $order->setAddress($form->get('addresses')->getData());
+                    }
+                }else{
+                    $this->addFlash('error', 'One of the address fields must be completed!');
+                    return $this->redirectToRoute('order_current_cart_process', array(
+                        'idUser' => $this->getUser()->getId(),
+                        'idCart' => $cart->getId()
+                    ));
+                }
+
+                if($form->get('phone')->getData()!=null || $form->get('phones')->getData()!= null){
+                    if($form->get('phone')->getData()!=null){
+                        $order->setPhone($form->get('phone')->getData());
+                        $order->getPhone()->setUser($user);
+                        $em->persist($order->getPhone());
+                    }else{
+                        $order->setPhone($form->get('phones')->getData());
+                    }
+                }else{
+                    $this->addFlash('error', 'One of the phone fields must be completed!');
+                    return $this->redirectToRoute('order_current_cart_process', array(
+                        'idUser' => $this->getUser()->getId(),
+                        'idCart' => $cart->getId()
+                    ));
+                }
+
+//                $order;
+//                dump($order);exit;
                 $order->setConfirmedOn(new \DateTime());
-
-                $order->getAddress()->setUser($user);
-                $order->getPhone()->setUser($user);
-
 
                 $user->setCash($user->getCash()-$totalSum);
 //                dump($order);exit;
-                $em = $this->getDoctrine()->getManager();
+
                 $em->persist($order);
                 $em->persist($order->getAddress());
                 $em->persist($order->getPhone());
@@ -377,12 +418,17 @@ class CartController extends Controller
 
                 $this->addFlash('success', "You confirmed your order! You can see it's status from your profile! You have "
                 . $user->getCash() . "BGN money left!");
+                return $this->redirectToRoute('products_list');
             }
-            return $this->render(':FlorilFlowers/Cart:order.html.twig', array(
-                'order' => $order,
-                'cartTotalSum' => $totalSum,
-                'form' => $form->createView()
+            return $this->redirect('order_current_cart_process', array(
+                'idUser' => $this->getUser()->getId(),
+                'idCart' => $cart->getId()
             ));
+//            return $this->render(':FlorilFlowers/Cart:order.html.twig', array(
+//                'order' => $order,
+//                'cartTotalSum' => $totalSum,
+//                'form' => $form->createView()
+//            ));
 
         }
         return $this->redirectToRoute('homepage');

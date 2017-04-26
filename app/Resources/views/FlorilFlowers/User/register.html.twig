@@ -17,9 +17,9 @@
                 {{ form_row(formRegister.plainPassword.first) }}
                 {{ form_row(formRegister.plainPassword.second) }}
 
-                {% for tag in formRegister.tags %}
-                {{ form_widget(tag) }}
-                {% endfor %}
+                {#{% for tag in formRegister.tags %}#}
+                {#{{ form_widget(tag) }}#}
+                {#{% endfor %}#}
 
                 {{ form_rest(formRegister) }}
                 <button type="submit" class="btn btn-success">Register <span class="fa fa-lock"></span></button>
