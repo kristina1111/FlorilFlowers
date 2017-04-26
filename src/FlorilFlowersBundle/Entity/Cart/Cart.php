@@ -58,7 +58,7 @@ class Cart
     }
 
     /**
-     * @return mixed
+     * @return User
      */
     public function getUser()
     {
@@ -66,7 +66,7 @@ class Cart
     }
 
     /**
-     * @param mixed $user
+     * @param User $user
      */
     public function setUser($user)
     {
@@ -74,7 +74,7 @@ class Cart
     }
 
     /**
-     * @return mixed
+     * @return Order
      */
     public function getOrder()
     {
@@ -82,7 +82,7 @@ class Cart
     }
 
     /**
-     * @param mixed $order
+     * @param Order $order
      */
     public function setOrder($order)
     {

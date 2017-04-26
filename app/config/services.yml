@@ -38,6 +38,12 @@ services:
         class: FlorilFlowersBundle\Service\Upload\ImageUploader
         arguments: ['%image_directory%']
 
+    app.cart_manager:
+        class: FlorilFlowersBundle\Service\Cart\CartManager
+        arguments: ['@doctrine.orm.entity_manager', '@session' ]
+
+
+
     app.database_globals_extension:
         class: FlorilFlowersBundle\Twig\Extension\DatabaseGlobalsExtension
         arguments: ["@doctrine.orm.entity_manager"]

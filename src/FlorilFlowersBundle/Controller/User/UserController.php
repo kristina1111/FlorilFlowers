@@ -50,7 +50,7 @@ class UserController extends Controller
 //        dump($form);exit;
         $form->handleRequest($request);
 
-        if($form->isValid()){
+        if($form->isValid() && $form->isSubmitted()){
 
 //            dump($form);exit;
             $em = $this->getDoctrine()->getManager();

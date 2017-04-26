@@ -3,17 +3,21 @@
 namespace FlorilFlowersBundle\Controller\Cart;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManager;
 use FlorilFlowersBundle\Entity\Cart\Cart;
 use FlorilFlowersBundle\Entity\Cart\CartProduct;
+use FlorilFlowersBundle\Entity\Cart\Order;
 use FlorilFlowersBundle\Entity\Product\ProductOffer;
 use FlorilFlowersBundle\Entity\User\User;
 use FlorilFlowersBundle\Form\Cart\CartTypeForm;
+use FlorilFlowersBundle\Form\Cart\OrderFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\ExpressionLanguage\Expression;
 
 class CartController extends Controller
 {
@@ -26,24 +30,30 @@ class CartController extends Controller
      */
     public function showEditCartAction($id)
     {
-        $user = $this->getDoctrine()->getRepository('FlorilFlowersBundle:User\User')->find($id);
-        if(!$user){
-            $this->addFlash('info', 'You cannot see this cart!');
-            return $this->redirectToRoute('products_list');
+        if($this->getUser()->getId() == $id || $this->get('security.authorization_checker')->isGranted(new Expression(
+                '"ROLE_ADMIN" in roles'
+            ))){
+            $user = $this->getDoctrine()->getRepository('FlorilFlowersBundle:User\User')->find($id);
+
+            /**
+             * @var Cart $cart
+             */
+            $cart = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Cart\Cart')->findCartByUser($user);
+            if(!$cart || $cart[0]->getCartProducts()->count()==0){
+                $this->addFlash('info', 'Your cart is empty!');
+                return $this->redirectToRoute('products_list');
+            }
+            $formCart = $this->createForm(CartTypeForm::class, $cart[0]);
+            $cartTotalSum = $this->get('app.cart_manager')->calculateCartTotalPrice($cart[0]);
+            return $this->render(':FlorilFlowers/Cart:current.html.twig', [
+                'formCart' => $formCart->createView(),
+                'cartTotalSum' => $cartTotalSum
+            ]);
         }
 
-        /**
-         * @var Cart $cart
-         */
-        $cart = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Cart\Cart')->findCartByUser($user);
-        if(!$cart || $cart[0]->getCartProducts()->count()==0){
-            $this->addFlash('info', 'Your cart is empty!');
-            return $this->redirectToRoute('products_list');
-        }
-        $formCart = $this->createForm(CartTypeForm::class, $cart[0]);
-        return $this->render(':FlorilFlowers/Cart:current.html.twig', [
-            'formCart' => $formCart->createView()
-        ]);
+        $this->addFlash('info', 'You can only access your cart!');
+        return $this->redirectToRoute('products_list');
+
     }
 
     /**
@@ -56,67 +66,114 @@ class CartController extends Controller
      */
     public function showEditCartActionProcess($id, Request $request)
     {
-        $user = $this->getDoctrine()->getRepository('FlorilFlowersBundle:User\User')->find($id);
-        if(!$user){
-            $this->addFlash('info', 'You cannot see this cart!');
-            return $this->redirectToRoute('products_list');
-        }
+        if($this->getUser()->getId() == $id || $this->get('security.authorization_checker')->isGranted(new Expression(
+                '"ROLE_ADMIN" in roles'
+            ))) {
+            $user = $this->getDoctrine()->getRepository('FlorilFlowersBundle:User\User')->find($id);
 
-        /**
-         * @var Cart $cart
-         */
-        $cart = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Cart\Cart')->findCartByUser($user);
-        if(!$cart || $cart[0]->getCartProducts()->count()==0){
-            $this->addFlash('info', 'Your cart is empty!');
-            return $this->redirectToRoute('products_list');
-        }
-        $cart = $cart[0];
+            /**
+             * @var Cart $cart
+             */
+            $cart = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Cart\Cart')->findCartByUser($user);
+            if(!$cart || $cart[0]->getCartProducts()->count()==0){
+                $this->addFlash('info', 'Your cart is empty!');
+                return $this->redirectToRoute('products_list');
+            }
+            $cart = $cart[0];
 
 //        this is necessary for the removal of products from the cart
-        /**
-         * @var CartProduct[]|ArrayCollection
-         */
-        $originalProducts = new ArrayCollection();
-        foreach ($cart->getCartProducts() as $product){
-            $originalProducts->add($product);
-        }
+//        $originalCart = clone $cart;
 
-        $formCart = $this->createForm(CartTypeForm::class, $cart);
-        $formCart->handleRequest($request);
-//dump($formCart->isValid());exit;
-        if($formCart->isValid() && $formCart->isSubmitted()){
-            $em = $this->getDoctrine()->getManager();
-
-            foreach ($originalProducts as $originalProduct){
-                /**
-                 * @var CartProduct $originalProduct
-                 */
-                if(false === $cart->getCartProducts()->contains($originalProduct)){
-                    $em->remove($originalProduct);
-
-                    // for updating product available quantities after deleting a product form cart
-                    $num = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Cart\CartProduct')->findByCartAndProductOffer($cart, $originalProduct->getOffer())[0]->getQuantity();
-                    $originalProduct->getOffer()->increaseQuantityForSale($num);
-                }
-            }
-
+            /**
+             * @var CartProduct[]|ArrayCollection
+             */
+            $originalProducts = new ArrayCollection();
             foreach ($cart->getCartProducts() as $product){
-//                dump($product);exit;
-                $em->persist($product);
+                $originalProducts->add(clone $product);
+//            dump($originalProducts[0]);exit;
             }
-            $em->persist($cart);
-            $em->flush();
 
-            $this->addFlash('info', 'You just edited your cart!');
+            $formCart = $this->createForm(CartTypeForm::class, $cart);
+            $formCart->handleRequest($request);
+
+            if($formCart->isValid() && $formCart->isSubmitted()){
+//            dump($originalCart);
+//            dump($cart);exit;
+                $em = $this->getDoctrine()->getManager();
+// the logic for checking if deletion of product from cart is needed and the deletion itself is in CartManager service
+                $this->get('app.cart_manager')->deleteFromCartIfNeeded($cart, $originalProducts);
+//            /**
+//             * @var CartProduct $originalProduct
+//             */
+//            foreach ($originalProducts as $originalProduct){
+////     originalProducts contains clones and their existence in $cart->getCartProducts() cannot be checked with "contains"
+//                $criteria = Criteria::create()
+//                    ->where(Criteria::expr()->eq('id', $originalProduct->getId()))
+//                    ->setFirstResult(0)
+//                    ->setMaxResults(1);
+//                /**
+//                 * @var CartProduct $originalProduct
+//                 */
+//                if($cart->getCartProducts()->matching($criteria)->count()==0){
+//                    $productForDeletion = $em->find(CartProduct::class, $originalProduct->getId());
+//                    $em->remove($productForDeletion);
+//
+//                    // for updating product available quantities after deleting a product form cart
+//                    $num = $em->getRepository('FlorilFlowersBundle:Cart\CartProduct')->findByCartAndProductOffer($cart, $productForDeletion->getOffer())[0]->getQuantity();
+//                    $productForDeletion->getOffer()->increaseQuantityForSale($num);
+//                }
+//            }
+                $this->get('app.cart_manager')->editCartProductsQuantities($user, $cart, $originalProducts);
+//            /**
+//             * @var CartProduct $product
+//             */
+//            foreach ($cart->getCartProducts() as $product){
+//                $criteria = Criteria::create()
+//                    ->where(Criteria::expr()->eq('id',$product->getId()))
+//                    ->setFirstResult(0)
+//                    ->setMaxResults(1);
+//
+//                $originalProduct = $originalProducts->matching($criteria)[0];
+//
+//                if($originalProduct->getQuantity() != $product->getQuantity()){
+//                    if($product->getQuantity()>0){
+//                        $quantityAvailable = $product->getOffer()->getQuantityForSale();
+//                        $diff = $product->getQuantity() - $originalProduct->getQuantity();
+//                        if($quantityAvailable>=$diff){
+//                            $product->getOffer()->decreaseQuantityForSale($diff);
+//                        }else{
+//                            $product->setQuantity($originalProduct->getQuantity());
+//                            $this->addFlash('info', 'Available quantity for sale of product '
+//                                . $product->getOffer()->getProduct()->getName() . ' is ' . $product->getOffer()->getQuantityForSale()
+//                                . '! You cannot add more that to your cart');
+////                        return $this->redirectToRoute('show_edit_current_cart', array(
+////                            'id' => $user->getId()
+////                        ));
+//                        }
+//                    }else{
+//
+//                    }
+//
+//                }
+//                $em->persist($product);
+//            }
+                $em->persist($cart);
+                $em->flush();
+
+                $this->addFlash('info', 'You just edited your cart!');
+                return $this->redirectToRoute('show_edit_current_cart', array(
+                    'id' => $user->getId()
+                ));
+            }
+
+            $this->addFlash('info', 'You entered invalid data!');
             return $this->redirectToRoute('show_edit_current_cart', array(
-                'id' => $user->getId()
+                'id' => $this->getUser()->getId()
             ));
         }
 
-        $this->addFlash('info', 'You entered invalid data!');
-        return $this->redirectToRoute('show_edit_current_cart', array(
-            'id' => $this->getUser()->getId()
-        ));
+        $this->addFlash('info', 'You can only access your cart!');
+        return $this->redirectToRoute('products_list');
     }
 
 
@@ -132,49 +189,55 @@ class CartController extends Controller
          * @var ProductOffer $productOffer
          */
         $productOffer = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Product\ProductOffer')->find($id);
+        /**
+         * @var $user User
+         */
+        $user = $this->getUser();
         if($productOffer){
-            $em = $this->getDoctrine()->getManager();
-            /**
-             * @var $user User
-             */
-            $user = $this->getUser();
-
-            $cart = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Cart\Cart')->findCartByUser($user);
-//            dump(!$cart);exit;
-            if(!$cart){
-                $cart = new Cart();
-                $cart->setUser($user);
-
-                $user->getCarts()->add($cart);
-                $em->persist($cart);
-                $em->flush();
-            }else{
-//                The query returns array. If it is not null we are sure that it returns only one match
-                $cart = $cart[0];
-            }
-//            dump($cart);exit;
-            $cartProduct = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Cart\CartProduct')->findByCartAndProductOffer($cart, $productOffer);
-//            dump($cartProduct);exit;
-            if(!$cartProduct){
-                $cartProduct = new CartProduct();
-                $cartProduct->setOffer($productOffer);
-                $cartProduct->setQuantity(1);
-                $cartProduct->setCart($cart);
-
-                // for decreasing available quantity for sale of the addet to cart product
-                $productOffer->decreaseQuantityForSale(1);
-
-                $em->persist($cartProduct);
-                $em->persist($productOffer);
-
-                $cart->getCartProducts()->add($cartProduct);
-                $em->persist($cart);
-                $em->flush();
-
-                $this->addFlash('info', 'You just added product to your cart!');
-            }else{
-                $this->addFlash('info', 'You alreary have this product in your cart!');
-            }
+            $this->get('app.cart_manager')->addToCart($user, $productOffer);
+//            $em = $this->getDoctrine()->getManager();
+//
+//            /**
+//             * @var $user User
+//             */
+//            $user = $this->getUser();
+//
+//            $cart = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Cart\Cart')->findCartByUser($user);
+////            dump(!$cart);exit;
+//            if(!$cart){
+//                $cart = new Cart();
+//                $cart->setUser($user);
+//
+//                $user->getCarts()->add($cart);
+//                $em->persist($cart);
+//                $em->flush();
+//            }else{
+////                The query returns array. If it is not null we are sure that it returns only one match
+//                $cart = $cart[0];
+//            }
+////            dump($cart);exit;
+//            $cartProduct = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Cart\CartProduct')->findByCartAndProductOffer($cart, $productOffer);
+////            dump($cartProduct);exit;
+//            if(!$cartProduct){
+//                $cartProduct = new CartProduct();
+//                $cartProduct->setOffer($productOffer);
+//                $cartProduct->setQuantity(1);
+//                $cartProduct->setCart($cart);
+//
+//                // for decreasing available quantity for sale of the addet to cart product
+//                $productOffer->decreaseQuantityForSale(1);
+//
+//                $em->persist($cartProduct);
+//                $em->persist($productOffer);
+//
+//                $cart->getCartProducts()->add($cartProduct);
+//                $em->persist($cart);
+//                $em->flush();
+//
+//                $this->addFlash('info', 'You just added product to your cart!');
+//            }else{
+//                $this->addFlash('info', 'You alreary have this product in your cart!');
+//            }
 //            dump($cart);exit;
         }else{
             $this->addFlash('info', 'You cannot add this product!');
@@ -183,5 +246,146 @@ class CartController extends Controller
         return $this->redirectToRoute('products_list');
     }
 
+    /**
+     * @Route("/user/{idUser}/cart/{idCart}/order", name="order_current_cart_process")
+     * @Security("is_granted('ROLE_USER')")
+     */
+    public function finaliseCartAction($idUser, $idCart)
+    {
+        if($this->getUser()->getId() == $idUser
+            || $this->get('security.authorization_checker')->isGranted(new Expression('"ROLE_ADMIN" in roles'))){
+            /**
+             * @var User $user
+             */
+            $user = $this->getUser();
+
+            /**
+             * @var Cart $cart
+             */
+            $cart = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Cart\Cart')->find($idCart);
+
+            $form = $this->createForm(OrderFormType::class);
+
+            $order = $cart->getOrder();
+            if(!$order){
+
+                $em = $this->getDoctrine()->getManager();
+
+                $order = new Order();
+
+                $order->setUser($user);
+                $order->setCart($cart);
+                $order->setCreatedOn(new \DateTime());
+
+                $em->persist($order);
+                $cart->setOrder($order);
+                $em->persist($cart);
+                $em->flush();
+            }
+
+            $cartTotalSum = $this->get('app.cart_manager')->calculateCartTotalPrice($cart);
+
+            return $this->render(':FlorilFlowers/Cart:order.html.twig', array(
+                'order' => $order,
+                'cartTotalSum' => $cartTotalSum,
+                'form' => $form->createView()
+            ));
+
+        }
+        $this->addFlash('info', 'You can finalise only your cart!');
+        return $this->redirectToRoute('products_list');
+    }
+
+    /**
+     * @Route("/user/{idUser}/cart/{idCart}/order/edit", name="edit_order_before_finalised")
+     * @Method("POST")
+     * @Security("is_granted('ROLE_USER')")
+     */
+    public function showFinalisedCartAction($idUser, $idCart)
+    {
+        if($this->getUser()->getId() == $idUser
+            || $this->get('security.authorization_checker')->isGranted(new Expression('"ROLE_ADMIN" in roles'))){
+            /**
+             * @var Cart $cart
+             */
+            $cart = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Cart\Cart')->find($idCart);
+
+            $order = $cart->getOrder();
+
+            if(!!$order){
+                if($order->getCompletedOn()===null){
+                    $em = $this->getDoctrine()->getManager();
+                    $em->remove($order);
+                    $em->flush();
+
+                    $this->addFlash('info', 'You can edit your cart! After finishing, finalise your order!');
+                }else{
+                    $this->addFlash('info', 'You cannot edit finalised order!');
+                }
+            }else{
+                $this->addFlash('info', "You don't have any order to edit!");
+            }
+
+        }else{
+            $this->addFlash('info', "You can edit only your order!");
+        }
+        return $this->redirectToRoute('show_edit_current_cart', array(
+            'id' => $this->getUser()->getId()
+        ));
+    }
+
+    /**
+     * @Route("/user/{idUser}/cart/{idCart}/order/confirm", name="confirm_order_current_cart_process")
+     * @Method("POST")
+     * @Security("is_granted('ROLE_USER')")
+     * @param $idUser
+     * @param $idCart
+     * @param Request $request
+     */
+    public function confirmOrderAction($idUser, $idCart, Request $request)
+    {
+        if($this->getUser()->getId() == $idUser
+            || $this->get('security.authorization_checker')->isGranted(new Expression('"ROLE_ADMIN" in roles'))){
+
+            /** @var User $user */
+            $user = $this->getUser();
+
+            /** @var Cart $cart */
+            $cart = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Cart\Cart')->find($idCart);
+            $totalSum = $this->get('app.cart_manager')->calculateCartTotalPrice($cart);
+            /** @var Order $order */
+            $order = $cart->getOrder();
+            $form = $this->createForm(OrderFormType::class, $order);
+            $form->handleRequest($request);
+//            dump($form->isValid());exit;
+            if($form->isValid() && $form->isSubmitted()){
+                $order = $form->getData();
+                $order->setConfirmedOn(new \DateTime());
+
+                $order->getAddress()->setUser($user);
+                $order->getPhone()->setUser($user);
+
+
+                $user->setCash($user->getCash()-$totalSum);
+//                dump($order);exit;
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($order);
+                $em->persist($order->getAddress());
+                $em->persist($order->getPhone());
+                $em->persist($user);
+                $em->flush();
+
+                $this->addFlash('success', "You confirmed your order! You can see it's status from your profile! You have "
+                . $user->getCash() . "BGN money left!");
+            }
+            return $this->render(':FlorilFlowers/Cart:order.html.twig', array(
+                'order' => $order,
+                'cartTotalSum' => $totalSum,
+                'form' => $form->createView()
+            ));
+
+        }
+        return $this->redirectToRoute('homepage');
+    }
 
 }

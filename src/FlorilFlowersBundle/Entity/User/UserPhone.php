@@ -7,6 +7,7 @@
  */
 
 namespace FlorilFlowersBundle\Entity\User;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 use Doctrine\ORM\Mapping as ORM;
@@ -26,6 +27,7 @@ class UserPhone
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank()
      */
     private $phoneNumber;
 
@@ -35,4 +37,47 @@ class UserPhone
      * @var User
      */
     private $user;
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getPhoneNumber()
+    {
+        return $this->phoneNumber;
+    }
+
+    /**
+     * @param mixed $phoneNumber
+     */
+    public function setPhoneNumber($phoneNumber)
+    {
+        $this->phoneNumber = $phoneNumber;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser(User $user)
+    {
+        $this->user = $user;
+    }
+
+
 }

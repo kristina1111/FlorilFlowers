@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <section class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-xs-12 current-order-container">
+        <h1>Your order</h1>
+        <table class="order-table">
+            <thead>
+            <tr>
+                <th>Product image</th>
+                <th>Product name:</th>
+                <th>Product quantity:</th>
+                <th>Price per product:</th>
+                <th>Total price:</th>
+            </tr>
+            </thead>
+            {#{{ dump(order.cart) }}#}
+            <tbody>
+            {% for cartProduct in order.cart.cartProducts %}
+                <tr class="order-row">
+                    <td class="order-table-cell-img">
+                        <div class="img-content align-block">
+                            {% if cartProduct.offer.frontProductImage != null %}
+                                <img src="{{ asset('Uploads/ProductImages/' ~ cartProduct.offer.frontProductImage.path ~ '') }}"
+                                     alt="">
+                            {% else %}
+                                <img src="{{ asset('Images/DSC06750.JPG') }}" alt="">
+                            {% endif %}
+                        </div>
+                    </td>
+                    <td>{{ cartProduct.offer.product.name }}</td>
+                    <td>{{ cartProduct.quantity }}</td>
+                    <td>{{ cartProduct.offer.retailPrice }}</td>
+                    <td>{{ cartProduct.offer.retailPrice * cartProduct.quantity }}</td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td></td>
+                <td>
+                    <form method="post"
+                          action="{{ path('edit_order_before_finalised', { 'idUser' : app.user.id ,'idCart' : order.cart.id}) }}">
+                        <button type="submit" id="">Edit order!</button>
+                    </form>
+
+                </td>
+                <td></td>
+                <td>Total: {{ cartTotalSum }} BGN</td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+    <section>
+        {{ form_start(form, {'action': path('confirm_order_current_cart_process', {'idUser' : app.user.id ,'idCart' : order.cart.id}), 'method': 'POST'}) }}
+        <div>
+            {{ form_errors(form.address) }}
+            {{ form_widget(form.address) }}
+        </div>
+        <div>
+            {{ form_errors(form.phone) }}
+            {{ form_widget(form.phone) }}
+        </div>
+        <div>
+            <button type="submit">Confirm order!</button>
+        </div>
+        {{ form_end(form) }}
+    </section>
+{% endblock %}

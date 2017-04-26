@@ -11,9 +11,12 @@ namespace FlorilFlowersBundle\Entity\Cart;
 
 use Doctrine\ORM\Mapping as ORM;
 use FlorilFlowersBundle\Entity\User\User;
+use FlorilFlowersBundle\Entity\User\UserAddress;
+use FlorilFlowersBundle\Entity\User\UserPhone;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="FlorilFlowersBundle\Repository\Cart\OrderRepository")
  * @ORM\Table(name="orders")
  */
 class Order
@@ -37,16 +40,35 @@ class Order
     private $createdOn;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $confirmedOn;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
      *
      */
     private $completedOn;
 
     /**
-     * @ORM\OneToOne(targetEntity="FlorilFlowersBundle\Entity\Cart\Order", mappedBy="cart")
+     * @ORM\OneToOne(targetEntity="FlorilFlowersBundle\Entity\Cart\Cart", mappedBy="order")
      * @var Cart
      */
     private $cart;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="FlorilFlowersBundle\Entity\User\UserAddress")
+     * @Assert\NotBlank()
+     * @var UserAddress
+     */
+    private $address;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="FlorilFlowersBundle\Entity\User\UserPhone")
+     * @Assert\NotBlank()
+     * @var UserPhone
+     */
+    private $phone;
 
     /**
      * @return mixed
@@ -57,7 +79,7 @@ class Order
     }
 
     /**
-     * @return mixed
+     * @return User
      */
     public function getUser()
     {
@@ -65,7 +87,7 @@ class Order
     }
 
     /**
-     * @param mixed $user
+     * @param User $user
      */
     public function setUser($user)
     {
@@ -118,6 +140,54 @@ class Order
     public function setCart($cart)
     {
         $this->cart = $cart;
+    }
+
+    /**
+     * @return UserAddress
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param UserAddress $address
+     */
+    public function setAddress(UserAddress $address)
+    {
+        $this->address = $address;
+    }
+
+    /**
+     * @return UserPhone
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @param UserPhone $phone
+     */
+    public function setPhone(UserPhone $phone)
+    {
+        $this->phone = $phone;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getConfirmedOn()
+    {
+        return $this->confirmedOn;
+    }
+
+    /**
+     * @param \DateTime $confirmedOn
+     */
+    public function setConfirmedOn($confirmedOn)
+    {
+        $this->confirmedOn = $confirmedOn;
     }
 
 

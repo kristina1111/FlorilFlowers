@@ -27,11 +27,6 @@ class UserRegisterFormType extends AbstractType
                 'required' => true,
                 'first_options'  => array('label' => 'Password:'),
                 'second_options' => array('label' => 'Repeat Password:'),))
-            ->add('tags', CollectionType::class, array(
-                'entry_type' => TagFormType::class,
-
-                'allow_add' => true
-            ))
         ;
 
     }

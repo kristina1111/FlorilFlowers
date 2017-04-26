@@ -13,7 +13,6 @@ use FlorilFlowersBundle\Entity\Cart\Cart;
 use FlorilFlowersBundle\Entity\Cart\Order;
 use FlorilFlowersBundle\Entity\Product\ProductOffer;
 use FlorilFlowersBundle\Entity\Product\ProductOfferReview;
-use FlorilFlowersBundle\Entity\Product\ProductReview;
 use FlorilFlowersBundle\Entity\Product\Tag;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -107,11 +106,11 @@ class User implements UserInterface
      */
     private $role;
 
-    /**
-     * @ORM\OneToMany(targetEntity="FlorilFlowersBundle\Entity\User\UserAddress", mappedBy="user")
-     * @var UserAddress[]|ArrayCollection
-     */
-    private $addresses;
+//    /**
+//     * @ORM\OneToMany(targetEntity="FlorilFlowersBundle\Entity\User\UserAddress", mappedBy="user")
+//     * @var UserAddress[]|ArrayCollection
+//     */
+//    private $addresses;
 
     /**
      * @ORM\OneToMany(targetEntity="FlorilFlowersBundle\Entity\User\UserPhone", mappedBy="user")
@@ -138,6 +137,11 @@ class User implements UserInterface
     private $carts;
 
     /**
+     * @ORM\Column(type="decimal", precision=19, scale=2)
+     */
+    private $cash;
+
+    /**
      *
      * @var ProductOffer[]|ArrayCollection
      */
@@ -155,6 +159,7 @@ class User implements UserInterface
         $this->favouriteOffers = new ArrayCollection();
         $this->orders = new ArrayCollection();
         $this->carts = new ArrayCollection();
+        $this->cash = 100;
     }
 
     /**
@@ -437,6 +442,22 @@ class User implements UserInterface
     public function setCarts($carts)
     {
         $this->carts = $carts;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCash()
+    {
+        return $this->cash;
+    }
+
+    /**
+     * @param mixed $cash
+     */
+    public function setCash($cash)
+    {
+        $this->cash = $cash;
     }
 
 

@@ -184,11 +184,7 @@ class ProductOffer
 
     public function decreaseQuantityForSale($number)
     {
-        if($this->getQuantityForSale()<$number){
-            $this->setQuantityForSale(0);
-        }else{
-            $this->setQuantityForSale($this->getQuantityForSale()-$number);
-        }
+        $this->setQuantityForSale($this->getQuantityForSale() - $number);
     }
 
     /**
@@ -315,7 +311,7 @@ class ProductOffer
     }
 
     /**
-     * @return mixed
+     * @return Currency
      */
     public function getCurrency()
     {
@@ -345,8 +341,6 @@ class ProductOffer
     {
         $this->deletedOn = $deletedOn;
     }
-
-
 
 
 }

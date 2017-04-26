@@ -32,10 +32,22 @@
                         <td>{{ cartProduct.vars.data.offer.retailPrice * cartProduct.vars.data.quantity }}</td>
                     </tr>
                 {% endfor %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Total: {{ cartTotalSum }} BGN</td>
+                    <td><button type="submit" id="edit-cart">Edit!</button></td>
+                </tr>
                 </tbody>
             </table>
-        <button type="submit" id="edit-cart">Edit!</button>
+
         {#{{ dump(formCart.vars.data) }}#}
         {{ form_end(formCart) }}
+        <form method="post"
+        action="{{ path('order_current_cart_process', { 'idUser' : app.user.id ,'idCart' : formCart.vars.data.id}) }}">
+            <button type="submit">Finalise Order</button>
+        </form>
     </section>
 {% endblock %}

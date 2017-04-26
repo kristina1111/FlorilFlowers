@@ -51,7 +51,7 @@ class CartProduct
     }
 
     /**
-     * @return mixed
+     * @return ProductOffer
      */
     public function getOffer()
     {
