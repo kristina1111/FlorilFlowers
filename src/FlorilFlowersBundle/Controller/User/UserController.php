@@ -202,11 +202,39 @@ class UserController extends Controller
 
             /** @var Order[] $completedOrders */
             $completedOrders = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Cart\Order')->findByUserAndCompleted($this->getUser());
+            // finds all the products that the user ever bought with their quantities
+            //returns array with arrays - innerArray[0] is the object, innerArray["quantityBought"] is the quantity
             $query = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Cart\CartProduct')->selectAllBoughtProductsWithQuantity($this->getUser());
+//            dump($query);exit;
+//            add up to now sold quantities of each product that the user bought ( no matter they were announced for sale or not)
+            if(count($query)>0){
+//
+                for ($i = 0; $i<count($query); $i++){
+//                    dump($query[0][0]->getOffer()->getProduct());exit;
+//                    check if user has announced this product for sale
+                    $hasUserOffer = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Product\ProductOffer')->getProductOfferByCreatorAndProduct($this->getUser(),$query[$i][0]->getOffer()->getProduct() );
+                    $queryQnSold = 0;
+                    if($hasUserOffer){
+                        $queryQnSold = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Product\ProductOffer')->findUserSoldProduct($hasUserOffer[0]);
+                    }
+//                    find the sold quantity for every productOffer of the user
 
-            return $this->render(':FlorilFlowers/User/Products:list-bought-products.html.twig', array(
-                'boughtProducts' => $query
-            ));
+                    if($queryQnSold){
+                        $queryQnSold = $queryQnSold[0]['quantitySold'];
+//                        dump($queryQnSold);exit;
+                    }else{
+                        $queryQnSold = 0;
+                    }
+                    $query[$i]['quantitySold'] = $queryQnSold;
+//                    dump($product);exit;
+                }
+//                dump($query);exit;
+                return $this->render(':FlorilFlowers/User/Products:list-bought-products.html.twig', array(
+                    'boughtProducts' => $query,
+                ));
+            }
+            $this->addFlash('info', "You haven't bought any products! It's time to shop!");
+            return $this->redirectToRoute('products_list');
 
             //            dump($query[0]);exit;
 //            $query[0][0]->getOffer()->getProduct()->getName()

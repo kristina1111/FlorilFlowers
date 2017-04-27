@@ -100,7 +100,8 @@ class ProductOffer
     private $productImages;
 
     /**
-     * @ORM\OneToOne(targetEntity="FlorilFlowersBundle\Entity\Product\ProductImage")
+     * @ORM\ManyToOne(targetEntity="FlorilFlowersBundle\Entity\Product\ProductImage")
+     * @ORM\JoinColumn(nullable=true)
      * @var ProductImage $frontProductImage
      */
     private $frontProductImage;
@@ -340,6 +341,20 @@ class ProductOffer
     public function setDeletedOn($deletedOn)
     {
         $this->deletedOn = $deletedOn;
+    }
+
+    public function __clone() {
+        if ($this->id) {
+            $this->setId(null);
+            $this->product = null;
+            $this->user = null;
+            $this->currency = null;
+            $this->createdOn = new \DateTime();
+            $this->frontProductImage = null;
+            $this->productImages = null;
+            $this->productOfferReviews = new ArrayCollection();
+            $this->productImages = new ArrayCollection();
+        }
     }
 
 

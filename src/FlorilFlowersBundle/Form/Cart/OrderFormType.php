@@ -38,16 +38,16 @@ class OrderFormType extends AbstractType
                 'required' => false,
 //                'mapped' => false
             ))
-        ->add('phones', EntityType::class, array(
-            'class' => 'FlorilFlowersBundle\Entity\User\UserPhone',
-            'query_builder' => function(UserPhoneRepository $er) use ($options){
-                return $er->getUserPhones($options['user']);
-            },
-            'label' => 'Choose phone from your previous orders:',
-            'placeholder' => 'Choose phone',
-            'choice_label' => 'phoneNumber',
-            'required' => false,
-//            'mapped' => false
+            ->add('phones', EntityType::class, array(
+                'class' => 'FlorilFlowersBundle\Entity\User\UserPhone',
+                'query_builder' => function(UserPhoneRepository $er) use ($options){
+                    return $er->getUserPhones($options['user']);
+                },
+                'label' => 'Choose phone from your previous orders:',
+                'placeholder' => 'Choose phone',
+                'choice_label' => 'phoneNumber',
+                'required' => false,
+    //            'mapped' => false
         ));
     }
 

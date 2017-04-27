@@ -86,6 +86,10 @@ class ProductImage
         return $this->id;
     }
 
+    private function setId($id)
+    {
+        $this->id = $id;
+    }
 
     public function getPath()
     {
@@ -186,6 +190,14 @@ class ProductImage
 
     public function isExistingInDb(ArrayCollection $originalPrices){
 
+    }
+
+    function __clone()
+    {
+        if ($this->id) {
+            $this->setId(null);
+            $this->uploadedOn = new \DateTime();
+        }
     }
 
 

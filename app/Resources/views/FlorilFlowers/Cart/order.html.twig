@@ -35,10 +35,12 @@
             <tr>
                 <td></td>
                 <td>
-                    <form method="post"
-                          action="{{ path('edit_order_before_finalised', { 'idUser' : app.user.id ,'idCart' : order.cart.id}) }}">
-                        <button type="submit" id="">Edit order!</button>
-                    </form>
+                    {% if order.confirmedOn == null %}
+                        <form method="post"
+                              action="{{ path('edit_order_before_finalised', { 'idUser' : app.user.id ,'idCart' : order.cart.id}) }}">
+                            <button type="submit" id="">Edit order!</button>
+                        </form>
+                    {% endif %}
 
                 </td>
                 <td></td>
@@ -49,6 +51,7 @@
         </table>
     </section>
     <section class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    {% if order.confirmedOn == null %}
         {{ form_start(form, {'action': path('confirm_order_current_cart_process', {'idUser' : app.user.id ,'idCart' : order.cart.id}), 'method': 'POST'}) }}
         <div>
             {{ form_label(form.addresses) }}
@@ -72,5 +75,14 @@
             <button type="submit">Confirm order!</button>
         </div>
         {{ form_end(form) }}
+        {% else %}
+        <div>
+            <p>Your shipment address is {{ order.address.address }}.</p>
+            <p>Your phone is {{ order.phone.phoneNumber }}</p>
+        </div>
+        {% endif %}
+        {% if  %}
+            
+        {% endif %}
     </section>
 {% endblock %}

@@ -14,10 +14,12 @@ class IndexController extends Controller
      */
     public function indexAction()
     {
-        $funFact = "I wrote this to check if *MARKDOWN* works! It's so cool! This must be *NEW*";
-
-        $cache = $this->get('doctrine_cache.providers.my_markdown_cache');
-
+        $query = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Product\ProductOffer')->getBestSellingProductsWithQuantities();
+//        dump($query);exit;
+//        $funFact = "I wrote this to check if *MARKDOWN* works! It's so cool! This must be *NEW*";
+//
+//        $cache = $this->get('doctrine_cache.providers.my_markdown_cache');
+//
 //        $key = md5($funFact);
 //        if($cache->contains($key)){
 //            $funFact = $cache->fetch($key);
@@ -27,6 +29,6 @@ class IndexController extends Controller
 //            $cache->save($key, $funFact);
 //        }
 
-        return $this->render('FlorilFlowers/index.html.twig', ['funFact' => $funFact]);
+        return $this->render('FlorilFlowers/index.html.twig', ['products' => $query]);
     }
 }

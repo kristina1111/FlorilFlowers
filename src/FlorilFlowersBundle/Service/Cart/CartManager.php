@@ -202,7 +202,7 @@ class CartManager
             }else{
 
                 $this->session->getFlashBag()
-                    ->add('info', "You don't have enough money to buy add this "
+                    ->add('info', "You don't have enough money to add this "
                         . $productOffer->getProduct()->getName()
                         . ' to your cart! You have '
                         . number_format($user->getCash() - $this->calculateCartTotalPrice($cart), 2)

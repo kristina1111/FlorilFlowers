@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Announce your product for sale!</h1>
+    <section class="product-form-container">
+        {{ form_start(productForm) }}
+        <div>
+            {#{{ form_label(productForm.product.name) }}#}
+            <span>Product name: </span>{{ productForm.product.name.vars.data }}
+        </div>
+        <div>
+            <span>Product category: </span>{{ productForm.product.category.vars.data }}
+        </div>
+        {#<div>#}
+        {#{{ form_label(productForm.product.subcategory) }}#}
+        {#{{ form_widget(productForm.product.subcategory) }}#}
+        {#</div>#}
+        <div>
+            <span>Product description: </span>
+            {{ productForm.product.description.vars.data }}
+        </div>
+        <div>
+            {{ form_label(productForm.description) }}
+            {{ form_widget(productForm.description) }}
+        </div>
+        <div>
+            {{ form_label(productForm.quantityForSale) }}
+            {{ form_widget(productForm.quantityForSale) }}
+        </div>
+        <div>
+            {{ form_label(productForm.retailPrice) }}
+            {{ form_widget(productForm.retailPrice) }}
+        </div>
+        <div>
+            {{ form_label(productForm.currency) }}
+            {{ form_widget(productForm.currency) }}
+        </div>
+        {#<div class="prices-holder" data-prototype="{{form_widget(productForm.productPrices.vars.prototype)|e('html_attr')}}">#}
+        {#{% for price in productForm.productPrices %}#}
+        {#<div class="price-single">#}
+        {#{{ form_widget(price.vars.prototype)|e }}#}
+        {#<div>#}
+        {#{{ form_label(price.retailPrice) }}#}
+        {#{{ form_widget(price.retailPrice) }}#}
+        {#</div>#}
+        {#<div>#}
+        {#{{ form_label(price.currency) }}#}
+        {#{{ form_widget(price.currency) }}#}
+        {#</div>#}
+        {#<div>#}
+        {#{{ form_label(price.startDate) }}#}
+        {#{{ form_widget(price.startDate) }}#}
+        {#</div>#}
+        {#<div>#}
+        {#{{ form_label(price.endDate) }}#}
+        {#{{ form_widget(price.endDate) }}#}
+        {#</div>#}
+        {#</div>#}
+        {#{% endfor %}#}
+        {#</div>#}
+        {#<div class="images-holder">#}
+        {#<div class="images-holder" data-prototype="{{form_widget(productForm.productImages.vars.prototype)|e('html_attr')}}">#}
+            {#{% for image in productForm.productImages %}#}
+                {#<div class="image-single">#}
+                    {#<div>#}
+                        {#{{ form_label(image.file) }}#}
+                        {#{{ form_widget(image.file) }}#}
+                    {#</div>#}
+                    {#<div>#}
+                        {#{{ form_label(image.isFrontImage) }}#}
+                        {#{{ form_widget(image.isFrontImage) }}#}
+                    {#</div>#}
+                    {#<div>#}
+                        {#{{ form_label(image.description) }}#}
+                        {#{{ form_widget(image.description) }}#}
+                    {#</div>#}
+                {#</div>#}
+            {#{% endfor %}#}
+        {#</div>#}
+        {#</div>#}
+        {# this removes unnecessary rendered div in div from the form #}
+        {% do productForm.productImages.setRendered() %}
+        {% do productForm.product.setRendered() %}
+        <button type="submit">Announce for sale!</button>
+        {{ form_end(productForm) }}
+    </section>
+{% endblock %}

@@ -62,7 +62,8 @@
                                         <td>{{ productOffer.quantityForSale }}</td>
                                         <td>{{ productOffer.retailPrice }}</td>
                                         <td>
-                                            {% if is_granted(expression('"ROLE_EDITOR" in roles')) %}
+                                            {#{% if is_granted(expression('"ROLE_EDITOR" in roles')) %}#}
+                                            {% if "ROLE_ADMIN" in productOffer.user.roles or "ROLE_EDITOR" in productOffer.user.roles %}
                                                 FlorilFlowers
                                             {% else %}
                                                 {{ productOffer.user.nickname }}

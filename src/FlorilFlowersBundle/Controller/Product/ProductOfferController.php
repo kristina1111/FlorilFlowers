@@ -28,7 +28,7 @@ class ProductOfferController extends Controller
 
     /**
      * @Route("/new", name="create_product")
-     * @Security("is_granted('ROLE_USER')")
+     * @Security("is_granted('ROLE_EDITOR')")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
@@ -41,7 +41,7 @@ class ProductOfferController extends Controller
         // only handles data in POST
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
 //            dump($form->getData());exit;
             /**
              * @var $productOffer ProductOffer
@@ -57,13 +57,13 @@ class ProductOfferController extends Controller
 //            }
 
 //            -- image upload processing --
-            foreach ($productOffer->getProductImages() as $image){
+            foreach ($productOffer->getProductImages() as $image) {
                 // $file stores the uploaded image file
                 /** @var UploadedFile $file */
                 $file = $image->getFile();
 //                    dump($file);exit;
 //                    && false === $originalImages->contains($image)
-                if(!!$file){
+                if (!!$file) {
 //                    dump($file);exit;
                     $fileName = $this->get('app.image_uploader')->upload($file);
 
@@ -75,18 +75,17 @@ class ProductOfferController extends Controller
 
 //                    check if the checkbox for the image to be main image for the productOffer
 //                        need to be here and in the else statement because user can
-                    if(!!$image->getIsFrontImage()){
+                    if (!!$image->getIsFrontImage()) {
                         $productOffer->setFrontProductImage($image);
                     }
                     $em->persist($image);
 
+                } else {
+                    $productOffer->getProductImages()->removeElement($image);
+                    continue;
                 }
-                else{
-                        $productOffer->getProductImages()->removeElement($image);
-                        continue;
-                    }
 
-                }
+            }
 
 //                    check if the checkbox for the image to be main image for the productOffer
 //                    if(!!$image->getIsFrontImage()){
@@ -115,26 +114,26 @@ class ProductOfferController extends Controller
     {
         $productOffer = $this->getDoctrine()->getRepository(ProductOffer::class)->find($id);
 
-        if(!$productOffer){
+        if (!$productOffer) {
             $this->addFlash('info', 'There is no such product!');
             return $this->redirectToRoute('products_list');
         }
 
-        if(!$this->getUser()->isAuthor($productOffer) && $this->denyAccessUnlessGranted(new Expression(
+        if (!$this->getUser()->isAuthor($productOffer) && $this->denyAccessUnlessGranted(new Expression(
                 '"ROLE_EDITOR" in roles'
-            ))){
+            ))
+        ) {
             $this->addFlash('info', 'You cannot edit this product!');
             return $this->redirectToRoute('products_list');
         }
 
-        foreach ($productOffer->getProductImages() as $image){
+        // give the images to the file input in the edit form, otherwise errors
+        foreach ($productOffer->getProductImages() as $image) {
             $image->setFile(
                 new File($this->getParameter('image_directory') . '/' . $image->getPath())
             );
         }
         $form = $this->createForm(ProductOfferFormType::class, $productOffer);
-
-//        dump($productOffer->getProductImages());exit;
 
         return $this->render(':FlorilFlowers/Product:edit.html.twig', ['productForm' => $form->createView()]);
 
@@ -153,7 +152,7 @@ class ProductOfferController extends Controller
     {
         $productOffer = $this->getDoctrine()->getRepository(ProductOffer::class)->find($id);
 
-        if($productOffer){
+        if ($productOffer) {
 //            // In order to be able to remove prices properly, first we need to save the prices that this product offer has
 //            // in array. We will compare the values of this array to the newly submitted prices thus distinguishing the removed prices
 //            $originalPrices = new ArrayCollection();
@@ -161,9 +160,8 @@ class ProductOfferController extends Controller
 //                $originalPrices->add($originalPrice);
 //            }
 
-
             $originalImages = new ArrayCollection();
-            foreach ($productOffer->getProductImages() as $originalImage){
+            foreach ($productOffer->getProductImages() as $originalImage) {
                 $originalImages->add($originalImage);
             }
 //            dump($productOffer->getProductImages());
@@ -172,7 +170,7 @@ class ProductOfferController extends Controller
 
             $form->handleRequest($request);
 
-            if($form->isValid() && $form->isSubmitted()){
+            if ($form->isValid() && $form->isSubmitted()) {
 //                dump($originalImages);
 //                dump($productOffer->getProductImages());exit;
                 $em = $this->getDoctrine()->getManager();
@@ -195,7 +193,7 @@ class ProductOfferController extends Controller
 //                        $em->remove($originalPrice);
 //                    }
 //                }
-
+//
 //                // Then check if any of the prices in the new array after the editing in not in the original
 //                // array of prices before editing. If it is not, persist it in the db.
 ////            !!!!!!!!    It is not working if the user enters empty price object!!!!!!!!!
@@ -212,10 +210,10 @@ class ProductOfferController extends Controller
 
 //                dump($originalImages);
 //                dump($productOffer->getProductImages());exit;
-                foreach ($originalImages as $originalImage){
+                foreach ($originalImages as $originalImage) {
 
-                    if(false === $productOffer->getProductImages()->contains($originalImage)){
-                        if($productOffer->getFrontProductImage() === $originalImage){
+                    if (false === $productOffer->getProductImages()->contains($originalImage)) {
+                        if ($productOffer->getFrontProductImage() === $originalImage) {
                             $productOffer->setFrontProductImage(null);
                         }
 //                        dump($originalImage);exit;
@@ -228,13 +226,13 @@ class ProductOfferController extends Controller
                     }
                 }
 
-                foreach ($productOffer->getProductImages() as $image){
+                foreach ($productOffer->getProductImages() as $image) {
                     // $file stores the uploaded image file
                     /** @var UploadedFile $file */
                     $file = $image->getFile();
 //                    dump($file);exit;
 //                    && false === $originalImages->contains($image)
-                    if(!!$file){
+                    if (!!$file) {
 //                    dump($file);exit;
                         $fileName = $this->get('app.image_uploader')->upload($file);
 
@@ -246,17 +244,16 @@ class ProductOfferController extends Controller
 
 //                    check if the checkbox for the image to be main image for the productOffer
 //                        need to be here and in the else statement because user can
-                        if(!!$image->getIsFrontImage()){
+                        if (!!$image->getIsFrontImage()) {
                             $productOffer->setFrontProductImage($image);
                         }
 
-                    }
-                    else{
+                    } else {
 ////                    check if the checkbox for the image to be main image for the productOffer
-                        if(!!$image->getIsFrontImage() && true === $originalImages->contains($image)){
+                        if (!!$image->getIsFrontImage() && true === $originalImages->contains($image)) {
                             $productOffer->setFrontProductImage($image);
 //                            $em->persist($image);
-                        }else{
+                        } else {
                             $productOffer->getProductImages()->removeElement($image);
                             continue;
                         }
@@ -296,16 +293,23 @@ class ProductOfferController extends Controller
     public function deleteProductOfferAction($id)
     {
         $productOffer = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Product\ProductOffer')->find($id);
-        if(!$productOffer){
-            $this->addFlash('info', 'There are no such product');
+        if (!!$productOffer && ($this->getUser()->isAuthor($productOffer) || $this->get('security.authorization_checker')->isGranted(new Expression('"ROLE_EDITOR" in roles'))
+            )
+        ) {
+
+            if (!$productOffer) {
+                $this->addFlash('info', 'There are no such product');
+                return $this->redirectToRoute('create_categories_list');
+            }
+            $em = $this->getDoctrine()->getManager();
+            $productOffer->setDeletedOn(new \DateTime());
+            $em->persist($productOffer);
+            $em->flush();
+            $this->addFlash('success', 'You successfully deleted product ' . $productOffer->getProduct()->getName() . ' from the database');
             return $this->redirectToRoute('create_categories_list');
+        } else {
+            return $this->redirectToRoute('homepage');
         }
-        $em = $this->getDoctrine()->getManager();
-        $productOffer->setDeletedOn(new \DateTime());
-        $em->persist($productOffer);
-        $em->flush();
-        $this->addFlash('success', 'You successfully deleted product '. $productOffer->getProduct()->getName() . ' from the database');
-        return $this->redirectToRoute('create_categories_list');
     }
 
     /**
@@ -319,7 +323,7 @@ class ProductOfferController extends Controller
 //        $product = $em->getRepository('FlorilFlowersBundle:Product\Product')->findOneBy(['id' => $id]);
         $productOffer = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Product\ProductOffer')->find($id);
 
-        if(!$productOffer){
+        if (!$productOffer) {
 //            throw $this->createNotFoundException('No product found!');
             $this->addFlash('info', 'There is no such product!');
             return $this->redirectToRoute('products_list');
@@ -338,7 +342,7 @@ class ProductOfferController extends Controller
 
         return $this->render(':FlorilFlowers/Product:show.html.twig',
             [
-                'productOffer'=> $productOffer,
+                'productOffer' => $productOffer,
                 'reviewForm' => $reviewForm->createView()
 //                'reviews' => $product->getReviews(),
 //                'recentNotes' => $recentNotes,
@@ -365,5 +369,225 @@ class ProductOfferController extends Controller
 //        dump($products); die;
     }
 
+    /**
+     * @Route("/user/{idUser}/products/sell/{idProduct}", name="announce_for_sale")
+     * @Security("is_granted('ROLE_USER')")
+     * @param $idUser
+     * @param $idProduct
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     */
+    public function announceForSaleByBuyerAction($idUser, $idProduct, Request $request)
+    {
+        if ($this->getUser()->getId() != $idUser) {
+            $this->addFlash('error', 'You cannot sell this product');
+        } else {
+            $originalProductOffer = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Product\ProductOffer')->find($idProduct);
+
+            if (!!$originalProductOffer) {
+                $alreadyOffer = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Product\ProductOffer')->getProductOfferByCreatorAndProduct($this->getUser(), $originalProductOffer->getProduct());
+
+                $quantityBoughtProduct = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Product\ProductOffer')
+                    ->findIfUserBoughtProduct($this->getUser(), $originalProductOffer);
+
+//                find the quantity of the sold products - needed for the check if the user possesses enough quantity for sale
+                $quantitySoldProduct = 0;
+                if (count($quantityBoughtProduct) > 0) {
+                    $quantityBoughtProduct = $quantityBoughtProduct[0]['quantityBought'];
+                } else {
+                    $quantityBoughtProduct = 0;
+                }
+                if (!!$alreadyOffer) {
+                    $quantitySoldProduct = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Product\ProductOffer')
+                        ->findUserSoldProduct($alreadyOffer[0]);
+                    if (count($quantitySoldProduct) > 0) {
+                        $quantitySoldProduct = $quantitySoldProduct[0]['quantitySold'];
+                    }else{
+                        $quantitySoldProduct = 0;
+                    }
+                }
+//            if the user announces the offer for the first time
+                if (!$alreadyOffer) {
+//                    first find if the user is the buyer ot that product
+//                    $query = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Product\ProductOffer')->findIfUserBoughtProduct($this->getUser(), $originalProductOffer);
+
+                    if (count($quantityBoughtProduct) > 0) { // if yes
+//          this is needed because some fields in the form are not rendered and handlerequest is not parsing them to the productOffer object
+//          method __clone is added to the ProductOffer entity
+                        $productForSale = clone $originalProductOffer;
+
+                        $productForSale->setQuantityForSale(1);
+
+                        $form = $this->createForm(ProductOfferFormType::class, $productForSale);
+                        $form->handleRequest($request);
+
+                        if ($form->isSubmitted() && $form->isValid()) {
+// if the user try to announce more quantities for sale than he actually has (we calculate what they bought and what they sold)
+                            if ($quantityBoughtProduct - $quantitySoldProduct >= $productForSale->getQuantityForSale()) {
+                                $this->handleFormWhenFirstAnnounceToSell($form, $originalProductOffer);
+                                return $this->redirectToRoute('products_list');
+                            }else{
+                                $this->addFlash('error', "You haven't bought enough of that product. You need to buy more in order to sell!");
+                            }
+                        }
+
+                        return $this->render(':FlorilFlowers/User/Products:announce-for-sale.html.twig', array(
+                            'productForm' => $form->createView()
+                        ));
+                    }
+                    $this->addFlash('error', 'You cannot sell this product');
+                } else { // if user wants to edit existing offer
+                    $em = $this->getDoctrine()->getManager();
+                    /** @var ProductOffer $productForSale */
+                    $productForSale = $alreadyOffer[0];
+
+                    $form = $this->createForm(ProductOfferFormType::class, $productForSale);
+
+//                        Instead of handleRequest use submit, so that we tell it not to clear the fields that are not submitted (because not rendered!)
+//http://stackoverflow.com/questions/25291607/symfony2-how-to-stop-form-handlerequest-from-nulling-fields-that-dont-exist
+//                        $form->handleRequest($request);
+                    $form->submit($request->get($form->getName()), false);
+                    if ($form->isSubmitted() && $form->isValid()) {
+                        $qInNotFinalisedCarts = $em->getRepository('FlorilFlowersBundle:Product\ProductOffer')
+                            ->getOfferQsInNotFinalisedCarts($productForSale);
+                        $qInFinalisedCarts = $em->getRepository('FlorilFlowersBundle:Product\ProductOffer')
+                            ->getOfferQsInFinalisedCarts($productForSale);
+                        if(!$qInNotFinalisedCarts){
+                            $qInNotFinalisedCarts = 0;
+                        }else{
+                            $qInNotFinalisedCarts = intval($qInNotFinalisedCarts[0]["quantity"]);
+                        }
+                        if(!$qInFinalisedCarts){
+                            $qInFinalisedCarts = 0;
+                        }else{
+                            $qInFinalisedCarts = intval($qInNotFinalisedCarts[0]["quantity"]);
+                        }
+
+//dump(($quantityBoughtProduct));exit;
+//                            if the user try to announce more quantities for sale than he actually has (we calculate what they bought and what they sold)
+                        if (($quantityBoughtProduct - $quantitySoldProduct - $qInFinalisedCarts - $qInNotFinalisedCarts) > $productForSale->getQuantityForSale()) {
+                            $this->handleFormWhenEditSellAnnouncement($form);
+                            return $this->redirectToRoute('products_list');
+                        } else {
+                            $this->addFlash('error', "You haven't bought enough of that product. You need to buy more in order to sell!");
+                            return $this->render(':FlorilFlowers/User/Products:announce-for-sale.html.twig', array(
+                                'productForm' => $form->createView()
+                            ));
+                        }
+
+                    }
+
+                    return $this->render(':FlorilFlowers/User/Products:announce-for-sale.html.twig', array(
+                        'productForm' => $form->createView()
+                    ));
+                }
+
+
+            } else {
+                $this->addFlash('error', 'You cannot sell this product');
+            }
+        }
+
+        return $this->redirectToRoute('homepage');
+    }
+
+//    /**
+//     * @Route("/user/{idUser}/products/sell/{idProduct}", name="announce_for_sale_process")
+//     * @Method("POST")
+//     * @Security("is_granted('ROLE_USER')")
+//     * @param $idUser
+//     * @param $idProduct
+//     * @param Request $request
+//     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+//     */
+//    public function announceForSaleByBuyerActionProcess($idUser, $idProduct, Request $request)
+//    {
+//        if($this->getUser()->getId() != $idUser){
+//            $this->addFlash('error', 'You cannot sell this product');
+//        }else{
+//            $em = $this->getDoctrine()->getManager();
+//
+//            $originalProductOffer = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Product\ProductOffer')->find($idProduct);
+//            $productForSale = clone $originalProductOffer;
+//
+//            $productForSale->setQuantityForSale(1);
+//
+//            $form = $this->createForm(ProductOfferFormType::class, $productForSale);
+//            // only handles data in POST
+//            $form->handleRequest($request);
+////        $em->detach($productForSale);
+////        $productForSale = clone $productForSale;
+//            if($form->isSubmitted() && $form->isValid()) {
+//
+////            dump($form->getData());exit;
+//                /** @var ProductOffer $productForSale */
+//                $productForSale = $form->getData();
+//                $productForSale->setUser($this->getUser());
+//                $productForSale->setProduct($originalProductOffer->getProduct());
+//
+//                $productForSale->setFrontProductImage($originalProductOffer->getFrontProductImage());
+//
+//                foreach ($originalProductOffer->getProductImages() as $originalImage){
+//                    $productForSale->getProductImages()->add(clone $originalImage);
+//                }
+//
+//
+////            dump($productForSale->getProduct()->getName());exit;
+////            dump($productForSale);exit;
+////            dump($productOffer);exit;
+//
+//                $em->persist($productForSale);
+//                foreach ($productForSale->getProductImages() as $newImage){
+//                    $newImage->setProductOffer($productForSale);
+//                    $em->persist($newImage);
+//                }
+//                $em->flush();
+//                $this->addFlash('success', 'You successfully announced your product for sale!');
+//                return $this->redirectToRoute('products_list');
+//            }
+//            return $this->render(':FlorilFlowers/User/Products:announce-for-sale.html.twig', array(
+//                'productForm' => $form->createView()
+//            ));
+//        }
+//        return $this->redirectToRoute('homepage');
+//    }
+
+    private function handleFormWhenFirstAnnounceToSell($form, ProductOffer $originalProductOffer)
+    {
+        $em = $this->getDoctrine()->getManager();
+//            dump($form->getData());exit;
+        /** @var ProductOffer $productForSale */
+        $productForSale = $form->getData();
+        $productForSale->setUser($this->getUser());
+        $productForSale->setProduct($originalProductOffer->getProduct());
+
+//        because handlerequest is setting to null the data that is not in the post, we manually add it to the new productOffer Object
+//        Instead of handleRequest we could use submit, so that we tell it not to clear the fields that are not submitted (because not rendered!)
+//http://stackoverflow.com/questions/25291607/symfony2-how-to-stop-form-handlerequest-from-nulling-fields-that-dont-exist
+        $productForSale->setFrontProductImage($originalProductOffer->getFrontProductImage());
+
+        foreach ($originalProductOffer->getProductImages() as $originalImage) {
+            $productForSale->getProductImages()->add(clone $originalImage);
+        }
+
+        $em->persist($productForSale);
+        foreach ($productForSale->getProductImages() as $newImage) {
+            $newImage->setProductOffer($productForSale);
+            $em->persist($newImage);
+        }
+        $em->flush();
+        $this->addFlash('success', 'You successfully announced your product for sale!');
+    }
+
+    private function handleFormWhenEditSellAnnouncement($form)
+    {
+        $em = $this->getDoctrine()->getManager();
+//            dump($form->getData());exit;
+        /** @var ProductOffer $productForSale */
+        $productForSale = $form->getData();
+        $em->persist($productForSale);
+        $em->flush();
+        $this->addFlash('success', 'You successfully announced your product for sale!');
+    }
 
 }

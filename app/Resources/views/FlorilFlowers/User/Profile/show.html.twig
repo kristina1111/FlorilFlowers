@@ -27,16 +27,13 @@
         </article>
 
     </section>
-    <section class="prifile-nav-container">
+    <section class="profile-nav-container">
         <ul>
             <li>
                 <a href="{{ path('user_edit_profile', {'id' : user.id}) }}">Edit profile Info</a>
             </li>
             <li>
-                <a href="">Products I own</a>
-            </li>
-            <li>
-                <a href="">Products for sale</a>
+                <a href="{{ path('user_bought_products_all', {'id' : user.id}) }}">Products I own</a>
             </li>
             <li>
                 <a href="{{ path('user_all_orders_show', {'id' : user.id}) }}">My orders</a>

@@ -1,5 +1,88 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-<h1>{{ funFact|raw }}</h1>
-<p>{{ 999999|number_format }}</p>
+    {% if products|length>0 %}
+       <h1>Here are our best selling products ordered by sold quantities descending!</h1>
+    {% else %}
+        <h1>We haven't sold any product yet! It's time for shopping!</h1>
+    {% endif %}
+{% for cartProduct in products %}
+    {% if cartProduct[0].offer.deletedOn == null and cartProduct[0].offer.quantityForSale>0 %}
+        <section class="col-lg-3 col-md-3 col-sm-6 col-xs-12 product-offer-outer-container-small">
+            <section class="product-offer-inner-container-small">
+                <article class="small-img-product">
+                    <div class="img-content">
+                        {#{{ dump(offer)  }}#}
+                        {% if cartProduct[0].offer.frontProductImage != null %}
+                            <a href="{{ path('product_show', {'id' : cartProduct[0].offer.id}) }}"><img class=""
+                                                                                                src="{{ asset('Uploads/ProductImages/' ~ cartProduct[0].offer.frontProductImage.path ~ '') }}"
+                                                                                                alt=""></a>
+                        {% else %}
+                            <a href="{{ path('product_show', {'id' : cartProduct[0].offer.id}) }}"><img class=""
+                                                                                                src="{{ asset('Images/DSC06750.JPG') }}"
+                                                                                                alt=""></a>
+                        {% endif %}
+                    </div>
+
+
+                </article>
+                <article class="short-info-product">
+                    <ul>
+                        <li>
+                            <span>Sold quantity: {{ cartProduct['quantitySold'] }}</span>
+                        </li>
+                        <li>
+                            <span>Name: </span><a
+                                    href="{{ path('product_show', {'id' : cartProduct[0].offer.id}) }}"><span>{{ cartProduct[0].offer.product.name }}</span></a>
+                        </li>
+                        <li>
+                            <span>Category: </span><a href="#"><span>{{ cartProduct[0].offer.product.category }}</span></a>
+                        </li>
+                        <li>
+                            <span>Owner: </span>
+                            <span>
+                                    {% if "ROLE_ADMIN" in cartProduct[0].offer.user.roles or "ROLE_EDITOR" in cartProduct[0].offer.user.roles %}
+                                        FlorilFlowers
+                                    {% else %}
+                                        {{ cartProduct[0].offer.user.nickname }}
+                                    {% endif %}
+                                </span>
+                        </li>
+                        <li>
+                            <span>Quantity Available: {{ cartProduct[0].offer.quantityForSale }}</span>
+                        </li>
+                        {#<li>#}
+                        {#<span>Subcategory: </span><a href="#"><span>{{ offer.product.subcategory }}</span></a>#}
+                        {#</li>#}
+                        <li>
+                            <span>Price: {{ cartProduct[0].offer.retailPrice }} {{ cartProduct[0].offer.currency.type }}</span>
+                        </li>
+                        {% if app.getUser() and not app.user.isAuthor(cartProduct[0].offer) %}
+                            <li>
+                                <form method="post"
+                                      action="{{ path('product_add_to_cart', {'id' : cartProduct[0].offer.id}) }}">
+                                    <input type="submit" class="add-to-cart" value="Add to cart"/>
+                                </form>
+                            </li>
+
+                            {#<li>#}
+                                {#<form action="">#}
+                                    {#<input type="submit" class="add-to-favourite" value="Add favourite"/>#}
+                                {#</form>#}
+                            {#</li>#}
+                        {% endif %}
+                        {#{% if app.getUser() and (app.user.isAuthor(offer) or is_granted(expression(#}
+                        {#'"ROLE_EDITOR" in roles'#}
+                        {#))) %}#}
+                        {#<li>#}
+                        {#<a href="{{ path('edit_product',{'id' : offer.id}) }}">Edit!</a>#}
+                        {#</li>#}
+                        {#{% endif %}#}
+
+                    </ul>
+                </article>
+            </section>
+
+        </section>
+    {% endif %}
+{% endfor %}
 {% endblock %}
