@@ -70,7 +70,10 @@
                                             {% endif %}
                                         </td>
                                         <td><a href="{{ path('edit_product',{'id' : productOffer.id}) }}">Edit</a></td>
-                                        <td><a href="{{ path('delete_productOffer', {'id' : productOffer.id}) }}">Delete</a></td>
+                                        <td>
+                                            <form method="POST" action="{{ path('delete_productOffer', {'id' : productOffer.id}) }}">
+                                                <button type="submit">Delete</button>
+                                            </form>
                                     </tr>
                                 {% endif %}
 

@@ -1,7 +1,14 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <section class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-xs-12 current-order-container">
-        <h1>Your order</h1>
+        <h1>
+            {% if not "ROLE_ADMIN" in app.user.roles %}
+                Your
+            {% else %}
+                User #{{ "%08d"|format(order.user.id) }}
+            {% endif %}
+            order
+        </h1>
         <table class="order-table">
             <thead>
             <tr>
@@ -77,12 +84,28 @@
         {{ form_end(form) }}
         {% else %}
         <div>
-            <p>Your shipment address is {{ order.address.address }}.</p>
-            <p>Your phone is {{ order.phone.phoneNumber }}</p>
+            <p>
+            {% if not "ROLE_ADMIN" in app.user.roles %}
+                Your
+            {% else %}
+                User #{{ "%08d"|format(order.user.id) }}
+            {% endif %}
+                shipment address is {{ order.address.address }}.
+            </p>
+            <p>
+                {% if not "ROLE_ADMIN" in app.user.roles %}
+                Your
+            {% else %}
+                User #{{ "%08d"|format(order.user.id) }}
+                {% endif %}
+                phone is {{ order.phone.phoneNumber }}</p>
         </div>
         {% endif %}
-        {% if  %}
-            
+        {% if is_granted('ROLE_ADMIN') %}
+        {#{% if "ROLE_ADMIN" in app.user.roles %}#}
+            <form method="POST" action="{{ path('confirm_order_process', {'idOrder' : order.id}) }}">
+                <button type="submit">Complete order!</button>
+            </form>
         {% endif %}
     </section>
 {% endblock %}

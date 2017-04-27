@@ -45,6 +45,9 @@ class OrderController extends Controller
         ));
 //        return $this->redirectToRoute('user_profile_show');
     }
+
+
+
     /**
      * @Route("/user/{idUser}/cart/{idCart}/order/edit", name="edit_order_before_finalised")
      * @Method("POST")
@@ -182,4 +185,5 @@ class OrderController extends Controller
         }
         return $this->redirectToRoute('homepage');
     }
+
 }

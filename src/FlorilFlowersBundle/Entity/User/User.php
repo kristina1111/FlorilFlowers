@@ -526,4 +526,8 @@ class User implements UserInterface
 //        return in_array(self::ROLE_EDITOR, $this->getRoles());
 //    }
 
+    public function earnMoneyWhenSelling(float $money)
+    {
+        $this->setCash($this->getCash()+ $money);
+    }
 }

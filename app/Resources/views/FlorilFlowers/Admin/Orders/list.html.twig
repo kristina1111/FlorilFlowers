@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <section>
+        {% if allOrders|length>0 %}
+            <h1>Here are the orders that are waiting for completion! </h1>
+            <table>
+                <thead>
+                <tr>
+                    <th>Order Number:</th>
+                    <th>Created on:</th>
+                    <th>Shipment address:</th>
+                    <th>Phone number:</th>
+                    <th>Confirmed on:</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for order in allOrders %}
+                    <tr>
+                        <td>{{ "%08d"|format(order.id) }}</td>
+                        <td>{{ order.createdOn|date('d M Y, h:i a') }}</td>
+                        <td>{{ order.address.address }}</td>
+                        <td>{{ order.phone.phoneNumber }}</td>
+                        <td>{{ order.confirmedOn|date('d M Y, h:i a') }}</td>
+                        <td><a href="{{ path('order_current_cart_process', {'idUser' : order.user.id, 'idCart' : order.cart.id}) }}">Show</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <h1>You don't have orders that you still has not confirmed!</h1>
+        {% endif %}
+    </section>
+{% endblock %}

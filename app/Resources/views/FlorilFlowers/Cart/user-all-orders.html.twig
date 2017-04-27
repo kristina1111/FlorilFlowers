@@ -2,7 +2,7 @@
 {% block body %}
     <section>
         {% if notConfirmedOrdersByDatetime|length>0 %}
-            <h1>Here are the offers that you still has not confirmed! </h1>
+            <h1>Here are the orders that you still has not confirmed! </h1>
             <table>
                 <thead>
                 <tr>
@@ -30,13 +30,13 @@
                 </tbody>
             </table>
         {% else %}
-            <h1>You don't have offers that you still has not confirmed!</h1>
+            <h1>You don't have orders that you still has not confirmed!</h1>
         {% endif %}
     </section>
     <hr>
     <section>
         {% if confirmedNotCompletedOrdersByDatetime|length>0 %}
-            <h1>Here are the offers that you confirmed - waiting for completion! </h1>
+            <h1>Here are the orders that you confirmed - waiting for completion! </h1>
             <table>
                 <thead>
                 <tr>
@@ -64,13 +64,13 @@
                 </tbody>
             </table>
         {% else %}
-            <h1>You don't have offers that are not completed!</h1>
+            <h1>You don't have orders that are not completed!</h1>
         {% endif %}
     </section>
     <hr>
     <section>
         {% if completedOrders|length>0 %}
-            <h1>Here are the completed offers! </h1>
+            <h1>Here are the completed orders! </h1>
             <table>
                 <thead>
                 <tr>
@@ -98,7 +98,7 @@
                 </tbody>
             </table>
         {% else %}
-            <h1>You don't have completed offers! It's time for shopping! :)</h1>
+            <h1>You don't have completed orders! It's time for shopping! :)</h1>
         {% endif %}
     </section>
 {% endblock %}

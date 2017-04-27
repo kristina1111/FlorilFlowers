@@ -286,6 +286,7 @@ class ProductOfferController extends Controller
 
     /**
      * @Route("/delete/{id}", name="delete_productOffer")
+     * @Method("POST")
      * @Security("is_granted('ROLE_USER')")
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -379,7 +380,8 @@ class ProductOfferController extends Controller
      */
     public function announceForSaleByBuyerAction($idUser, $idProduct, Request $request)
     {
-        if ($this->getUser()->getId() != $idUser) {
+        if ($this->getUser()->getId() != $idUser || $this->get('security.authorization_checker')->isGranted(new Expression('"ROLE_EDITOR" in roles'))
+        ) {
             $this->addFlash('error', 'You cannot sell this product');
         } else {
             $originalProductOffer = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Product\ProductOffer')->find($idProduct);

@@ -11,9 +11,19 @@
                         <th>Product name</th>
                         <th>Product category</th>
                         <th>Bought quantity</th>
-                        <th>Sold quantities</th>
                         <th>Retail price</th>
-                        <th>Announce to sell</th>
+                        <th>
+            {% if not "ROLE_USER" in app.user.roles %}
+                            Sold quantities
+                {% endif %}
+                        </th>
+
+                        <th>
+                            {% if not "ROLE_USER" in app.user.roles %}
+                                Announce to sell
+                            {% endif %}
+
+                        </th>
                         {#<th></th>#}
                     </tr>
                     </thead>
@@ -36,9 +46,18 @@
                             <td>{{ product[0].offer.product.name }}</td>
                             <td>{{ product[0].offer.product.category }}</td>
                             <td>{{ product['quantityBought']}}</td>
-                            <td>{{ product['quantitySold'] }}</td>
                             <td>{{ product[0].offer.retailPrice }}</td>
-                            <td><a href="{{ path('announce_for_sale', {'idUser' : app.user.id, 'idProduct' : product[0].offer.id}) }}">Sell!</a></td>
+                            <td>
+                        {% if not "ROLE_USER" in app.user.roles %}
+                                {{ product['quantitySold'] }}
+                            {% endif %}
+                            </td>
+
+                            <td>
+                        {% if not "ROLE_USER" in app.user.roles %}
+                                <a href="{{ path('announce_for_sale', {'idUser' : app.user.id, 'idProduct' : product[0].offer.id}) }}">Sell!</a>
+                            {% endif %}
+                            </td>
                             {#<td><a href="{{ path('edit_product',{'id' : productOffer.id}) }}">Edit</a></td>#}
                             {#<td><a href="{{ path('delete_productOffer', {'id' : productOffer.id}) }}">Delete</a></td>#}
                         </tr>

@@ -48,5 +48,14 @@ class OrderRepository extends EntityRepository
             ->execute();
     }
 
+    public function findAllNotConfirmed()
+    {
+        return $this->createQueryBuilder('o')
+            ->where('o.completedOn is NULL')
+            ->orderBy('o.confirmedOn', 'DESC')
+            ->getQuery()
+            ->execute();
+    }
+
 
 }
