@@ -109,7 +109,6 @@ class OrderController extends Controller
 
             /** @var Cart $cart */
             $cart = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Cart\Cart')->find($idCart);
-            $totalSum = $this->get('app.cart_manager')->calculateCartTotalPrice($cart);
             /** @var Order $order */
             $order = $cart->getOrder();
             if($order->getConfirmedOn()!=null){
@@ -158,7 +157,7 @@ class OrderController extends Controller
 //                $order;
 //                dump($order);exit;
                 $order->setConfirmedOn(new \DateTime());
-
+                $totalSum = $this->get('app.cart_manager')->calculateCartTotalPrice($cart);
                 $user->setCash($user->getCash()-$totalSum);
 //                dump($order);exit;
 

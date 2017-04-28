@@ -45,9 +45,11 @@ class CartController extends Controller
             }
             $formCart = $this->createForm(CartTypeForm::class, $cart[0]);
             $cartTotalSum = $this->get('app.cart_manager')->calculateCartTotalPrice($cart[0]);
+            $priceCalculator = $this->get('app.price_calculator');
             return $this->render(':FlorilFlowers/Cart:current.html.twig', [
                 'formCart' => $formCart->createView(),
-                'cartTotalSum' => $cartTotalSum
+                'cartTotalSum' => $cartTotalSum,
+                'priceCalculator' => $priceCalculator
             ]);
         }
 
@@ -100,7 +102,7 @@ class CartController extends Controller
 //            dump($originalCart);
 //            dump($cart);exit;
                 $em = $this->getDoctrine()->getManager();
-// the logic for checking if deletion of product from cart is needed and the deletion itself is in CartManager service
+// the logic for checking if deletion of product from cart is needed (if user deleted product form the cart) and the deletion itself is in CartManager service
                 $this->get('app.cart_manager')->deleteFromCartIfNeeded($cart, $originalProducts);
 //            /**
 //             * @var CartProduct $originalProduct
@@ -161,8 +163,10 @@ class CartController extends Controller
                 $em->flush();
 
                 $this->addFlash('info', 'You just edited your cart!');
+                $priceCalculator = $this->get('app.price_calculator');
                 return $this->redirectToRoute('show_edit_current_cart', array(
-                    'id' => $user->getId()
+                    'id' => $user->getId(),
+                    'priceCalculator' => $priceCalculator
                 ));
             }
 
@@ -287,11 +291,12 @@ class CartController extends Controller
             }
 
             $cartTotalSum = $this->get('app.cart_manager')->calculateCartTotalPrice($cart);
-
+            $priceCalculator = $this->get('app.price_calculator');
             return $this->render(':FlorilFlowers/Cart:order.html.twig', array(
                 'order' => $order,
                 'cartTotalSum' => $cartTotalSum,
-                'form' => $form->createView()
+                'form' => $form->createView(),
+                'priceCalculator' => $priceCalculator
             ));
 
         }

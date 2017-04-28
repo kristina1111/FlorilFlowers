@@ -340,6 +340,9 @@ class User implements UserInterface
         return $this->email;
     }
 
+    public function getRole(){
+        return $this->role;
+    }
     /**
      * @return array
      */

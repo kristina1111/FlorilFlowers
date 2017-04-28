@@ -35,8 +35,14 @@
                     </td>
                     <td>{{ cartProduct.offer.product.name }}</td>
                     <td>{{ cartProduct.quantity }}</td>
-                    <td>{{ cartProduct.offer.retailPrice }}</td>
-                    <td>{{ cartProduct.offer.retailPrice * cartProduct.quantity }}</td>
+                    <td>
+                        {% set productPromotion = priceCalculator.calculate(cartProduct.offer) %}
+                        {% if productPromotion != cartProduct.offer.retailPrice %}
+                            <del>{{ cartProduct.offer.retailPrice }} </del>
+                        {% endif %}
+                        {{ productPromotion }} {{ cartProduct.offer.currency }}
+                    </td>
+                    <td>{{ productPromotion * cartProduct.quantity }}</td>
                 </tr>
             {% endfor %}
             <tr>
@@ -51,8 +57,8 @@
 
                 </td>
                 <td></td>
-                <td>Total: {{ cartTotalSum }} BGN</td>
                 <td></td>
+                <td>Total: {{ cartTotalSum }} BGN</td>
             </tr>
             </tbody>
         </table>

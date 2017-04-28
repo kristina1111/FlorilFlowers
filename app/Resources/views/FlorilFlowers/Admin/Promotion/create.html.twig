@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <section>
+    {% if 'edit' in app.request.pathInfo %}
+        <h1>You can edit the promotion here!</h1>
+        {% else %}
+            <h1>You can create a promotion here!</h1>
+            {% endif %}
+
+        {{ form_start(form) }}
+            <div>
+                {{ form_errors(form.name) }}
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name) }}
+            </div>
+        <div>
+            {{ form_errors(form.description) }}
+            {{ form_label(form.description) }}
+            {{ form_widget(form.description) }}
+        </div>
+        <div>
+            {{ form_errors(form.percent) }}
+            {{ form_label(form.percent) }}
+            {{ form_widget(form.percent) }}
+        </div>
+        <div>
+            {{ form_errors(form.startDate) }}
+            {{ form_label(form.startDate) }}
+            {{ form_widget(form.startDate) }}
+        </div>
+        <div>
+            {{ form_errors(form.endDate) }}
+            {{ form_label(form.endDate) }}
+            {{ form_widget(form.endDate) }}
+        </div>
+        <div>
+            {{ form_errors(form.category) }}
+            {{ form_label(form.category) }}
+            {{ form_widget(form.category) }}
+        </div>
+        <div>
+            {{ form_errors(form.productOffer) }}
+            {{ form_label(form.productOffer) }}
+            {{ form_widget(form.productOffer) }}
+        </div>
+        <div>
+            {{ form_errors(form.role) }}
+            {{ form_label(form.role) }}
+            {{ form_widget(form.role) }}
+        </div>
+    {% if 'edit' in app.request.pathInfo %}
+        <button type="submit">Edit Promotion</button>
+        {% else %}
+        <button type="submit">Create Promotion</button>
+            {% endif %}
+        {{ form_end(form) }}
+    </section>
+{% endblock %}

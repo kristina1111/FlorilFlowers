@@ -38,14 +38,26 @@ services:
         class: FlorilFlowersBundle\Service\Upload\ImageUploader
         arguments: ['%image_directory%']
 
-    app.cart_manager:
-        class: FlorilFlowersBundle\Service\Cart\CartManager
-        arguments: ['@doctrine.orm.entity_manager', '@session' ]
-
-
-
     app.database_globals_extension:
         class: FlorilFlowersBundle\Twig\Extension\DatabaseGlobalsExtension
         arguments: ["@doctrine.orm.entity_manager"]
         tags:
             - { name: twig.extension }
+
+    repo.promotions:
+        class: FlorilFlowersBundle\Repository\Promotion\PromotionRepository
+        factory: ['@doctrine.orm.entity_manager', getRepository]
+        arguments:
+            - FlorilFlowersBundle\Entity\Promotion\Promotion
+
+    app.promotion_manager:
+        class: FlorilFlowersBundle\Service\Promotion\PromotionManager
+        arguments: ['@repo.promotions']
+
+    app.price_calculator:
+        class: FlorilFlowersBundle\Service\Promotion\PriceCalculator
+        arguments: ['@app.promotion_manager', '@security.token_storage']
+
+    app.cart_manager:
+        class: FlorilFlowersBundle\Service\Cart\CartManager
+        arguments: ['@doctrine.orm.entity_manager', '@session', '@app.price_calculator' ]

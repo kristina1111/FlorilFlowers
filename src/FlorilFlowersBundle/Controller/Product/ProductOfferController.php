@@ -257,7 +257,6 @@ class ProductOfferController extends Controller
                             $productOffer->getProductImages()->removeElement($image);
                             continue;
                         }
-
                     }
 
 //                    check if the checkbox for the image to be main image for the productOffer
@@ -266,11 +265,9 @@ class ProductOfferController extends Controller
 //                    }
 
                     $em->persist($image);
-
                 }
 
                 $em->persist($productOffer);
-
                 $em->flush();
 
                 $this->addFlash('info', 'You just edited a product!');
@@ -359,12 +356,12 @@ class ProductOfferController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $products = $em->getRepository('FlorilFlowersBundle:Product\ProductOffer')->findAll();
-//        ->findOneBy(['id' => 2]);
-
+        $priceCalculator = $this->get('app.price_calculator');
 //        dump($products);exit;
 //
         return $this->render(':FlorilFlowers/Product:list.html.twig', [
             'productsOffers' => $products,
+            'priceCalculator' => $priceCalculator
         ]);
 
 //        dump($products); die;

@@ -49,7 +49,7 @@ class OrderController extends Controller
             /** @var CartProduct $cartProduct */
             foreach ($order->getCart()->getCartProducts() as $cartProduct) {
                 $owner = $cartProduct->getOffer()->getUser();
-                $price = $cartProduct->getOffer()->getRetailPrice();
+                $price = $this->get('app.price_calculator')->calculate($cartProduct->getOffer())* $cartProduct->getQuantity();
                 $owner->earnMoneyWhenSelling($price);
                 $em->persist($owner);
             }

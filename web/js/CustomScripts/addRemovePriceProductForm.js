@@ -29,9 +29,9 @@ $(document).ready(function() {
         addPriceForm($collectionHolder, $newLinkLi);
     });
 
-    $('.js-datepicker').datepicker({
-        format: 'yyyy-mm-dd'
-    });
+    // $('.js-datepicker').datepicker({
+    //     format: 'yyyy-mm-dd'
+    // });
 
 });
 
@@ -70,9 +70,9 @@ function addPriceForm($collectionHolder, $newLinkLi) {
     //     return false;
     // });
 
-    $('.js-datepicker').datepicker({
-        format: 'yyyy-mm-dd'
-    });
+    // $('.js-datepicker').datepicker({
+    //     format: 'yyyy-mm-dd'
+    // });
 
 // add a delete link to the new form
     addPriceFormDeleteLink($newFormDiv);

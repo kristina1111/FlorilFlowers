@@ -13,13 +13,13 @@
                         <th>Bought quantity</th>
                         <th>Retail price</th>
                         <th>
-            {% if not "ROLE_USER" in app.user.roles %}
+            {% if app.user.role.type == "ROLE_USER" %}
                             Sold quantities
                 {% endif %}
                         </th>
 
                         <th>
-                            {% if not "ROLE_USER" in app.user.roles %}
+                            {% if app.user.role.type == "ROLE_USER" %}
                                 Announce to sell
                             {% endif %}
 
@@ -48,13 +48,13 @@
                             <td>{{ product['quantityBought']}}</td>
                             <td>{{ product[0].offer.retailPrice }}</td>
                             <td>
-                        {% if not "ROLE_USER" in app.user.roles %}
+                        {% if app.user.role.type == "ROLE_USER" %}
                                 {{ product['quantitySold'] }}
                             {% endif %}
                             </td>
 
                             <td>
-                        {% if not "ROLE_USER" in app.user.roles %}
+                        {% if app.user.role.type == "ROLE_USER" %}
                                 <a href="{{ path('announce_for_sale', {'idUser' : app.user.id, 'idProduct' : product[0].offer.id}) }}">Sell!</a>
                             {% endif %}
                             </td>

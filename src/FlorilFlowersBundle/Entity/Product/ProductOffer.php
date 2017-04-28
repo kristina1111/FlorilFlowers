@@ -95,6 +95,7 @@ class ProductOffer
 
     /**
      * @ORM\OneToMany(targetEntity="FlorilFlowersBundle\Entity\Product\ProductImage", mappedBy="productOffer")
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      * @var ProductImage[]|ArrayCollection
      */
     private $productImages;
@@ -355,6 +356,11 @@ class ProductOffer
             $this->productOfferReviews = new ArrayCollection();
             $this->productImages = new ArrayCollection();
         }
+    }
+
+    public function __toString()
+    {
+        return str_pad($this->getId(), 8, '0', STR_PAD_LEFT) . " " . $this->getProduct()->getName();
     }
 
 

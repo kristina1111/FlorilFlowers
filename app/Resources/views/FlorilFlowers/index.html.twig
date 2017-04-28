@@ -54,7 +54,11 @@
                         {#<span>Subcategory: </span><a href="#"><span>{{ offer.product.subcategory }}</span></a>#}
                         {#</li>#}
                         <li>
-                            <span>Price: {{ cartProduct[0].offer.retailPrice }} {{ cartProduct[0].offer.currency.type }}</span>
+                            {% set productPromotion = priceCalculator.calculate(cartProduct[0].offer) %}
+                            {% if productPromotion != cartProduct[0].offer.retailPrice %}
+                                <del>{{ cartProduct[0].offer.retailPrice }} </del>
+                            {% endif %}
+                            <span>Price: {{ productPromotion }} {{ cartProduct[0].offer.currency.type }}</span>
                         </li>
                         {% if app.getUser() and not app.user.isAuthor(cartProduct[0].offer) %}
                             <li>

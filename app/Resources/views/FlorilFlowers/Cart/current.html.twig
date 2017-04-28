@@ -28,23 +28,30 @@
                         </td>
                         <td>{{ cartProduct.vars.data.offer.product.name }}</td>
                         <td>{{ form_widget(cartProduct.quantity) }}</td>
-                        <td>{{ cartProduct.vars.data.offer.retailPrice }}</td>
-                        <td>{{ cartProduct.vars.data.offer.retailPrice * cartProduct.vars.data.quantity }}</td>
+                        <td>
+                            {% set productPromotion = priceCalculator.calculate(cartProduct.vars.data.offer) %}
+                            {% if productPromotion != cartProduct.vars.data.offer.retailPrice %}
+                                <del>{{ cartProduct.vars.data.offer.retailPrice }} </del>
+                            {% endif %}
+                            <span>Price: {{ productPromotion }} {{ cartProduct.vars.data.offer.currency.type }}</span>
+                        </td>
+                        <td>{{ productPromotion * cartProduct.vars.data.quantity }}</td>
                     </tr>
                 {% endfor %}
                 <tr>
                     <td></td>
                     <td></td>
-                    <td></td>
+                    <td><button type="submit" id="edit-cart">Edit!</button></td>
                     <td></td>
                     <td>Total: {{ cartTotalSum }} BGN</td>
-                    <td><button type="submit" id="edit-cart">Edit!</button></td>
+                    <td></td>
                 </tr>
                 </tbody>
             </table>
 
         {#{{ dump(formCart.vars.data) }}#}
         {{ form_end(formCart) }}
+
         <form method="post"
         action="{{ path('order_current_cart_process', { 'idUser' : app.user.id ,'idCart' : formCart.vars.data.id}) }}">
             <button type="submit">Finalise Order</button>

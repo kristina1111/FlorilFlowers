@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<section>
+    {% if promotions|length>0 %}
+        <h1>Here are all the promotions</h1>
+        {% else %}
+        <h1>There are no promotions! It's time to create one!</h1>
+    {% endif %}
+    <a href="{{ path('create_promotion') }}"> Create promotion </a>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Name:</th>
+            <th>Percent:</th>
+            <th>Start date:</th>
+            <th>End date:</th>
+            <th>Global:</th>
+            <th>For category:</th>
+            <th>For product:</th>
+            <th>For role:</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for promotion in promotions %}
+            <tr>
+                <td>{{ "%08d"|format(promotion.id) }}</td>
+                <td>{{ promotion.name }}</td>
+                <td>{{ promotion.percent }}</td>
+                <td>{{ promotion.startDate|date('d M Y, H:i') }}</td>
+                <td>{{ promotion.endDate|date('d M Y, H:i') }}</td>
+                <td>
+                    {% if promotion.category is null and promotion.productOffer is null and promotion.role is null %}
+                        V
+                    {% endif %}
+                </td>
+                <td>
+                    {% if promotion.category is not null %}
+                        V
+                    {% endif %}
+                </td>
+                <td>
+                    {% if promotion.productOffer is not null %}
+                        V
+                    {% endif %}
+                </td>
+                <td>
+                    {% if promotion.role is not null %}
+                        V
+                    {% endif %}
+                </td>
+                <td>
+            {% if promotion.startDate|date('Y-m-d H:i') > "now"|date('Y-m-d H:i') %}
+                    <a href="{{ path('edit_promotion', {'id' : promotion.id}) }}">Edit</a>
+                {% endif %}
+                </td>
+                <td>
+                    {% if promotion.startDate|date('Y-m-d H:i') > "now"|date('Y-m-d H:i') %}
+                        <form action="{{ path('delete_promotion', {'id':promotion.id}) }}">
+                            <button type="submit">Delete</button>
+                        </form>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}

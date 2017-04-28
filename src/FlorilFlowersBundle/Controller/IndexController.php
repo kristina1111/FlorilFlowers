@@ -28,7 +28,10 @@ class IndexController extends Controller
 //            $funFact = $this->get('markdown.parser')->transform($funFact);
 //            $cache->save($key, $funFact);
 //        }
-
-        return $this->render('FlorilFlowers/index.html.twig', ['products' => $query]);
+        $priceCalculator = $this->get('app.price_calculator');
+        return $this->render('FlorilFlowers/index.html.twig', [
+            'products' => $query,
+            'priceCalculator' => $priceCalculator
+        ]);
     }
 }
