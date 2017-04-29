@@ -21,8 +21,10 @@ class CategoryController extends Controller
             $this->addFlash('info', 'There are no such category!');
             return $this->redirectToRoute('homepage');
         }
+        $priceCalculator = $this->get('app.price_calculator');
         return $this->render(':FlorilFlowers/Category:list.html.twig', array(
-            'category' => $category
+            'category' => $category,
+            'priceCalculator' => $priceCalculator
         ));
     }
 }

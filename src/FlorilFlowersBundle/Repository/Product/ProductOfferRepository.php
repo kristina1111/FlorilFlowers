@@ -110,4 +110,50 @@ group by cp.offer")->setParameters([
         return $query2->getResult();
 
     }
+
+    public function getAllOrderByRetailPrice(string $descOrAsc)
+    {
+        $results = $this->createQueryBuilder('po')
+            ->orderBy('po.retailPrice', $descOrAsc)
+            ->getQuery()
+            ->execute();
+        $productOffers = [];
+        for ($i =0; $i<count($results); $i++){
+            $productOffers[$i]['offer'] = $results[$i];
+            $productOffers[$i]['retailPrice'] = $results[$i]->getRetailPrice();
+        }
+
+        return $productOffers;
+    }
+
+    public function getAllOrderByQuantityForSale(string $descOrAsc)
+    {
+        return $this->createQueryBuilder('po')
+            ->orderBy('po.quantityForSale', $descOrAsc)
+            ->getQuery()
+            ->execute();
+    }
+
+    public function getAllOrderByCategory(string $descOrAsc)
+    {
+        return $this->createQueryBuilder('po')
+            ->select('po')
+            ->join('po.product', 'p')
+            ->join('p.category', 'c')
+            ->orderBy('c.name', $descOrAsc)
+            ->getQuery()
+            ->execute();
+    }
+
+    public function getAllOrderByUser(string $descOrAsc)
+    {
+        return $this->createQueryBuilder('po')
+            ->select('po')
+            ->join('po.user', 'u')
+            ->join('u.role', 'r')
+            ->orderBy('r.type', 'ASC') //so that always products form ADMIN and EDITOR (FlorilFlowers products) come first
+            ->addOrderBy('u.nickname', $descOrAsc)
+            ->getQuery()
+            ->execute();
+    }
 }

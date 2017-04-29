@@ -38,11 +38,11 @@
                     <td>
                         {% set productPromotion = priceCalculator.calculate(cartProduct.offer) %}
                         {% if productPromotion != cartProduct.offer.retailPrice %}
-                            <del>{{ cartProduct.offer.retailPrice }} </del>
+                            <del>{{ cartProduct.offer.retailPrice|number_format(2, '.', ',') }} </del>
                         {% endif %}
-                        {{ productPromotion }} {{ cartProduct.offer.currency }}
+                        {{ productPromotion|number_format(2, '.', ',') }} {{ cartProduct.offer.currency }}
                     </td>
-                    <td>{{ productPromotion * cartProduct.quantity }}</td>
+                    <td>{{ productPromotion|number_format(2, '.', ',') * cartProduct.quantity }}</td>
                 </tr>
             {% endfor %}
             <tr>

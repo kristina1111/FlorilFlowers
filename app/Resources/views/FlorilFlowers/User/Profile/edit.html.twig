@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <h1>Hello {{ user.nickname }}</h1>
+    {% if app.user != user and is_granted('ROLE_ADMIN') %}
+        <h1>You will edit the profile information of {{ user.nickname }}</h1>
+        {% else %}
+            <h1>Hello {{ user.nickname }}</h1>
+    {% endif %}
+
     <section class="profile-info-container">
         <article class="prifile-info-container">
-            <header>
-                <ul>
-
-                </ul>
-            </header>
             <section>
                 {{ form_start(form) }}
                 <ul>
@@ -31,25 +31,38 @@
                         {{ form_label(form.email) }}
                         {{ form_widget(form.email) }}
                     </li>
-                    <li>
-                        {{ form_errors(form.plainPassword.first) }}
-                        {{ form_label(form.plainPassword.first) }}
-                        {{ form_widget(form.plainPassword.first) }}
-                    </li>
-                    <li>
-                        {{ form_errors(form.plainPassword.second) }}
-                        {{ form_label(form.plainPassword.second) }}
-                        {{ form_widget(form.plainPassword.second) }}
-                    </li>
-                    <li>
-                        {{ form_errors(form.checkPass) }}
-                        {{ form_label(form.checkPass) }}
-                        {{ form_widget(form.checkPass) }}
-                    </li>
+                    {% if app.user == user %}
+                        <li>
+                            {{ form_errors(form.plainPassword.first) }}
+                            {{ form_label(form.plainPassword.first) }}
+                            {{ form_widget(form.plainPassword.first) }}
+                        </li>
+                        <li>
+                            {{ form_errors(form.plainPassword.second) }}
+                            {{ form_label(form.plainPassword.second) }}
+                            {{ form_widget(form.plainPassword.second) }}
+                        </li>
+                        <li>
+                            {{ form_errors(form.checkPass) }}
+                            {{ form_label(form.checkPass) }}
+                            {{ form_widget(form.checkPass) }}
+                        </li>
+                    {% endif %}
+    {% if app.user != user and is_granted('ROLE_ADMIN') %}
+        <li>
+            {{ form_errors(form.role) }}
+            {{ form_label(form.role) }}
+            {{ form_widget(form.role) }}
+        </li>
+        {% endif %}
+
                     <li>
                         <button type="submit">Edit profile!</button>
                     </li>
                 </ul>
+                {% do form.plainPassword.setRendered() %}
+                {% do form.checkPass.setRendered() %}
+                {% do form.role.setRendered() %}
                 {{ form_end(form) }}
             </section>
         </article>

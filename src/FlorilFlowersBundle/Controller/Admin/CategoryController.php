@@ -43,10 +43,11 @@ class CategoryController extends Controller
             $this->addFlash('success', 'You added new category "' . $category->getName() . '"');
             return $this->redirectToRoute('create_categories_list');
         }
-
+        $priceCalculator = $this->get('app.price_calculator');
         return $this->render('FlorilFlowers/Admin/Category/list.html.twig', [
             'form' => $form->createView(),
             'categories' => $categories,
+            'priceCalculator' => $priceCalculator
         ]);
     }
 
@@ -81,10 +82,11 @@ class CategoryController extends Controller
             $this->addFlash('success', 'You edited category "' . $category->getName() . '"');
             return $this->redirectToRoute('create_categories_list');
         }
-
+        $priceCalculator = $this->get('app.price_calculator');
         return $this->render('FlorilFlowers/Admin/Category/list.html.twig', [
             'form' => $form->createView(),
             'categories' => $categories,
+            'priceCalculator' => $priceCalculator
         ]);
     }
 

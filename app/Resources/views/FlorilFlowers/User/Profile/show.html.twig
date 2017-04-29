@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 {% block body %}
+    {% if app.user == user %}
     <h1>Hello {{ user.nickname }}</h1>
+        {% else %}
+            <h1>This is the profile of {{ user.nickname }}</h1>
+            {% endif %}
     <section class="profile-info-container">
         <article class="prifile-info-container">
             <header>
@@ -27,18 +31,36 @@
         </article>
 
     </section>
-    <section class="profile-nav-container">
-        <ul>
-            <li>
-                <a href="{{ path('user_edit_profile', {'id' : user.id}) }}">Edit profile Info</a>
-            </li>
-            <li>
-                <a href="{{ path('user_bought_products_all', {'id' : user.id}) }}">Products I own</a>
-            </li>
-            <li>
-                <a href="{{ path('user_all_orders_show', {'id' : user.id}) }}">My orders</a>
-            </li>
-        </ul>
-    </section>
+    {% if app.user == user %}
+        <section class="profile-nav-container">
+            <ul>
+                <li>
+                    <a href="{{ path('user_edit_profile', {'id' : user.id}) }}">Edit profile Info</a>
+                </li>
+                <li>
+                    <a href="{{ path('user_bought_products_all', {'id' : user.id}) }}">Products I own</a>
+                </li>
+                <li>
+                    <a href="{{ path('user_all_orders_show', {'id' : user.id}) }}">My orders</a>
+                </li>
+            </ul>
+        </section>
+    {% endif %}
+    {% if app.user != user and is_granted('ROLE_ADMIN') %}
+        <section class="profile-nav-container">
+            <ul>
+                <li>
+                    <a href="{{ path('user_edit_profile', {'id' : user.id}) }}">Edit profile Info</a>
+                </li>
+                <li>
+                    <a href="{{ path('user_bought_products_all', {'id' : user.id}) }}">Products they own</a>
+                </li>
+                <li>
+                    <a href="{{ path('user_all_orders_show', {'id' : user.id}) }}">Their orders</a>
+                </li>
+            </ul>
+        </section>
+    {% endif %}
+
 
 {% endblock %}

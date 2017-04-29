@@ -6,9 +6,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use FlorilFlowersBundle\Entity\Product\Product;
 use FlorilFlowersBundle\Entity\Product\ProductImage;
 use FlorilFlowersBundle\Entity\Product\ProductOffer;
+use FlorilFlowersBundle\Entity\Product\ProductOfferOrder;
 use FlorilFlowersBundle\Form\Product\ProductFormType;
 use FlorilFlowersBundle\Form\Product\ProductOfferFormType;
 use FlorilFlowersBundle\Form\Product\ProductOfferReviewFormType;
+use FlorilFlowersBundle\Form\Product\ProductOfferOrderFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -337,11 +339,13 @@ class ProductOfferController extends Controller
 //        $funfact = $transformer->parse($funfact);
 
 //        dump($product);die;
+        $priceCalculator = $this->get('app.price_calculator');
 
         return $this->render(':FlorilFlowers/Product:show.html.twig',
             [
                 'productOffer' => $productOffer,
-                'reviewForm' => $reviewForm->createView()
+                'reviewForm' => $reviewForm->createView(),
+                'priceCalculator' => $priceCalculator
 //                'reviews' => $product->getReviews(),
 //                'recentNotes' => $recentNotes,
 //                'funfact' => $funfact,
@@ -352,16 +356,57 @@ class ProductOfferController extends Controller
      * @Route("/all", name="products_list")
      * lists only published products, ordered descending by quantity
      */
-    public function listAction()
+    public function listAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $products = $em->getRepository('FlorilFlowersBundle:Product\ProductOffer')->findAll();
+        $products = $this->get('app.product_offer_order_manager')->getOrderedProductOffers();
+
+//        Handling the productsOrder
+        /** @var ProductOfferOrder $productsOrder */
+        $productsOrder = $em->getRepository('FlorilFlowersBundle:Product\ProductOfferOrder')->findActiveOrder()[0];
+        $originalOrder = $productsOrder;
+        $name = $originalOrder->getName();
+//        $allOrders = $em->getRepository('FlorilFlowersBundle:Product\ProductOfferOrder')->findAllOrdersNames();
+        $formProductOrder = $this->createForm(ProductOfferOrderFormType::class, $productsOrder);
+//        dump($originalOrder);exit;
+//        $formProductOrder->submit($request->get($formProductOrder->getName()), false);
+        $formProductOrder->handleRequest($request);
+        if ($formProductOrder->isValid() && $formProductOrder->isSubmitted()) {
+//            dump($formProductOrder['descOrAsc']->getViewData());exit;
+            $productsOrder = $formProductOrder->getData()->getName();
+//            dump($productsOrder);exit;
+            if(!$productsOrder){
+                $this->addFlash('info', "You haven't selected how to order the products!");
+                return $this->redirectToRoute('products_list');
+            }
+            if($originalOrder->getId()==$productsOrder->getId()){
+                $this->addFlash('info', 'Products are already ordered like this!');
+                return $this->redirectToRoute('products_list');
+            }
+            $desOrAsc = $formProductOrder['descOrAsc']->getViewData();
+//            dump($desOrAsc);exit;
+
+            $productsOrder->setDescOrAsc($desOrAsc);
+
+            $em->getRepository('FlorilFlowersBundle:Product\ProductOfferOrder')->setActivatedOnToNull();
+
+            $productsOrder->setActivatedOn(new \DateTime());
+            $em->persist($productsOrder);
+            $originalOrder->setName($name);
+            $em->detach($originalOrder);
+
+            $em->flush();
+
+            $this->addFlash('success', 'You successfully reordered the products');
+            return $this->redirectToRoute('products_list');
+        }
+
         $priceCalculator = $this->get('app.price_calculator');
-//        dump($products);exit;
-//
+
         return $this->render(':FlorilFlowers/Product:list.html.twig', [
             'productsOffers' => $products,
-            'priceCalculator' => $priceCalculator
+            'priceCalculator' => $priceCalculator,
+            'formProductsOrder' => $formProductOrder->createView()
         ]);
 
 //        dump($products); die;
@@ -401,7 +446,7 @@ class ProductOfferController extends Controller
                         ->findUserSoldProduct($alreadyOffer[0]);
                     if (count($quantitySoldProduct) > 0) {
                         $quantitySoldProduct = $quantitySoldProduct[0]['quantitySold'];
-                    }else{
+                    } else {
                         $quantitySoldProduct = 0;
                     }
                 }
@@ -425,7 +470,7 @@ class ProductOfferController extends Controller
                             if ($quantityBoughtProduct - $quantitySoldProduct >= $productForSale->getQuantityForSale()) {
                                 $this->handleFormWhenFirstAnnounceToSell($form, $originalProductOffer);
                                 return $this->redirectToRoute('products_list');
-                            }else{
+                            } else {
                                 $this->addFlash('error', "You haven't bought enough of that product. You need to buy more in order to sell!");
                             }
                         }
@@ -451,14 +496,14 @@ class ProductOfferController extends Controller
                             ->getOfferQsInNotFinalisedCarts($productForSale);
                         $qInFinalisedCarts = $em->getRepository('FlorilFlowersBundle:Product\ProductOffer')
                             ->getOfferQsInFinalisedCarts($productForSale);
-                        if(!$qInNotFinalisedCarts){
+                        if (!$qInNotFinalisedCarts) {
                             $qInNotFinalisedCarts = 0;
-                        }else{
+                        } else {
                             $qInNotFinalisedCarts = intval($qInNotFinalisedCarts[0]["quantity"]);
                         }
-                        if(!$qInFinalisedCarts){
+                        if (!$qInFinalisedCarts) {
                             $qInFinalisedCarts = 0;
-                        }else{
+                        } else {
                             $qInFinalisedCarts = intval($qInNotFinalisedCarts[0]["quantity"]);
                         }
 

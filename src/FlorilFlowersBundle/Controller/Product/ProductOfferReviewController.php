@@ -67,10 +67,12 @@ class ProductOfferReviewController extends Controller
             $this->addFlash('success', 'You just edited a review by ' . $review->getUser()->getNickname());
             return $this->redirectToRoute('product_show', array('id' => $idProduct));
         }
+        $priceCalculator = $this->get('app.price_calculator');
         return $this->render(':FlorilFlowers/Product:show.html.twig',
             [
                 'productOffer'=> $productOffer,
-                'reviewForm' => $form->createView()
+                'reviewForm' => $form->createView(),
+                'priceCalculator' => $priceCalculator
 //                'reviews' => $product->getReviews(),
 //                'recentNotes' => $recentNotes,
 //                'funfact' => $funfact,

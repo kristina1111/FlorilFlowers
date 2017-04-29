@@ -2,7 +2,12 @@
 {% block body %}
     <section>
         {% if notConfirmedOrdersByDatetime|length>0 %}
-            <h1>Here are the orders that you still has not confirmed! </h1>
+            {% if app.user != notConfirmedOrdersByDatetime[0].user or is_granted('ROLE_ADMIN') %}
+                <h1>Here are the orders that {{ notConfirmedOrdersByDatetime[0].user.nickname }} still has not confirmed! </h1>
+                {% else %}
+                    <h1>Here are the orders that you still has not confirmed! </h1>
+            {% endif %}
+
             <table>
                 <thead>
                 <tr>
@@ -29,14 +34,16 @@
                 {% endfor %}
                 </tbody>
             </table>
-        {% else %}
-            <h1>You don't have orders that you still has not confirmed!</h1>
         {% endif %}
     </section>
-    <hr>
     <section>
         {% if confirmedNotCompletedOrdersByDatetime|length>0 %}
-            <h1>Here are the orders that you confirmed - waiting for completion! </h1>
+            {% if app.user != confirmedNotCompletedOrdersByDatetime[0].user or is_granted('ROLE_ADMIN') %}
+                <h1>Here are the orders that {{ confirmedNotCompletedOrdersByDatetime[0].user.nickname }} confirmed - waiting for completion! </h1>
+                {% else %}
+                    <h1>Here are the orders that you confirmed - waiting for completion! </h1>
+                    {% endif %}
+
             <table>
                 <thead>
                 <tr>
@@ -63,14 +70,16 @@
                 {% endfor %}
                 </tbody>
             </table>
-        {% else %}
-            <h1>You don't have orders that are not completed!</h1>
         {% endif %}
     </section>
-    <hr>
     <section>
         {% if completedOrders|length>0 %}
-            <h1>Here are the completed orders! </h1>
+            {% if app.user != completedOrders[0].user or is_granted('ROLE_ADMIN') %}
+                <h1>Here are the completed orders of {{ completedOrders[0].user.nickname }}! </h1>
+                {% else %}
+                    <h1>Here are your completed orders! </h1>
+                    {% endif %}
+
             <table>
                 <thead>
                 <tr>
@@ -84,7 +93,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for order in confirmedNotCompletedOrdersByDatetime %}
+                {% for order in completedOrders%}
                     <tr>
                         <td>{{ "%08d"|format(order.id) }}</td>
                         <td>{{ order.createdOn|date('d M Y, h:i a') }}</td>

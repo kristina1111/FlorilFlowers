@@ -1,10 +1,78 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <h1>{{ productOffer.product.name }}</h1>
-    <div>
-        This {{ productOffer.product.name }} is incredible. It's Category is {{ productOffer.product.category.name }}.
-        {#It's quantity is {{ product.quantity }} {{ product.unitMeasure }}.#}
-    </div>
+    <section>
+        <article>
+            <section>
+                This {{ productOffer.product.name }} is incredible. It's Category is {{ productOffer.product.category.name }}.
+            <p>Product description: {{ productOffer.product.description }}</p>
+            </section>
+            <section>
+                <article class="short-info-product">
+                    <ul>
+                        <li>
+                            <span>Category: </span><a href="#"><span>{{ productOffer.product.category }}</span></a>
+                        </li>
+                        <li>
+                            <span>Owner: </span>
+                            <span>
+                                    {% if "ROLE_ADMIN" in productOffer.user.roles or "ROLE_EDITOR" in productOffer.user.roles %}
+                                        FlorilFlowers
+                                    {% else %}
+                                        {{ productOffer.user.nickname }}
+                                    {% endif %}
+                                </span>
+                        </li>
+                        <li>
+                            <span>Quantity: {{ productOffer.quantityForSale }}</span>
+                        </li>
+                        <li>
+                            <p>Offer description: {{ productOffer.description }}</p>
+                        </li>
+                        {#<li>#}
+                        {#<span>Subcategory: </span><a href="#"><span>{{ productOffer.product.subcategory }}</span></a>#}
+                        {#</li>#}
+                        <li>
+                            {% set productPromotion = priceCalculator.calculate(productOffer) %}
+                            {% if productPromotion != productOffer.retailPrice %}
+                                <del>{{ productOffer.retailPrice|number_format(2, '.', ',') }} </del>
+                            {% endif %}
+                            <span>Price: {{ productPromotion|number_format(2, '.', ',') }} {{ productOffer.currency.type }}</span>
+                        </li>
+                        {% if app.getUser() and not app.user.isAuthor(productOffer) %}
+                            <li>
+                                <form method="post"
+                                      action="{{ path('product_add_to_cart', {'id' : productOffer.id}) }}">
+                                    <input type="submit" class="add-to-cart" value="Add to cart"/>
+                                </form>
+                            </li>
+
+                            {#<li>#}
+                            {#<form action="">#}
+                            {#<input type="submit" class="add-to-favourite" value="Add favourite"/>#}
+                            {#</form>#}
+                            {#</li>#}
+                        {% endif %}
+                    </ul>
+                </article>
+            </section>
+            <section>
+                {% for image in productOffer.productImages %}
+                    <section>
+                        <div>
+                            <img src="{{ asset('Uploads/ProductImages/' ~ image.path ~ '') }}" alt="">
+                        </div>
+                        <div>
+                            <p>{{ image.description }}</p>
+                        </div>
+                    </section>
+                {% endfor %}
+
+            </section>
+        </article>
+
+    </section>
+    
     <section>
         {% if 'edit' in app.request.pathInfo %}
             {{ form_start(reviewForm) }}
@@ -26,33 +94,35 @@
 
     </section>
     <div>
-        <h2>Reviews:</h2>
-        <table>
-            <thead>
-            <tr>
-                <th>Username</th>
-                <th>Review</th>
-                <th>Date</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for review in productOffer.productOfferReviews %}
+        {% if productOffer.productOfferReviews|length>0 %}
+            <h2>Reviews:</h2>
+            <table>
+                <thead>
                 <tr>
-                    <td>{{ review.user.nickname }}</td>
-                    <td>{{ review.reviewText }}</td>
-                    <td>{{ review.createdOn|date('d M Y, h:i a') }}</td>
-                    <td>
-                {% if app.getUser() and (app.user.isAuthor(review) or is_granted(expression(
-                '"ROLE_EDITOR" in roles'
-                ))) %}
-                        <a href="{{ path('edit_review', {'idProduct' : productOffer.id, 'idReview' : review.id}) }}">Edit</a>
-                    {% endif %}
-                    </td>
+                    <th>Username</th>
+                    <th>Review</th>
+                    <th>Date</th>
+                    <th></th>
                 </tr>
-            {% endfor %}
-            <tr></tr>
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                {% for review in productOffer.productOfferReviews %}
+                    <tr>
+                        <td>{{ review.user.nickname }}</td>
+                        <td>{{ review.reviewText }}</td>
+                        <td>{{ review.createdOn|date('d M Y, h:i a') }}</td>
+                        <td>
+                            {% if app.getUser() and (app.user.isAuthor(review) or is_granted(expression(
+                            '"ROLE_EDITOR" in roles'
+                            ))) %}
+                                <a href="{{ path('edit_review', {'idProduct' : productOffer.id, 'idReview' : review.id}) }}">Edit</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                <tr></tr>
+                </tbody>
+            </table>
+            </div>
+        {% endif %}
 {% endblock %}

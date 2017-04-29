@@ -1,5 +1,31 @@
 {% extends 'base.html.twig' %}
 {% block body %}
+    {% if productsOffers|length>0 %}
+        {% if is_granted('ROLE_EDITOR', app.user.roles) %}
+            <section>
+                {{ form_start(formProductsOrder) }}
+                <ul>
+                    <li>
+                        {{ form_errors(formProductsOrder.name) }}
+                        {#{{ form_label(formProductsOrder.name) }}#}
+                        {{ form_widget(formProductsOrder.name) }}
+                    </li>
+                    <li>
+                        {{ form_errors(formProductsOrder.descOrAsc) }}
+                        {{ form_widget(formProductsOrder.descOrAsc) }}
+                        {{ form_label(formProductsOrder.descOrAsc) }}
+                    </li>
+                </ul>
+                <button type="submit">Edit View</button>
+
+                {{ form_end(formProductsOrder) }}
+            </section>
+        {% endif %}
+
+        <h1>Here are all product offers!</h1>
+        {% else %}
+            <h1>There are no product offers yet!</h1>
+    {% endif %}
     {% for productOffer in productsOffers %}
         {% if productOffer.deletedOn == null and productOffer.quantityForSale>0 %}
             <section class="col-lg-3 col-md-3 col-sm-6 col-xs-12 product-offer-outer-container-small">
@@ -48,9 +74,9 @@
                             <li>
                                 {% set productPromotion = priceCalculator.calculate(productOffer) %}
                                 {% if productPromotion != productOffer.retailPrice %}
-                                    <del>{{ productOffer.retailPrice }} </del>
+                                    <del>{{ productOffer.retailPrice|number_format(2, '.', ',') }} </del>
                                 {% endif %}
-                                <span>Price: {{ productPromotion }} {{ productOffer.currency.type }}</span>
+                                <span>Price: {{ productPromotion|number_format(2, '.', ',') }} {{ productOffer.currency.type }}</span>
                             </li>
                             {% if app.getUser() and not app.user.isAuthor(productOffer) %}
                                 <li>

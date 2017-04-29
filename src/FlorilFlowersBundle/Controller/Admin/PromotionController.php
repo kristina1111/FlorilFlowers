@@ -64,6 +64,19 @@ class PromotionController extends Controller
         if ($form->isValid() && $form->isSubmitted()) {
             /** @var Promotion $promotion */
             $promotion = $form->getData();
+            if($promotion->getStartDate()>=$promotion->getEndDate()){
+                $this->addFlash('success', 'Promotion start date cannot be greater than promotion end date!');
+                return $this->render(':FlorilFlowers/Admin/Promotion:create.html.twig', array(
+                    'form' => $form->createView()
+                ));
+            }
+            if(($promotion->getPercent()<=0 && $promotion->getPercent()>100)
+                || filter_var($promotion->getPercent(), FILTER_VALIDATE_INT)){
+                $this->addFlash('success', 'Promotion percent must be whole number between 1 and 100!');
+                return $this->render(':FlorilFlowers/Admin/Promotion:create.html.twig', array(
+                    'form' => $form->createView()
+                ));
+            }
             $promotion->setUser($this->getUser());
 //            dump($promotion);exit;
             $em = $this->getDoctrine()->getManager();

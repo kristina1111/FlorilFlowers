@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+    <section>
+        <h1>Here are all the users</h1>
+        <table>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Nickname:</th>
+                <th>Email:</th>
+                <th>Role:</th>
+                <th>Show:</th>
+                <th>Edit:</th>
+                {#<th>Delete:</th>#}
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in allUsers %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.nickname }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.role.type }}</td>
+                    <td><a href="{{ path('user_profile_show', {'id':user.id}) }}">Show</a></td>
+                    <td><a href="{{ path('user_edit_profile', {'id':user.id}) }}">Edit</a></td>
+                    {#<td>Delete</td>#}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+{% endblock %}

@@ -1,21 +1,26 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    {% if 'edit' in app.request.pathInfo %}
-        <h1>Edit this category:</h1>
-    {% else %}
-        <h1>Create new category here: </h1>
-    {% endif %}
-    <section class="">
-        {{ form_start(form) }}
-        {{ form_errors(form.name) }}
-        {{ form_label(form.name) }}
-        {{ form_widget(form.name) }}
+    <section>
+        <h1>Create new product - <a href="{{ path('create_product') }}">create</a></h1>
+    </section>
+    <section>
         {% if 'edit' in app.request.pathInfo %}
-            <button type="submit">Edit category!</button>
+            <h1>Edit this category:</h1>
         {% else %}
-            <button type="submit">Create category!</button>
+            <h1>Create new category here: </h1>
         {% endif %}
-        {{ form_end(form) }}
+        <section class="">
+            {{ form_start(form) }}
+            {{ form_errors(form.name) }}
+            {{ form_label(form.name) }}
+            {{ form_widget(form.name) }}
+            {% if 'edit' in app.request.pathInfo %}
+                <button type="submit">Edit category!</button>
+            {% else %}
+                <button type="submit">Create category!</button>
+            {% endif %}
+            {{ form_end(form) }}
+        </section>
     </section>
     <hr>
     <section class="">
@@ -50,17 +55,23 @@
                                         <td class="products-table-cell-img">
                                             <div class="img-content align-block">
                                                 {% if productOffer.frontProductImage != null %}
-                                                    <img src="{{ asset('Uploads/ProductImages/' ~ productOffer.frontProductImage.path ~ '') }}"
-                                                         alt="">
+                                                    <a href="{{ path('product_show', {'id' : productOffer.id}) }}"><img src="{{ asset('Uploads/ProductImages/' ~ productOffer.frontProductImage.path ~ '') }}"
+                                                                    alt=""></a>
                                                 {% else %}
-                                                    <img src="{{ asset('Images/DSC06750.JPG') }}" alt="">
+                                                    <a href="{{ path('product_show', {'id' : productOffer.id}) }}"><img src="{{ asset('Images/DSC06750.JPG') }}" alt=""></a>
                                                 {% endif %}
                                             </div>
                                         </td>
-                                        <td>{{ productOffer.product.name }}</td>
-                                        <td>{{ productOffer.product.category }}</td>
+                                        <td><a href="{{ path('product_show', {'id' : productOffer.id}) }}">{{ productOffer.product.name }}</a></td>
+                                        <td><a href="{{ path('show_all_in_category', {'id' : productOffer.product.category.id}) }}">{{ productOffer.product.category }}</a></td>
                                         <td>{{ productOffer.quantityForSale }}</td>
-                                        <td>{{ productOffer.retailPrice }}</td>
+                                        <td>
+                                            {% set productPromotion = priceCalculator.calculate(productOffer) %}
+                                            {% if productPromotion != productOffer.retailPrice %}
+                                                <del>{{ productOffer.retailPrice|number_format(2, '.', ',') }} </del>
+                                            {% endif %}
+                                            <span>Price: {{ productPromotion|number_format(2, '.', ',') }} {{ productOffer.currency.type }}</span>
+                                        </td>
                                         <td>
                                             {#{% if is_granted(expression('"ROLE_EDITOR" in roles')) %}#}
                                             {% if "ROLE_ADMIN" in productOffer.user.roles or "ROLE_EDITOR" in productOffer.user.roles %}

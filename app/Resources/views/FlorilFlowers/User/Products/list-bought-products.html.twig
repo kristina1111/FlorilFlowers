@@ -2,7 +2,12 @@
 {% block body %}
     <section>
         {% if boughtProducts|length>0 %}
-            <h1>Here are the products that you bought until now:</h1>
+            {% if app.user != user and is_granted("ROLE_ADMIN") %}
+                <h1>Here are the products that {{ user.nickname }} bought until now:</h1>
+            {% else %}
+                <h1>Here are the products that you bought until now:</h1>
+            {% endif %}
+
             <article class="col-lg-10 col-md-10 col-sm-12 col-xs-12 current-cart-container">
                 <table class="products-table">
                     <thead>
@@ -13,7 +18,7 @@
                         <th>Bought quantity</th>
                         <th>Retail price</th>
                         <th>
-            {% if app.user.role.type == "ROLE_USER" %}
+            {% if app.user.role.type == "ROLE_USER" or is_granted("ROLE_ADMIN")%}
                             Sold quantities
                 {% endif %}
                         </th>
@@ -46,15 +51,22 @@
                             <td>{{ product[0].offer.product.name }}</td>
                             <td>{{ product[0].offer.product.category }}</td>
                             <td>{{ product['quantityBought']}}</td>
-                            <td>{{ product[0].offer.retailPrice }}</td>
                             <td>
-                        {% if app.user.role.type == "ROLE_USER" %}
+                                {% set productPromotion = priceCalculator.calculate(product[0].offer) %}
+                                {% if productPromotion != product[0].offer.retailPrice %}
+                                    <del>{{ product[0].offer.retailPrice|number_format(2, '.', ',') }} </del>
+                                {% endif %}
+                                {{ productPromotion|number_format(2, '.', ',') }} {{ product[0].offer.currency }}
+
+                            </td>
+                            <td>
+                        {% if app.user.role.type == "ROLE_USER" or is_granted("ROLE_ADMIN") %}
                                 {{ product['quantitySold'] }}
                             {% endif %}
                             </td>
 
                             <td>
-                        {% if app.user.role.type == "ROLE_USER" %}
+                        {% if app.user.role.type == "ROLE_USER"%}
                                 <a href="{{ path('announce_for_sale', {'idUser' : app.user.id, 'idProduct' : product[0].offer.id}) }}">Sell!</a>
                             {% endif %}
                             </td>

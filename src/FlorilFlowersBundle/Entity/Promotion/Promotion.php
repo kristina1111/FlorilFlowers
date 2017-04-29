@@ -14,6 +14,7 @@ use FlorilFlowersBundle\Entity\Category\Category;
 use FlorilFlowersBundle\Entity\Product\ProductOffer;
 use FlorilFlowersBundle\Entity\User\Role;
 use FlorilFlowersBundle\Entity\User\User;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="FlorilFlowersBundle\Repository\Promotion\PromotionRepository")
@@ -29,12 +30,14 @@ class Promotion
     private $id;
 
     /**
+     * @Assert\NotBlank()
      * @var string $name
      * @ORM\Column(type="string", nullable= false)
      */
     private $name;
 
     /**
+     * @Assert\NotBlank()
      * @var string $description
      * @ORM\Column(type="text", nullable=false)
      */
@@ -42,18 +45,21 @@ class Promotion
 
 
     /**
+     * @Assert\NotBlank()
      * @var integer $percent
      * @ORM\Column(type="integer")
      */
     private $percent;
 
     /**
+     * @Assert\NotBlank()
      * @var \DateTime $startDate
      * @ORM\Column(type="datetime")
      */
     private $startDate;
 
     /**
+     * @Assert\NotBlank()
      * @var \DateTime $endDate
      * @ORM\Column(type="datetime")
      */

@@ -61,7 +61,7 @@ class ProductImage
 
     /**
      * @ORM\ManyToOne(targetEntity="FlorilFlowersBundle\Entity\Product\ProductOffer", inversedBy="productImages")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(unique=true, nullable=false)
      * @var ProductOffer
      */
     private $productOffer;

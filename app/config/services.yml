@@ -61,3 +61,19 @@ services:
     app.cart_manager:
         class: FlorilFlowersBundle\Service\Cart\CartManager
         arguments: ['@doctrine.orm.entity_manager', '@session', '@app.price_calculator' ]
+
+    repo.product_offers:
+        class: FlorilFlowersBundle\Repository\Product\ProductOfferRepository
+        factory: ['@doctrine.orm.entity_manager', getRepository]
+        arguments:
+            - FlorilFlowersBundle\Entity\Product\ProductOffer
+
+    repo.product_offers_order:
+            class: FlorilFlowersBundle\Repository\Product\ProductOfferOrderRepository
+            factory: ['@doctrine.orm.entity_manager', getRepository]
+            arguments:
+                - FlorilFlowersBundle\Entity\Product\ProductOfferOrder
+
+    app.product_offer_order_manager:
+        class: FlorilFlowersBundle\Service\ProductOffer\ProductOfferOrderManager
+        arguments: ['@repo.product_offers', '@repo.product_offers_order', '@app.price_calculator']

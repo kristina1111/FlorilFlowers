@@ -3,7 +3,9 @@
 namespace FlorilFlowersBundle\Form\User;
 
 use FlorilFlowersBundle\Entity\User\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -42,6 +44,10 @@ class UserProfileFormType extends AbstractType
                 'label' => 'Enter your password:*',
                 'required' => false,
                 'mapped' => false
+            ))->add('role', EntityType::class, array(
+                    'label' => 'Role:',
+                    'class' => 'FlorilFlowersBundle\Entity\User\Role',
+                'choice_label'=>'type'
             ))
         ;
     }
