@@ -35,7 +35,7 @@
                                     href="{{ path('product_show', {'id' : cartProduct[0].offer.id}) }}"><span>{{ cartProduct[0].offer.product.name }}</span></a>
                         </li>
                         <li>
-                            <span>Category: </span><a href="#"><span>{{ cartProduct[0].offer.product.category }}</span></a>
+                            <span>Category: </span><a href="{{ path('show_all_in_category',  {'id' : cartProduct[0].offer.product.category.id }) }}"><span>{{ cartProduct[0].offer.product.category }}</span></a>
                         </li>
                         <li>
                             <span>Owner: </span>

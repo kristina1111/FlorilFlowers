@@ -14,19 +14,28 @@
                         {{ error.messageKey|trans(error.messageData, 'security') }}
                     </div>
                 {% endif %}
+<section class="form-login-register">
+
 
                 {{ form_start(loginForm) }}
-                    {#{{ form_label(loginForm._username) }}#}
-                    {#{{ form_widget(loginForm._username) }}#}
-                {{ form_row(loginForm._username) }}
-                    {#{{ form_label(loginForm._password) }}#}
-                    {#{{ form_widget(loginForm._password) }}#}
-                {{ form_row(loginForm._password) }}
+    <div>
+        {{ form_label(loginForm._username) }}
+        {{ form_widget(loginForm._username) }}
+    </div>
+
+                {#{{ form_row(loginForm._username) }}#}
+    <div>
+        {{ form_label(loginForm._password) }}
+        {{ form_widget(loginForm._password) }}
+    </div>
+
+                {#{{ form_row(loginForm._password) }}#}
                 {{ form_rest(loginForm) }}
                     <button type="submit" class="btn btn-success">Login <span class="fa fa-lock"></span></button>
                 &nbsp;
                 <a href="{{ path('user_register')}}">Register</a>
                 {{ form_end(loginForm) }}
+</section>
             </div>
         </div>
     </div>

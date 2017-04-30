@@ -53,7 +53,7 @@
                                         href="{{ path('product_show', {'id' : productOffer.id}) }}"><span>{{ productOffer.product.name }}</span></a>
                             </li>
                             <li>
-                                <span>Category: </span><a href="#"><span>{{ productOffer.product.category }}</span></a>
+                                <span>Category: </span><a href="{{ path('show_all_in_category',  {'id' : productOffer.product.category.id }) }}"><span>{{ productOffer.product.category }}</span></a>
                             </li>
                             <li>
                                 <span>Owner: </span>

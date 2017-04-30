@@ -360,7 +360,6 @@ class ProductOfferController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $products = $this->get('app.product_offer_order_manager')->getOrderedProductOffers();
-
 //        Handling the productsOrder
         /** @var ProductOfferOrder $productsOrder */
         $productsOrder = $em->getRepository('FlorilFlowersBundle:Product\ProductOfferOrder')->findActiveOrder()[0];
@@ -385,30 +384,22 @@ class ProductOfferController extends Controller
             }
             $desOrAsc = $formProductOrder['descOrAsc']->getViewData();
 //            dump($desOrAsc);exit;
-
             $productsOrder->setDescOrAsc($desOrAsc);
-
             $em->getRepository('FlorilFlowersBundle:Product\ProductOfferOrder')->setActivatedOnToNull();
-
             $productsOrder->setActivatedOn(new \DateTime());
             $em->persist($productsOrder);
             $originalOrder->setName($name);
             $em->detach($originalOrder);
-
             $em->flush();
-
             $this->addFlash('success', 'You successfully reordered the products');
             return $this->redirectToRoute('products_list');
         }
-
         $priceCalculator = $this->get('app.price_calculator');
-
         return $this->render(':FlorilFlowers/Product:list.html.twig', [
             'productsOffers' => $products,
             'priceCalculator' => $priceCalculator,
             'formProductsOrder' => $formProductOrder->createView()
         ]);
-
 //        dump($products); die;
     }
 

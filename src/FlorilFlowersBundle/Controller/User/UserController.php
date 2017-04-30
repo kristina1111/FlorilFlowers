@@ -73,7 +73,9 @@ class UserController extends Controller
 //            $user->getRolesEntities()->add($role);
 
             $user->setRole($role);
-
+            $role->getUsers()->add($user);
+            $em->persist($role);
+//dump($user);exit;
             $em->persist($user);
             $em->flush();
 

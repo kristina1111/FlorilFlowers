@@ -430,6 +430,9 @@ form[name="promotion_form"] div div[id*="promotion_form_"] select {
     width: 80px;
 }
 
+.form-login-register label{
+    width: 130px;
+}
 
 /*end user profile page*/
 

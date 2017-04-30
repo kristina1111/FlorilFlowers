@@ -30,9 +30,9 @@ services:
         tags:
             - {name: doctrine.event_subscriber }
 
-    app.formflow.register_user:
-        class: FlorilFlowersBundle\Service\FormFlow\RegisterUserFlow
-        parent: craue.form.flow
+#    app.formflow.register_user:
+#        class: FlorilFlowersBundle\Service\FormFlow\RegisterUserFlow
+#        parent: craue.form.flow
 
     app.image_uploader:
         class: FlorilFlowersBundle\Service\Upload\ImageUploader

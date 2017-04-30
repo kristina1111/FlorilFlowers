@@ -2,7 +2,7 @@
 {% block body %}
     <div class="container">
         <div class="row">
-            <section class="coll-md-8">
+            <section class="coll-md-8 form-login-register">
                 <h1 class="page-title">Register!</h1>
 
                 {#{% if error %}#}
@@ -10,7 +10,6 @@
                         {#{{ error.messageKey|trans(error.messageData, 'security') }}#}
                     {#</div>#}
                 {#{% endif %}#}
-
                 {{ form_start(formRegister) }}
                 {{ form_row(formRegister.nickname) }}
                 {{ form_row(formRegister.email) }}

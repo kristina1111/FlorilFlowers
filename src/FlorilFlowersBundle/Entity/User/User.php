@@ -159,7 +159,7 @@ class User implements UserInterface
         $this->favouriteOffers = new ArrayCollection();
         $this->orders = new ArrayCollection();
         $this->carts = new ArrayCollection();
-        $this->cash = 100;
+        $this->cash = 200;
     }
 
     /**
