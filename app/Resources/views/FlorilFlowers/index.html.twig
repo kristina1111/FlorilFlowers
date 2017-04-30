@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     {% if products|length>0 %}
-       <h1>Here are our best selling products ordered by sold quantities descending!</h1>
+       <h1 class="page-title">Here are our best selling products ordered by sold quantities descending!</h1>
     {% else %}
-        <h1>We haven't sold any product yet! It's time for shopping!</h1>
+        <h1 class="page-title">We haven't sold any product yet! It's time for shopping!</h1>
     {% endif %}
 {% for cartProduct in products %}
     {% if cartProduct[0].offer.deletedOn == null and cartProduct[0].offer.quantityForSale>0 %}
@@ -54,11 +54,12 @@
                         {#<span>Subcategory: </span><a href="#"><span>{{ offer.product.subcategory }}</span></a>#}
                         {#</li>#}
                         <li>
+                            <span>Price: </span>
                             {% set productPromotion = priceCalculator.calculate(cartProduct[0].offer) %}
                             {% if productPromotion != cartProduct[0].offer.retailPrice %}
-                                <del>{{ cartProduct[0].offer.retailPrice }} </del>
+                                <del>{{ cartProduct[0].offer.retailPrice|number_format(2, '.', ',') }} {{ cartProduct[0].offer.currency.type }} </del>
                             {% endif %}
-                            <span>Price: {{ productPromotion }} {{ cartProduct[0].offer.currency.type }}</span>
+                            <span>{{ productPromotion|number_format(2, '.', ',') }} {{ cartProduct[0].offer.currency.type }}</span>
                         </li>
                         {% if app.getUser() and not app.user.isAuthor(cartProduct[0].offer) %}
                             <li>

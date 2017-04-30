@@ -22,9 +22,9 @@
             </section>
         {% endif %}
 
-        <h1>Here are all product offers!</h1>
+        <h1 class="page-title">Here are all product offers!</h1>
         {% else %}
-            <h1>There are no product offers yet!</h1>
+            <h1 class="page-title">There are no product offers yet!</h1>
     {% endif %}
     {% for productOffer in productsOffers %}
         {% if productOffer.deletedOn == null and productOffer.quantityForSale>0 %}
@@ -72,11 +72,12 @@
                             {#<span>Subcategory: </span><a href="#"><span>{{ productOffer.product.subcategory }}</span></a>#}
                             {#</li>#}
                             <li>
-                                {% set productPromotion = priceCalculator.calculate(productOffer) %}
+                                <span>Price: </span>
+                                    {% set productPromotion = priceCalculator.calculate(productOffer) %}
                                 {% if productPromotion != productOffer.retailPrice %}
-                                    <del>{{ productOffer.retailPrice|number_format(2, '.', ',') }} </del>
+                                    <del>{{ productOffer.retailPrice|number_format(2, '.', ',') }} {{ productOffer.currency.type }} </del>
                                 {% endif %}
-                                <span>Price: {{ productPromotion|number_format(2, '.', ',') }} {{ productOffer.currency.type }}</span>
+                                <span> {{ productPromotion|number_format(2, '.', ',') }} {{ productOffer.currency.type }}</span>
                             </li>
                             {% if app.getUser() and not app.user.isAuthor(productOffer) %}
                                 <li>

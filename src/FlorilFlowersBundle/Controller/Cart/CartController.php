@@ -264,7 +264,7 @@ class CartController extends Controller
             /**
              * @var User $user
              */
-            $user = $this->getUser();
+            $user = $this->getDoctrine()->getRepository('FlorilFlowersBundle:User\User')->find($idUser);
 
             /**
              * @var Cart $cart

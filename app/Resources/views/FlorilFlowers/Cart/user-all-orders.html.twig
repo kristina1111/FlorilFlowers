@@ -3,9 +3,9 @@
     <section>
         {% if notConfirmedOrdersByDatetime|length>0 %}
             {% if app.user != notConfirmedOrdersByDatetime[0].user or is_granted('ROLE_ADMIN') %}
-                <h1>Here are the orders that {{ notConfirmedOrdersByDatetime[0].user.nickname }} still has not confirmed! </h1>
+                <h1 class="page-title">Here are the orders that {{ notConfirmedOrdersByDatetime[0].user.nickname }} still has not confirmed! </h1>
                 {% else %}
-                    <h1>Here are the orders that you still has not confirmed! </h1>
+                    <h1 class="page-title">Here are the orders that you still has not confirmed! </h1>
             {% endif %}
 
             <table>
@@ -39,9 +39,9 @@
     <section>
         {% if confirmedNotCompletedOrdersByDatetime|length>0 %}
             {% if app.user != confirmedNotCompletedOrdersByDatetime[0].user or is_granted('ROLE_ADMIN') %}
-                <h1>Here are the orders that {{ confirmedNotCompletedOrdersByDatetime[0].user.nickname }} confirmed - waiting for completion! </h1>
+                <h1 class="page-title">Here are the orders that {{ confirmedNotCompletedOrdersByDatetime[0].user.nickname }} confirmed - waiting for completion! </h1>
                 {% else %}
-                    <h1>Here are the orders that you confirmed - waiting for completion! </h1>
+                    <h1 class="page-title">Here are the orders that you confirmed - waiting for completion! </h1>
                     {% endif %}
 
             <table>
@@ -75,9 +75,9 @@
     <section>
         {% if completedOrders|length>0 %}
             {% if app.user != completedOrders[0].user or is_granted('ROLE_ADMIN') %}
-                <h1>Here are the completed orders of {{ completedOrders[0].user.nickname }}! </h1>
+                <h1 class="page-title">Here are the completed orders of {{ completedOrders[0].user.nickname }}! </h1>
                 {% else %}
-                    <h1>Here are your completed orders! </h1>
+                    <h1 class="page-title">Here are your completed orders! </h1>
                     {% endif %}
 
             <table>
@@ -107,7 +107,7 @@
                 </tbody>
             </table>
         {% else %}
-            <h1>You don't have completed orders! It's time for shopping! :)</h1>
+            <h1 class="page-title">You don't have completed orders! It's time for shopping! :)</h1>
         {% endif %}
     </section>
 {% endblock %}

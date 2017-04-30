@@ -2,9 +2,9 @@
 {% block body %}
     <section>
     {% if 'edit' in app.request.pathInfo %}
-        <h1>You can edit the promotion here!</h1>
+        <h1 class="page-title">You can edit the promotion here!</h1>
         {% else %}
-            <h1>You can create a promotion here!</h1>
+            <h1 class="page-title">You can create a promotion here!</h1>
             {% endif %}
 
         {{ form_start(form) }}

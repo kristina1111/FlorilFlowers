@@ -23,15 +23,16 @@ class OrderController extends Controller
         if($this->getUser()->getId() == $id
             || $this->get('security.authorization_checker')->isGranted(new Expression('"ROLE_ADMIN" in roles'))) {
 
+            $user = $this->getDoctrine()->getRepository('FlorilFlowersBundle:User\User')->find($id);
             /** @var Order[] $notConfirmedOrders */
-            $notConfirmedOrders = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Cart\Order')->findByUserAndNotConfirmed($this->getUser());
+            $notConfirmedOrders = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Cart\Order')->findByUserAndNotConfirmed($user);
             /** @var Order[] $confirmedButNotCompletedOrders */
-            $confirmedButNotCompletedOrders = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Cart\Order')->findByUserAndConfirmedNotCompleted($this->getUser());
+            $confirmedButNotCompletedOrders = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Cart\Order')->findByUserAndConfirmedNotCompleted($user);
             /** @var Order[] $completedOrders */
-            $completedOrders = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Cart\Order')->findByUserAndCompleted($this->getUser());
+            $completedOrders = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Cart\Order')->findByUserAndCompleted($user);
 
             return $this->render(':FlorilFlowers/Cart:user-all-orders.html.twig', array(
-                'user' => $this->getUser(),
+                'user' => $user,
                 'notConfirmedOrdersByDatetime' => $notConfirmedOrders,
                 'confirmedNotCompletedOrdersByDatetime' =>$confirmedButNotCompletedOrders,
                 'completedOrders' => $completedOrders
@@ -133,7 +134,7 @@ class OrderController extends Controller
                 }else{
                     $this->addFlash('error', 'One of the address fields must be completed!');
                     return $this->redirectToRoute('order_current_cart_process', array(
-                        'idUser' => $this->getUser()->getId(),
+                        'idUser' => $user->getId(),
                         'idCart' => $cart->getId()
                     ));
                 }
@@ -149,7 +150,7 @@ class OrderController extends Controller
                 }else{
                     $this->addFlash('error', 'One of the phone fields must be completed!');
                     return $this->redirectToRoute('order_current_cart_process', array(
-                        'idUser' => $this->getUser()->getId(),
+                        'idUser' => $user->getId(),
                         'idCart' => $cart->getId()
                     ));
                 }
@@ -172,7 +173,7 @@ class OrderController extends Controller
                 return $this->redirectToRoute('products_list');
             }
             return $this->redirect('order_current_cart_process', array(
-                'idUser' => $this->getUser()->getId(),
+                'idUser' => $user->getId(),
                 'idCart' => $cart->getId()
             ));
 //            return $this->render(':FlorilFlowers/Cart:order.html.twig', array(

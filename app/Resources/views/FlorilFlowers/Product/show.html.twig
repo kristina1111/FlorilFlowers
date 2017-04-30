@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <h1>{{ productOffer.product.name }}</h1>
+    <h1 class="page-title">{{ productOffer.product.name }}</h1>
     <section>
-        <article>
-            <section>
+        <article class="inner-item">
+            <section class="item-info">
                 This {{ productOffer.product.name }} is incredible. It's Category is {{ productOffer.product.category.name }}.
             <p>Product description: {{ productOffer.product.description }}</p>
             </section>
-            <section>
+            <section class="item-info">
                 <article class="short-info-product">
                     <ul>
                         <li>
@@ -56,13 +56,13 @@
                     </ul>
                 </article>
             </section>
-            <section>
+            <section class="ïtem-content">
                 {% for image in productOffer.productImages %}
                     <section>
-                        <div>
+                        <div class="item-image">
                             <img src="{{ asset('Uploads/ProductImages/' ~ image.path ~ '') }}" alt="">
                         </div>
-                        <div>
+                        <div class="item-image-description">
                             <p>{{ image.description }}</p>
                         </div>
                     </section>
@@ -73,7 +73,7 @@
 
     </section>
     
-    <section>
+    <section class="user-review">
         {% if 'edit' in app.request.pathInfo %}
             {{ form_start(reviewForm) }}
         {% else %}
@@ -93,9 +93,9 @@
         {{ form_end(reviewForm) }}
 
     </section>
-    <div>
+    <div class="users-reviews">
         {% if productOffer.productOfferReviews|length>0 %}
-            <h2>Reviews:</h2>
+            <h2 class="page-title">Reviews:</h2>
             <table>
                 <thead>
                 <tr>

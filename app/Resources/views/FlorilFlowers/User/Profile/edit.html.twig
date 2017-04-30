@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     {% if app.user != user and is_granted('ROLE_ADMIN') %}
-        <h1>You will edit the profile information of {{ user.nickname }}</h1>
+        <h1 class="page-title">You will edit the profile information of {{ user.nickname }}</h1>
         {% else %}
-            <h1>Hello {{ user.nickname }}</h1>
+            <h1 class="page-title">Hello {{ user.nickname }}</h1>
     {% endif %}
 
     <section class="profile-info-container">

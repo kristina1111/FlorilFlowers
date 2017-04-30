@@ -7,11 +7,11 @@ $(document).ready(function () {
     //     $('.dropdown-categories').fadeOut()
     // });
 
-    $('.dropdown').on('click', function () {
-        $('.dropdown-categories').fadeToggle();
-        // $('.search-form').fadeOut()
-
-    })
+    // $('.dropdown').on('click', function () {
+    //     $('.dropdown-categories').fadeToggle();
+    //     // $('.search-form').fadeOut()
+    //
+    // })
 
     // $('#datetimepicker1').datetimepicker();
 

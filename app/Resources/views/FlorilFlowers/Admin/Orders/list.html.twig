@@ -2,7 +2,7 @@
 {% block body %}
     <section>
         {% if allOrders|length>0 %}
-            <h1>Here are the orders that are waiting for completion! </h1>
+            <h1 class="page-title">Here are the orders that are waiting for completion! </h1>
             <table>
                 <thead>
                 <tr>
@@ -28,7 +28,7 @@
                 </tbody>
             </table>
         {% else %}
-            <h1>You don't have orders that you still has not confirmed!</h1>
+            <h1 class="page-title">You don't have orders that you still has not confirmed!</h1>
         {% endif %}
     </section>
 {% endblock %}

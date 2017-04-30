@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <section class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-xs-12 current-order-container">
-        <h1>
+    <section class="current-order-container">
+        <h1 class="page-title">
             {% if not "ROLE_ADMIN" in app.user.roles %}
                 Your
             {% else %}
@@ -42,7 +42,7 @@
                         {% endif %}
                         {{ productPromotion|number_format(2, '.', ',') }} {{ cartProduct.offer.currency }}
                     </td>
-                    <td>{{ productPromotion|number_format(2, '.', ',') * cartProduct.quantity }}</td>
+                    <td>{{ (productPromotion * cartProduct.quantity)|number_format(2, '.', ',') }}</td>
                 </tr>
             {% endfor %}
             <tr>
@@ -58,7 +58,7 @@
                 </td>
                 <td></td>
                 <td></td>
-                <td>Total: {{ cartTotalSum }} BGN</td>
+                <td>Total: {{ cartTotalSum|number_format(2, '.', ',') }} BGN</td>
             </tr>
             </tbody>
         </table>
@@ -107,7 +107,7 @@
                 phone is {{ order.phone.phoneNumber }}</p>
         </div>
         {% endif %}
-        {% if is_granted('ROLE_ADMIN') %}
+        {% if order.user == app.user %}
         {#{% if "ROLE_ADMIN" in app.user.roles %}#}
             <form method="POST" action="{{ path('confirm_order_process', {'idOrder' : order.id}) }}">
                 <button type="submit">Complete order!</button>

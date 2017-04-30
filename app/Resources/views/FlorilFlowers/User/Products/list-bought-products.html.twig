@@ -3,12 +3,12 @@
     <section>
         {% if boughtProducts|length>0 %}
             {% if app.user != user and is_granted("ROLE_ADMIN") %}
-                <h1>Here are the products that {{ user.nickname }} bought until now:</h1>
+                <h1 class="page-title">Here are the products that {{ user.nickname }} bought until now:</h1>
             {% else %}
-                <h1>Here are the products that you bought until now:</h1>
+                <h1 class="page-title">Here are the products that you bought until now:</h1>
             {% endif %}
 
-            <article class="col-lg-10 col-md-10 col-sm-12 col-xs-12 current-cart-container">
+            <article class="current-cart-container">
                 <table class="products-table">
                     <thead>
                     <tr>

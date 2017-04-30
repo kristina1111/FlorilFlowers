@@ -2,9 +2,9 @@
 {% block body %}
 <section>
     {% if promotions|length>0 %}
-        <h1>Here are all the promotions</h1>
+        <h1 class="page-title">Here are all the promotions</h1>
         {% else %}
-        <h1>There are no promotions! It's time to create one!</h1>
+        <h1 class="page-title">There are no promotions! It's time to create one!</h1>
     {% endif %}
     <a href="{{ path('create_promotion') }}"> Create promotion </a>
 

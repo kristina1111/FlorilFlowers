@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <title>{% block title %}Welcome!{% endblock %}</title>
     {% block stylesheets %}
-         <link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('css/Bootstrap/style.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('css/Bootstrap/bootstrap-datetimepicker.min.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('css/Bootstrap/bootstrap-datepicker.min.css') }}">
@@ -15,75 +15,86 @@
 </head>
 <body>
 {% block header %}
-    <header class="app-header">
-        <section class="logo-container">
-            <h1 class="logo"><a href="{{ path('homepage') }}">FlorilFlowers</a></h1>
-        </section>
-        <section class="navig">
-            <ul class="">
-                {% if app.user %}
-                    <li>
-                        <a href="{{ path('products_list') }}">Products</a>
-                    </li>
-                    <li>
-                        <div class="dropdown">Categories</div>
-                        <ul class="dropdown-categories">
-                            {% for category in categories  %}
-                                <li><a href="{{ path('show_all_in_category', {'id' : category.id}) }}">{{ category.name }}</a></li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="{{ path('user_profile_show', {'id' : app.user.id}) }}">My profile</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('show_edit_current_cart', {'id' : app.user.id}) }}">My cart</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('security_logout') }}">Logout</a>
-                    </li>
-                {% else %}
-                    <li>
-                        <a href="{{ path('security_login') }}">Login</a>
-                    </li>
-                {% endif %}
-            </ul>
-        </section>
-        {% if is_granted('ROLE_EDITOR') %}
-        <section class="navig">
-                <ul>
-                    <li>
-                        <a href="{{ path('create_categories_list') }}">Categories & Products</a>
-                    </li>
-                    {% if is_granted('ROLE_ADMIN') %}
-                    <li>
-                        <a href="{{ path('show_all_promotions') }}">Promotions</a>
-                    </li>
+    <div class="header-container">
+        <header class="app-header">
+            <section class="logo-container">
+                <h1 class="logo"><a href="{{ path('homepage') }}">FlorilFlowers</a></h1>
+            </section>
+            <section class="navig">
+                <ul class="">
+                    {% if app.user %}
                         <li>
-                            <a href="{{ path('show_all_users') }}">Users</a>
+                            <a href="{{ path('products_list') }}">Products</a>
+                        </li>
+                        <li class="extended">
+                            <span>Categories</span>
+                            <ul class="dropdown-categories">
+                                {% for category in categories %}
+                                    <li>
+                                        <a href="{{ path('show_all_in_category', {'id' : category.id}) }}">{{ category.name }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
                         </li>
                         <li>
-                            <a href="{{ path('show_incomplete_orders') }}">Orders</a>
+                            <a href="{{ path('user_profile_show', {'id' : app.user.id}) }}">My profile</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('show_edit_current_cart', {'id' : app.user.id}) }}">My cart</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('security_logout') }}">Logout</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{{ path('security_login') }}">Login</a>
                         </li>
                     {% endif %}
-
                 </ul>
-        </section>
-        {% endif %}
-    </header>
-{% endblock %}
-{% for msg in app.session.flashBag.get('success') %}
-    <div class="success">{{ msg }}</div>
-{% endfor %}
-{% for msg in app.session.flashBag.get('info') %}
-    <div class="info">{{ msg }}</div>
-{% endfor %}
-{% for msg in app.session.flashBag.get('error') %}
-    <div class="has-error">{{ msg }}</div>
-{% endfor %}
-{% block body %}
+            </section>
+            {% if is_granted('ROLE_EDITOR') %}
+                <section class="navig">
+                    <ul>
+                        <li>
+                            <a href="{{ path('create_categories_list') }}">Categories & Products</a>
+                        </li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li>
+                                <a href="{{ path('show_all_promotions') }}">Promotions</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('show_all_users') }}">Users</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('show_incomplete_orders') }}">Orders</a>
+                            </li>
+                        {% endif %}
 
+                    </ul>
+                </section>
+            {% endif %}
+        </header>
+    </div>
 {% endblock %}
+
+<div class="error-messages">
+    {% for msg in app.session.flashBag.get('success') %}
+        <div class="success">{{ msg }}</div>
+    {% endfor %}
+    {% for msg in app.session.flashBag.get('info') %}
+        <div class="info">{{ msg }}</div>
+    {% endfor %}
+    {% for msg in app.session.flashBag.get('error') %}
+        <div class="has-error">{{ msg }}</div>
+    {% endfor %}
+</div>
+
+<div class="main-content">
+    {% block body %}
+
+    {% endblock %}
+</div>
+
 {% block javascripts %}
     <script src="{{ asset('js/jquery-2.2.4.min.js') }}"></script>
     <script src="{{ asset('js/moment.min.js') }}"></script>

@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <section>
-        <h1>Create new product - <a href="{{ path('create_product') }}">create</a></h1>
+        <h1 class="page-title">Create new product - <a href="{{ path('create_product') }}">create</a></h1>
     </section>
     <section>
         {% if 'edit' in app.request.pathInfo %}
-            <h1>Edit this category:</h1>
+            <h1 class="page-title">Edit this category:</h1>
         {% else %}
-            <h1>Create new category here: </h1>
+            <h1 class="page-title">Create new category here: </h1>
         {% endif %}
         <section class="">
             {{ form_start(form) }}
@@ -25,10 +25,10 @@
     <hr>
     <section class="">
 
-        <h1>All Categories</h1>
+        <h1 class="page-title">All Categories</h1>
         {% for category in categories %}
-            <article class="col-lg-10 col-md-10 col-sm-12 col-xs-12 current-cart-container">
-                <h2>{{ category.name }}</h2>
+            <article class="current-cart-container">
+                <h2 class="page-title">{{ category.name }}</h2>
                 <a href="{{ path('categories_edit', {'id' : category.id}) }}">Edit</a>
                 <a href="{{ path('delete_category', {'id' : category.id}) }}">Delete</a>
                 {% if category.products|length == 0 %}

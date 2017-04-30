@@ -1,21 +1,60 @@
-/*header*/
-.app-header{
-    background-color: rgb(200,162,200);
+/*error messages*/
+.error-messages {
+    max-width: 1200px;
+    display: block;
+    margin: 0 auto;
+    padding: 0 0.97rem;
     padding: 10px;
     overflow: auto;
 }
 
-.app-header .logo-container{
-    display: inline-block;
+.error-messages > div {
+      font-size: 16px;
+      margin-bottom: 20px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #FFF;
+  }
+.error-messages > div.info {
+    background-color: rgba(0, 0, 255, 0.5);
+    padding: 10px;
+}
+.error-messages > div.has-error {
+    background-color: rgba(255, 0, 0, 0.5);
+    padding: 10px;
+}
+.error-messages > div.success {
+    background-color: rgba(0, 255, 0, 0.5);
+    padding: 10px;
 }
 
+/*end error messages*/
+
+/*header*/
+.header-container {
+    background-color: rgb(200,162,200);
+}
+.app-header{
+    max-width: 1200px;
+    display: block;
+    margin: 0 auto;
+    padding: 0 0.97rem;
+    padding: 10px;
+    overflow: auto;
+}
+.app-header .logo-container{
+    display: inline-block;
+    float: left;
+    width: 30%;
+}
 .app-header .navig {
     display: inline-block;
     float: right;
+    width: 70%;
+    text-align: right;
 }
 
 .app-header .logo-container .logo {
-    margin: 0 0 0 70px;
     font-weight: 600;
 }
 .app-header .logo-container .logo a{
@@ -26,31 +65,29 @@
 .app-header .navig ul {
     list-style-type: none;
     margin-bottom: 0;
-    margin-top: 15px;
 }
 
 .app-header .navig ul li {
     display: inline-block;
-    margin-right: 70px;
     color: #FFFFFF;
-    font-size: 20px;
-    font-weight: 600;
+    font-size: 16px;
+    text-transform: uppercase;
+    transition: background-color 0.4s ease-in-out;
+}
+.app-header .navig ul li:hover{
+    background-color: #8959a8;
 }
 
-.app-header .navig ul li a{
+.app-header .navig ul li a, .app-header .navig ul li span{
     color: #FFFFFF;
     text-decoration: none;
+    display: block;
+    cursor: pointer;
+    padding: 10px;
 }
 
-/* -- dropdown menu categories -- */
-
-/*.dropdown-categories {*/
-    /*display: none;*/
-/*}*/
-
-.dropdown{
-    position: relative;
-    cursor: pointer;
+.app-header .navig ul li.extended:hover > ul {
+    display: block;
 }
 
 .dropdown-categories{
@@ -58,29 +95,101 @@
     z-index: 9999;
     position: absolute;
     list-style-type: none;
-    background: rgba(59, 89, 152, 0.9);
-    border-radius: 5px;
-    /*width: 100px;*/
-    /*left: 25px;*/
-    top: 35px;
-    padding: 2px;
+    background-color: rgb(200,162,200);
+    padding: 0;
+    text-align: left;
 }
 
 .dropdown-categories li{
     display: block!important;
 }
-
 .dropdown-categories a{
-    width: 100px;
+    /*width: 100px;*/
+}
+/*end header*/
+
+/*main content grid*/
+.main-content {
+    max-width: 1200px;
+    display: block;
+    margin: 0 auto;
+    float: none;
+    overflow: hidden;
+    padding: 0 0.97rem;
+}
+.main-content ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+.main-content ul li {
+    margin-bottom: 5px;
+}
+/*end main content grid*/
+
+/*main content*/
+.page-title {
+    font-size: 18px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #8959a8;
 }
 
+/*end main content*/
+
 /* ---All products for sale--- */
+a {
+    color: #8959a8;
+    font-weight: 600;
+}
+a:hover {
+    color: #8959a8;
+    font-weight: 600;
+}
+a:focus {
+    color: #8959a8;
+    text-decoration: none;
+}
 .product-offer-outer-container-small {
-    height: 350px;
+    margin-bottom: 20px;
 }
 
 .product-offer-inner-container-small{
-    margin:30px;
+    border: 1px solid rgb(200,162,200);
+    padding: 10px;
+    height: 420px;
+    position: relative;
+}
+.product-offer-inner-container-small .small-img-product {
+    text-align: center;
+}
+
+.product-offer-inner-container-small .short-info-product ul {
+    list-style-type: none;
+    padding-left: 0px;
+}
+.product-offer-inner-container-small .short-info-product ul li {
+    margin-bottom: 5px;
+}
+del {
+    color: #f00;
+    padding-right:5px;
+}
+
+.add-to-cart, button[type="submit"] {
+    background-color: rgb(200,162,200);
+    color: #FFF;
+    border: 0;
+    padding: 5px;
+    text-transform: uppercase;
+    transition: background-color 0.4s ease-in-out;
+}
+.add-to-cart:hover, button[type="submit"]:hover {
+    background-color: #8959a8;
+}
+.product-offer-inner-container-small .short-info-product ul li .add-to-cart {
+    position: absolute;
+    bottom: 10px;
 }
 
 .product-offer-outer-container-small .product-offer-inner-container-small .small-img-product {
@@ -95,18 +204,17 @@
     vertical-align: middle;
 }
 
-
 .img-content img {
     /*width: 200px;*/
-    max-width: 200px;
-    max-height: 150px;
+    max-width: 190px;
+    max-height: 140px;
     transition: all 0.2s;
 }
 
 .img-content img:hover {
     /*width: 200px;*/
-    max-width: 207px;
-    max-height: 157px;
+    max-width: 190px;
+    max-height: 140px;
 }
 
 .product-form-container label{
@@ -125,7 +233,6 @@
 .current-cart-container .cart-table th,
 .products-table th,
 .order-table th{
-    width: 14%;
 }
 
 .current-cart-container .cart-table input[type=number] {
@@ -137,7 +244,7 @@
 .products-table .products-table-row,
 .current-order-container .order-table .order-row
 {
-    height: 160px;
+    height: 190px;
 }
 .current-cart-container .cart-table .cart-row .table-cell-img,
 .products-table .products-table-row .products-table-cell-img,
@@ -161,5 +268,169 @@
 .table-row-dark{
     background-color: #d6e9c6;
 }
+
+
+
+/*product inner page*/
+.inner-item {
+    overflow: hidden;
+}
+.inner-item .item-info {
+    width: 50%;
+    padding: 10px;
+    float: left;
+}
+.inner-item .ïtem-content {
+    display: inline-block;
+}
+.inner-item .ïtem-content > section {
+    overflow: hidden;
+    clear: both;
+    margin-top: 30px;
+}
+.inner-item .ïtem-content .item-image {
+    width: 30%;
+    float: left;
+}
+.inner-item .ïtem-content .item-image img {
+    width: 100%;
+}
+.inner-item .ïtem-content .item-image-description {
+    width: 70%;
+    float: left;
+    padding-left: 30px;
+}
+.user-review {
+    margin-top: 30px;
+}
+.user-review label {
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #8959a8;
+}
+.user-review textarea{
+    max-width: inherit;
+    width: 30%;
+    height: 150px;
+}
+table {
+    width:100%;
+}
+table thead tr th {
+    text-align: center;
+    padding: 10px;
+}
+table thead tr th:first-of-type {
+    text-align: left;
+}
+
+table tr {
+    border-bottom: 1px solid #8959a8;
+}
+table tbody tr td {
+    padding: 10px;
+    text-align: center;
+}
+table tbody tr td:first-of-type {
+    text-align: left;
+}
+table tbody tr td .img-content {
+    text-align: left;
+}
+.users-reviews table tbody tr td:nth-of-type(1) {
+    width: 130px;
+}
+.users-reviews table tbody tr td:nth-of-type(2) {
+    width: 60%;
+}
+.users-reviews table tbody tr td:nth-of-type(3) {
+    width: 200px;
+    text-align: center;
+}
+.users-reviews table tbody tr td:nth-of-type(4) {
+    width: 50px;
+    text-align: center;
+}
+/*end product inner page*/
+
+/*user profile page*/
+.prifile-info-container form ul li label {
+    min-width: 160px;
+}
+.prifile-info-container form ul li {
+    width: 50%;
+    display: inline-block;
+}
+.prifile-info-container form ul li:nth-of-type(-n+4) {
+    float: left;
+    clear: both;
+}
+.product-form-container > form > div {
+    width: 50%;
+    display: inline-block;
+}
+.product-form-container > form > div:nth-of-type(-n+4) {
+    float: left;
+    clear: both;
+}
+.product-form-container > form > div.images-holder {
+    margin: 10px 0;
+}
+.product-form-container > form > div input[type="number"],
+.product-form-container > form > div input[type="text"],
+.product-form-container > form > div textarea {
+    width: 100%;
+}
+.product-form-container > form > div select {
+    width: 100%;
+}
+.product-form-container > form > div input[type="checkbox"] {
+    width: inherit;
+}
+.product-form-container > form > div div[id*="product_offer_form"] > div {
+    margin-top: 20px;
+    overflow: hidden;
+}
+.product-form-container > form > div div[id*="product_offer_form"] > div label {
+    float: left;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="password"],
+input[type="email"],
+select, textarea {
+    margin-bottom: 10px;
+    height: 30px;
+}
+/*.product-form-container > form > div:nth-of-type(-n+4) {*/
+form[name="promotion_form"] > div{
+    display: inline-block;
+    width: 50%;
+}
+form[name="promotion_form"] > div:nth-of-type(-n+5) {
+    float: left;
+    clear: both;
+}
+
+form[name="promotion_form"] > div label {
+    min-width: 125px;
+    float: left;
+}
+form[name="promotion_form"] > div input,
+form[name="promotion_form"] > div textarea,
+form[name="promotion_form"] > div select{
+    width: 100%;
+}
+form[name="promotion_form"] div div[id*="promotion_form_"] {
+    overflow: hidden;
+}
+form[name="promotion_form"] div div[id*="promotion_form_"] select {
+    width: 80px;
+}
+
+
+/*end user profile page*/
 
 
