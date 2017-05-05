@@ -46,6 +46,7 @@ class PriceCalculator
         $category = $productOffer->getProduct()->getCategory();
 
         $generalPromotion = $this->prManager->getGeneralPromotionPercent($productOffer);
+//        dump($generalPromotion);exit;
         $highestPromotion = $generalPromotion > $highestPromotion ? $generalPromotion : $highestPromotion;
 
         $categoryPromotion = 0;
@@ -64,9 +65,10 @@ class PriceCalculator
 
         $rolePromotion = 0;
 
-//        dump($user);exit;
+//        dump($user !== 'anon.');exit;
         if ($user !== 'anon.' && $this->prManager->hasRolePromotion($user->getRole())) {
             $rolePromotion = $this->prManager->getRolePromotion($user->getRole(), $productOffer);
+//            dump($rolePromotion);exit;
         }
         $highestPromotion = $rolePromotion > $highestPromotion ? $rolePromotion : $highestPromotion;
 //        }

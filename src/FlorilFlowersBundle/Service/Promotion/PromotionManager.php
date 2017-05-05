@@ -53,9 +53,17 @@ class PromotionManager
      */
     public function getGeneralPromotionPercent(ProductOffer $productOffer): int
     {
+//        dump($this->isRegularUserCreatorPromotion($productOffer));exit;
+        if($this->isRegularUserCreatorPromotion($productOffer)){
+            return 0;
+        }
+//        dump($this->categoryPromotions['creator']);exit;
         /** @var Promotion $promotion */
         $promotion = $this->generalPromotionPercent;
-        if($promotion!=null && $this->isSameAuthorPromotionAndProductOffer($productOffer, $promotion->getUser())){
+//        dump($this->isSameAuthorPromotionAndProductOffer($productOffer, $promotion->getUser()));exit;
+//        if this is general promotion there is no need to check the author
+        if($promotion!=null){
+//        if($promotion!=null && $this->isSameAuthorPromotionAndProductOffer($productOffer, $promotion->getUser())){
             return $promotion->getPercent();
         }
         return 0;
@@ -79,7 +87,11 @@ class PromotionManager
      */
     public function getCategoryPromotion(Category $category, ProductOffer $productOffer): int
     {
-        if($this->isSameAuthorPromotionAndProductOffer(
+        if($this->isRegularUserCreatorPromotion($productOffer)){
+            return 0;
+        }
+
+        if(!$this->isSameAuthorPromotionAndProductOffer(
             $productOffer, $this->categoryPromotions['creator']
         )){
             return $this->categoryPromotions[$category->getId()];
@@ -94,7 +106,13 @@ class PromotionManager
      */
     public function hasRolePromotion(Role $role) : bool
     {
-        return array_key_exists($role->getId(), $this->rolePromotions);
+//        dump($role->getId() ==$this->rolePromotions["creator"]->getRole()->getId());exit;
+        if($this->rolePromotions){
+            return $role->getId() == $this->rolePromotions["creator"]->getRole()->getId();
+        }
+        return false;
+//        dump($this->rolePromotions);exit;
+//        return array_key_exists($role->getId(), $this->rolePromotions);
     }
 
     /**
@@ -104,12 +122,15 @@ class PromotionManager
      */
     public function getRolePromotion(Role $role, ProductOffer $productOffer): int
     {
-        if($this->isSameAuthorPromotionAndProductOffer(
-            $productOffer, $this->rolePromotions['creator']
-        )) {
+//        dump($this->isSameAuthorPromotionAndProductOffer(
+//            $productOffer, $this->rolePromotions['creator']
+//        ));exit;
+//        if($this->isSameAuthorPromotionAndProductOffer(
+//            $productOffer, $this->rolePromotions['creator']
+//        )) {
             return $this->rolePromotions[$role->getId()];
-        }
-        return 0;
+//        }
+//        return 0;
     }
 
     /**
@@ -135,13 +156,29 @@ class PromotionManager
         return 0;
     }
 
+    // if the product offer creator is editor or admin - they cannot have this promotion
     public function isSameAuthorPromotionAndProductOffer(ProductOffer $productOffer, User $promotionCreator)
     {
-        if($productOffer->getUser() == $promotionCreator || $productOffer->getUser()->getRole() == "ROLE_EDITOR"){
+//        dump($productOffer->getUser()->getRole() == "ROLE_USER" );exit;
+        if($productOffer->getUser()->getRole() == "ROLE_USER" ){
+            return true;
+        }
+//        dump($productOffer->getUser() == $promotionCreator);exit;
+//        if($productOffer->getUser() == $promotionCreator || $productOffer->getUser()->isGranted('ROLE_EDITOR')){
+        if(($productOffer->getUser() == $promotionCreator || $productOffer->getUser()->getRole() == "ROLE_EDITOR")){
+//            return false;
+            return true;
+        }
+//        return true;
+        return false;
+    }
+
+    public function isRegularUserCreatorPromotion(ProductOffer $productOffer){
+//        dump($productOffer->getUser()->getRole() == "ROLE_USER" );exit;
+        if($productOffer->getUser()->getRole()->getType() == "ROLE_USER" ){
             return true;
         }
         return false;
     }
-
 
 }

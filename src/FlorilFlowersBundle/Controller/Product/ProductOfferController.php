@@ -355,6 +355,8 @@ class ProductOfferController extends Controller
     /**
      * @Route("/all", name="products_list")
      * lists only published products, ordered descending by quantity
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function listAction(Request $request)
     {
@@ -413,6 +415,7 @@ class ProductOfferController extends Controller
      */
     public function announceForSaleByBuyerAction($idUser, $idProduct, Request $request)
     {
+//        dump($this->getUser()->getRoles());exit;
         if ($this->getUser()->getId() != $idUser || $this->get('security.authorization_checker')->isGranted(new Expression('"ROLE_EDITOR" in roles'))
         ) {
             $this->addFlash('error', 'You cannot sell this product');

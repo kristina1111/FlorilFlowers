@@ -13,6 +13,11 @@ class SecurityController extends Controller
      */
     public function loginAction()
     {
+//        check if the user is already logged in, if yes - redirect
+        if($this->getUser()){
+            $this->addFlash('info', 'You are already logged in!');
+            return $this->redirectToRoute('homepage');
+        }
         $authenticationUtils = $this->get('security.authentication_utils');
 
         // get the login error if there is one

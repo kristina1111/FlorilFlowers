@@ -91,23 +91,25 @@
         {% else %}
         <div>
             <p>
-            {% if not "ROLE_ADMIN" in app.user.roles %}
-                Your
-            {% else %}
+                {#{{ dump("ROLE_ADMIN" in app.user.roles) }}#}
+            {% if "ROLE_ADMIN" in app.user.roles %}
                 User #{{ "%08d"|format(order.user.id) }}
+            {% else %}
+                Your
             {% endif %}
                 shipment address is {{ order.address.address }}.
             </p>
             <p>
-                {% if not "ROLE_ADMIN" in app.user.roles %}
-                Your
-            {% else %}
+                {#{{ dump("ROLE_ADMIN" in app.user.roles) }}#}
+                {% if "ROLE_ADMIN" in app.user.roles %}
                 User #{{ "%08d"|format(order.user.id) }}
+            {% else %}
+                Your
                 {% endif %}
                 phone is {{ order.phone.phoneNumber }}</p>
         </div>
         {% endif %}
-        {% if order.user == app.user %}
+        {% if order.user != app.user and order.completedOn == null %}
         {#{% if "ROLE_ADMIN" in app.user.roles %}#}
             <form method="POST" action="{{ path('confirm_order_process', {'idOrder' : order.id}) }}">
                 <button type="submit">Complete order!</button>

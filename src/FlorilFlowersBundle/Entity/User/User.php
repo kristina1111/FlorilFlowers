@@ -48,17 +48,34 @@ class User implements UserInterface
 
     /**
      * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "Your nickname must be at least {{ limit }} characters long",
+     *      maxMessage = "Your nickname cannot be longer than {{ limit }} characters"
+     * )
      * @ORM\Column(type="string", unique=true)
      */
     private $nickname;
 
     /**
-     *
+     * @Assert\Length(
+     *      min = 0,
+     *      max = 50,
+     *      minMessage = "Your first name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
      * @ORM\Column(type="string", name="first_name", nullable=true)
      */
     private $firstName;
 
     /**
+     * @Assert\Length(
+     *      min =0,
+     *      max = 50,
+     *      minMessage = "Your last name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your last name cannot be longer than {{ limit }} characters"
+     * )
      * @ORM\Column(type="string", name="last_name", nullable=true)
      */
     private $lastName;
@@ -69,6 +86,7 @@ class User implements UserInterface
     private $datetimeRegistered;
 
     /**
+     *
      * @ORM\Column(type="string")
      */
     private $password;
@@ -77,6 +95,12 @@ class User implements UserInterface
     // only for encryption purposes, a temporary storage place during single request
     /**
      * @Assert\NotBlank(groups={"Registration"})
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 25,
+     *      minMessage = "Your password must be at least {{ limit }} symbols long",
+     *      maxMessage = "Your password cannot be longer than {{ limit }} symbols"
+     * )
      */
     private $plainPassword;
 
@@ -361,7 +385,11 @@ class User implements UserInterface
      */
     public function setRole($role)
     {
-        $this->role = $role;
+//        needed because when edit user information, when the role is not changed,
+//           it sets to null by itself (the form handles it like that)
+        if($role!=null){
+            $this->role = $role;
+        }
     }
 
 //    /**

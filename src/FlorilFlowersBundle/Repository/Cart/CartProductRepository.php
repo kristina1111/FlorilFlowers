@@ -28,7 +28,8 @@ class CartProductRepository extends EntityRepository
     }
 
     // finds all the products that the user ever bought with their quantities
-    //returns array with arrays - innerArray[0] is the object, innerArray["quantityBought"] is the quantity
+    //returns array with arrays - innerArray[0] is the cartProduct object,
+    // innerArray["quantityBought"] is the summed bought quantity for that cartProduct ever (even in separate carts and orders)
     public function selectAllBoughtProductsWithQuantity(User $user)
     {
         $query = $this->_em->createQuery("SELECT cp , SUM(cp.quantity) AS quantityBought FROM FlorilFlowersBundle\Entity\Cart\CartProduct cp

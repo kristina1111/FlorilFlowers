@@ -15,8 +15,8 @@
                         <th>Product image</th>
                         <th>Product name</th>
                         <th>Product category</th>
-                        <th>Bought quantity</th>
                         <th>Retail price</th>
+                        <th>Bought quantity</th>
                         <th>
             {% if app.user.role.type == "ROLE_USER" or is_granted("ROLE_ADMIN")%}
                             Sold quantities
@@ -50,7 +50,6 @@
                             </td>
                             <td>{{ product[0].offer.product.name }}</td>
                             <td>{{ product[0].offer.product.category }}</td>
-                            <td>{{ product['quantityBought']}}</td>
                             <td>
                                 {% set productPromotion = priceCalculator.calculate(product[0].offer) %}
                                 {% if productPromotion != product[0].offer.retailPrice %}
@@ -59,6 +58,7 @@
                                 {{ productPromotion|number_format(2, '.', ',') }} {{ product[0].offer.currency }}
 
                             </td>
+                            <td>{{ product['quantityBought']}}</td>
                             <td>
                         {% if app.user.role.type == "ROLE_USER" or is_granted("ROLE_ADMIN") %}
                                 {{ product['quantitySold'] }}

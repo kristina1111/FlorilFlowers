@@ -54,28 +54,34 @@ class ProductOfferReviewController extends Controller
      */
     public function reviewEditAction($idProduct, $idReview, Request $request)
     {
-        $productOffer = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Product\ProductOffer')->find($idProduct);
+//        dump($this->getUser()->isGranted("ROLE_EDITOR"));exit;
         $review = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Product\ProductOfferReview')->find($idReview);
+        if($review->getUser() == $this->getUser() || $this->getUser()->isGranted("ROLE_EDITOR")){
+            $productOffer = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Product\ProductOffer')->find($idProduct);
 
-        $form = $this->createForm(ProductOfferReviewFormType::class, $review);
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($review);
-            $em->flush();
+            $form = $this->createForm(ProductOfferReviewFormType::class, $review);
+            $form->handleRequest($request);
+            if($form->isSubmitted() && $form->isValid()){
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($review);
+                $em->flush();
 
-            $this->addFlash('success', 'You just edited a review by ' . $review->getUser()->getNickname());
-            return $this->redirectToRoute('product_show', array('id' => $idProduct));
-        }
-        $priceCalculator = $this->get('app.price_calculator');
-        return $this->render(':FlorilFlowers/Product:show.html.twig',
-            [
-                'productOffer'=> $productOffer,
-                'reviewForm' => $form->createView(),
-                'priceCalculator' => $priceCalculator
+                $this->addFlash('success', 'You just edited a review by ' . $review->getUser()->getNickname());
+                return $this->redirectToRoute('product_show', array('id' => $idProduct));
+            }
+            $priceCalculator = $this->get('app.price_calculator');
+            return $this->render(':FlorilFlowers/Product:show.html.twig',
+                [
+                    'productOffer'=> $productOffer,
+                    'reviewForm' => $form->createView(),
+                    'priceCalculator' => $priceCalculator
 //                'reviews' => $product->getReviews(),
 //                'recentNotes' => $recentNotes,
 //                'funfact' => $funfact,
-            ]);
+                ]);
+        }else{
+            $this->addFlash('error', 'You can edit only your comments');
+            return $this->redirectToRoute('product_show', array('id' => $idProduct));
+        }
     }
 }
