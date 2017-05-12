@@ -49,16 +49,17 @@ class UserController extends Controller
 
         if ($form->isValid() && $form->isSubmitted()) {
 
-            $em = $this->getDoctrine()->getManager();
-
-            /** @var User $user */
-            $user = $form->getData();
-
-            $role = $em->getRepository(Role::class)->findOneBy(['type' => 'ROLE_USER']);
-
-            $user->setRole($role);
-            $em->persist($user);
-            $em->flush();
+            $user = $this->get('app.user_service')->registerUser($form);
+//            $em = $this->getDoctrine()->getManager();
+//
+//            /** @var User $user */
+//            $user = $form->getData();
+//
+//            $role = $em->getRepository(Role::class)->findOneBy(['type' => 'ROLE_USER']);
+//
+//            $user->setRole($role);
+//            $em->persist($user);
+//            $em->flush();
 
             $this->addFlash('success', 'Welcome ' . $user->getNickname());
 
@@ -225,33 +226,14 @@ class UserController extends Controller
 //      search the user by id in the repository; we cannot user $this->getUser because if admin access another user profile
 //            we need to access this user profile
             $user = $this->getDoctrine()->getRepository('FlorilFlowersBundle:User\User')->find($id);
-//            /** @var Order[] $completedOrders */
-//            $completedOrders = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Cart\Order')->findByUserAndCompleted($user);
 //           finds all the products that the user ever bought with their quantities
 //          returns array with arrays - innerArray[0] is the cartProduct object, innerArray["quantityBought"] is the quantity
             $query = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Cart\CartProduct')->selectAllBoughtProductsWithQuantity($user);
 
             if (count($query) > 0) {
-//add up-to-now sold quantities of each product that the user bought ( no matter they were announced for sale or not
-                for ($i = 0; $i < count($query); $i++) {
-//                   user can announce product for sale
-//                  for every bought product check we need to check if the user has announced this product for sale
-                    $product = $query[$i][0]->getOffer()->getProduct();
-                    $userOffer = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Product\ProductOffer')->getProductOfferByCreatorAndProduct($user, $product );
+//      if the user has bought some products, we need to check if they also sold some products
+                $query = $this->get('app.user_service')->setSoldQuantitiesOfBoughtProductsByUser($user, $query);
 
-                    $query[$i]['quantitySold'] = 0;
-                    if ($userOffer) {
-//                    find the sold quantity for every productOffer of the user
-                        $queryQnSold = $this->getDoctrine()->getRepository('FlorilFlowersBundle:Product\ProductOffer')->findUserSoldProduct($userOffer[0]);
-//                        dump($queryQnSold);exit;
-                        if ($queryQnSold) {
-//                            if there are sold quantities (otherwise the query returns [] ),
-//                            we assign them to the result query of the bought products
-//                            so that we can send them to the view
-                            $query[$i]['quantitySold'] = $queryQnSold[0]['quantitySold'];
-                        }
-                    }
-                }
 //                assign the price calculator to a variable so that we can send it to the view
                 $priceCalculator = $this->get('app.price_calculator');
 //                dump($query);exit;

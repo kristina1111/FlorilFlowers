@@ -69,11 +69,19 @@ services:
             - FlorilFlowersBundle\Entity\Product\ProductOffer
 
     repo.product_offers_order:
-            class: FlorilFlowersBundle\Repository\Product\ProductOfferOrderRepository
-            factory: ['@doctrine.orm.entity_manager', getRepository]
-            arguments:
-                - FlorilFlowersBundle\Entity\Product\ProductOfferOrder
+        class: FlorilFlowersBundle\Repository\Product\ProductOfferOrderRepository
+        factory: ['@doctrine.orm.entity_manager', getRepository]
+        arguments:
+            - FlorilFlowersBundle\Entity\Product\ProductOfferOrder
 
     app.product_offer_order_manager:
         class: FlorilFlowersBundle\Service\ProductOffer\ProductOfferOrderManager
         arguments: ['@repo.product_offers', '@repo.product_offers_order', '@app.price_calculator']
+
+    app.user_service:
+        class: FlorilFlowersBundle\Service\User\UserService
+        arguments: ['@doctrine.orm.entity_manager']
+
+    app.product_offer_service:
+        class: FlorilFlowersBundle\Service\ProductOffer\ProductOfferService
+        arguments: ['@doctrine.orm.entity_manager']

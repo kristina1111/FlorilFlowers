@@ -35,6 +35,7 @@ security:
                     - app.security.login_form_authenticator
             logout:
                 path: /logout
+#                invalidate_session: false
 
             # activate different ways to authenticate
 

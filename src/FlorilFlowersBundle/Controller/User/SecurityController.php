@@ -43,6 +43,8 @@ class SecurityController extends Controller
      */
     public function logoutAction()
     {
-
+//        doesn't get in here at all!
+//        dump("YESS");exit;
+//        $this->addFlash('success', 'You successfully logged out! Come again!');
     }
 }

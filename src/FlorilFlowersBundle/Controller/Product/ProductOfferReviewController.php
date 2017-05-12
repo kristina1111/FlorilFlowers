@@ -75,9 +75,6 @@ class ProductOfferReviewController extends Controller
                     'productOffer'=> $productOffer,
                     'reviewForm' => $form->createView(),
                     'priceCalculator' => $priceCalculator
-//                'reviews' => $product->getReviews(),
-//                'recentNotes' => $recentNotes,
-//                'funfact' => $funfact,
                 ]);
         }else{
             $this->addFlash('error', 'You can edit only your comments');

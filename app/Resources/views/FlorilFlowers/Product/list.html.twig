@@ -6,13 +6,24 @@
                 {{ form_start(formProductsOrder) }}
                 <ul>
                     <li>
-                        {{ form_errors(formProductsOrder.name) }}
+                        <select name="orderType" id="">
+                            {% set checked = 0 %}
+                            {% for orderType in allOrderTypes %}
+                                {% if orderType.activatedOn != null %}
+                                    {% set checked = orderType.descOrAsc %}
+                                    <option value="{{ orderType.id }}" selected>{{ orderType.name }}</option>
+                                {% else %}
+                                    <option value="{{ orderType.id }}">{{ orderType.name }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                        {#{{ form_errors(formProductsOrder.choice) }}#}
                         {#{{ form_label(formProductsOrder.name) }}#}
-                        {{ form_widget(formProductsOrder.name) }}
+                        {#{{ form_widget(formProductsOrder.choice) }}#}
                     </li>
                     <li>
                         {{ form_errors(formProductsOrder.descOrAsc) }}
-                        {{ form_widget(formProductsOrder.descOrAsc) }}
+                        {{ form_widget(formProductsOrder.descOrAsc, checked==1 ? {'attr': {'checked':'checked'}} : {}) }}
                         {{ form_label(formProductsOrder.descOrAsc) }}
                     </li>
                 </ul>

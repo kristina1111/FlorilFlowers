@@ -56,7 +56,7 @@ class OrderController extends Controller
             $order->setCompletedOn(new \DateTime());
             $em->persist($order);
             $em->flush();
-            $this->addFlash('success', 'You successfully confirmed this order!');
+            $this->addFlash('success', 'You successfully completed this order!');
             return $this->redirectToRoute('show_incomplete_orders');
         }else{
             $this->addFlash('error', "You don't have access to this page!");
